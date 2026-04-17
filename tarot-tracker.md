@@ -1,3 +1,3 @@
 layout: page
-title: "Tarot Tracker"
-permalink: /tarot-tracker/
+title: "Tarot Journal"
+permalink: /tarot-journal/
