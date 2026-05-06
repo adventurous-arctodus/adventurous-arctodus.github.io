@@ -192,3 +192,16 @@
   background: var(--bs-border-color);
   color: var(--bs-body-color);
 }
+
+/* ── Mobile overrides ── */
+@media (max-width: 576px) {
+  .display-script        { font-size: 5rem; }
+  .display-script-phrase { font-size: 1.6rem; }
+  .display-common        { font-size: 5rem; }
+  .display-common-phrase { font-size: 1.4rem; }
+  .writing-output        { font-size: 1.6rem; min-height: 52px; }
+  .key-btn               { min-width: 32px; height: 40px; font-size: 1rem; }
+  .key-btn.key-space     { min-width: 100px; }
+  .virtual-keyboard      { padding: 0.4rem; }
+  .keyboard-row          { gap: 2px; margin-bottom: 2px; }
+}
