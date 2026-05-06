@@ -10,12 +10,12 @@ function difficultyBtns(prefix) {
   ).join('');
 }
 
-function includeCheckboxes(prefix) {
+function includeCheckboxes(prefix, objName) {
   return ['Lowercase','Uppercase','Numbers','Punctuation'].map(label => {
     const id = `${prefix}-inc-${label.toLowerCase()}`;
     return `<div class="form-check form-check-inline">
       <input class="form-check-input" type="checkbox" id="${id}" checked
-        onchange="${prefix}.buildPool(); ${prefix}.nextCard();">
+        onchange="${objName}.buildPool(); ${objName}.nextCard();">
       <label class="form-check-label" for="${id}">${label}</label>
     </div>`;
   }).join('');
@@ -136,7 +136,7 @@ const Reading = {
               </div>
               <div class="col-auto">
                 <label class="form-label small">Include</label>
-                <div>${includeCheckboxes('rd')}</div>
+                <div>${includeCheckboxes('rd', 'Reading')}</div>
               </div>
             </div>
           </div>
@@ -250,9 +250,24 @@ const Reading = {
     const maxC = +(el('rd-commonality')?.value || 6);
     const len  = el('rd-length')?.value || 'medium';
     const diff = +(qs('[data-prefix="Reading"].active')?.dataset.level || 1);
-    const maxLen = [4, 7, 12, 25, 9999][diff - 1];
-    const types = len === 'word' ? ['word'] : len === 'short' ? ['word','phrase'] : len === 'medium' ? ['phrase'] : ['phrase'];
-    let pool = App.getWords(maxC, types).filter(w => w.text.length <= maxLen);
+
+    // Word count limits per length selector (counts spaces+1)
+    // Single Word: 1 word, Short: 2-3 words, Medium: 4-7 words, Long: 8+ words
+    const wordCount = s => s.trim().split(/\s+/).length;
+    const typeFilter = len === 'word' ? ['word'] : ['word', 'phrase'];
+
+    let pool = App.getWords(maxC, typeFilter);
+
+    if (len === 'word') {
+      pool = pool.filter(w => w.type === 'word');
+    } else if (len === 'short') {
+      pool = pool.filter(w => wordCount(w.text) <= 3);
+    } else if (len === 'medium') {
+      pool = pool.filter(w => wordCount(w.text) >= 2 && wordCount(w.text) <= 7);
+    } else { // long
+      pool = pool.filter(w => wordCount(w.text) >= 8);
+    }
+
     // Prefer words tagged for this difficulty level; fall back to full pool if too small
     const levelled = pool.filter(w => w.level === diff);
     if (levelled.length >= 3) return levelled;
@@ -370,7 +385,7 @@ const Writing = {
               </div>
               <div class="col-auto">
                 <label class="form-label small">Include</label>
-                <div>${includeCheckboxes('wr')}</div>
+                <div>${includeCheckboxes('wr', 'Writing')}</div>
               </div>
             </div>
           </div>
@@ -489,10 +504,22 @@ const Writing = {
     const maxC = +(el('wr-commonality')?.value || 6);
     const len  = el('wr-length')?.value || 'medium';
     const diff = +(qs('[data-prefix="Writing"].active')?.dataset.level || 1);
-    const maxLen = [4, 7, 12, 25, 9999][diff - 1];
-    const types = len === 'word' ? ['word'] : len === 'short' ? ['word','phrase'] : len === 'medium' ? ['phrase'] : ['phrase'];
-    let pool = App.getWords(maxC, types).filter(w => w.text.length <= maxLen);
-    // Prefer words tagged for this difficulty level; fall back to full pool if too small
+
+    const wordCount = s => s.trim().split(/\s+/).length;
+    const typeFilter = len === 'word' ? ['word'] : ['word', 'phrase'];
+
+    let pool = App.getWords(maxC, typeFilter);
+
+    if (len === 'word') {
+      pool = pool.filter(w => w.type === 'word');
+    } else if (len === 'short') {
+      pool = pool.filter(w => wordCount(w.text) <= 3);
+    } else if (len === 'medium') {
+      pool = pool.filter(w => wordCount(w.text) >= 2 && wordCount(w.text) <= 7);
+    } else { // long
+      pool = pool.filter(w => wordCount(w.text) >= 8);
+    }
+
     const levelled = pool.filter(w => w.level === diff);
     if (levelled.length >= 3) return levelled;
     return pool.length ? pool : App.getWords(10, ['word']);

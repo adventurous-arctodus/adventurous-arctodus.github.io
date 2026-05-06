@@ -135,7 +135,7 @@ const CharSets = {
   // Tooltip text — use &#10; for line breaks inside Bootstrap tooltip titles
   difficultyInfo: 'Level 1: Most common letters — E, T, A, O, I&#10;Level 2: Adds N, S, H, R, D — ~75% of English&#10;Level 3: Adds L, C, U, M, W — ~90% of English&#10;Level 4: Adds F, G, Y, P, B — nearly full alphabet&#10;Level 5: Remaining letters (V, K, J, X, Q, Z), numbers, punctuation',
 
-  maxLengthInfo: 'Single Word: one word only&#10;Short: up to ~7 characters&#10;Medium: phrases up to ~12 characters&#10;Long: full sentences and longer phrases',
+  maxLengthInfo: 'Single Word: one word only&#10;Short: up to 3 words&#10;Medium: 2–7 words&#10;Long: 8 or more words',
 
   wordRarityInfo: '1–2: Core words (the, and, is…)&#10;3–4: Everyday words&#10;5–6: Common medieval vocabulary&#10;7–8: Specialised terms&#10;9–10: Rare or archaic words'
 };
