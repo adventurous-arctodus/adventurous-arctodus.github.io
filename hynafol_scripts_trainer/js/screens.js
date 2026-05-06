@@ -110,7 +110,7 @@ function initTooltips() {
 // ─── READING SCREEN ───────────────────────────────────────────────────────────
 const Reading = {
   mode: 'single',   // 'single' | 'phrase'
-  pool: [], current: null, answered: false,
+  pool: [], current: null, answered: false, awaitingCorrection: false,
   stats: { correct: 0, incorrect: 0, skipped: 0 },
 
   render() {
@@ -155,7 +155,7 @@ const Reading = {
                   Max Length ${infoIcon(CharSets.maxLengthInfo)}
                 </label>
                 <select id="rd-length" class="form-select form-select-sm" onchange="Reading.nextCard()">
-                  <option value="word">Single Word</option>
+                  <option value="word">Single Word / Proper Noun</option>
                   <option value="short">Short</option>
                   <option value="medium" selected>Medium</option>
                   <option value="long">Long</option>
@@ -189,7 +189,7 @@ const Reading = {
             onkeydown="Reading.onKeyDown(event)">
 
           <div class="d-flex gap-2">
-            <button class="btn btn-primary" onclick="Reading.submit()">Submit</button>
+            <button class="btn btn-primary" id="rd-submit-btn" onclick="Reading.submit()">Submit</button>
             <button class="btn btn-outline-secondary" onclick="Reading.skip()">Skip</button>
             <button class="btn btn-outline-info ms-auto" data-bs-toggle="modal"
               data-bs-target="#rd-help-modal">Reference</button>
@@ -203,6 +203,7 @@ const Reading = {
   init() {
     this.stats = { correct: 0, incorrect: 0, skipped: 0 };
     this.answered = false;
+    this.awaitingCorrection = false;
     this.buildPool();
     this.nextCard();
     initTooltips();
@@ -279,7 +280,7 @@ const Reading = {
     if (!this.pool.length) return;
 
     this.answered = false;
-    const card = el('rd-card');
+    this.awaitingCorrection = false;
 
     if (this.mode === 'single') {
       this.current = { type: 'char', value: randomFrom(this.pool) };
@@ -292,9 +293,10 @@ const Reading = {
       if (card) card.className = 'flashcard mb-3';
     } else {
       const item = randomFrom(this.pool);
-      // For phrases: filter to chars supported by font; user doesn't type missing ones
+      // Words: lowercase. Phrases: capitalize first letter if font supports it.
       const raw = item.type === 'word' ? item.text.toLowerCase() : item.text;
-      const { text: displayed } = App.filterText(raw);
+      const { text: filtered } = App.filterText(raw);
+      const displayed = item.type === 'phrase' ? capitalizeForFont(filtered) : filtered;
       this.current = { type: 'phrase', value: displayed, original: raw, item };
       const ch = el('rd-char');
       if (ch) {
@@ -307,43 +309,62 @@ const Reading = {
 
     const inp = el('rd-input');
     if (inp) { inp.value = ''; inp.className = 'form-control answer-input mb-4'; inp.disabled = false; inp.focus(); }
+    if (el('rd-submit-btn')) el('rd-submit-btn').textContent = 'Submit';
     const fb = el('rd-feedback');
     if (fb) { fb.textContent = ''; fb.className = 'small mb-3'; }
   },
 
-  onKeyDown(e) { if (e.key === 'Enter') this.submit(); },
+  onKeyDown(e) {
+    if (e.key === 'Enter') this.submit();
+  },
 
   submit() {
+    // Correction mode: verify typed answer matches, then advance — no credit, no extra stat
+    if (this.answered && this.awaitingCorrection) {
+      const inp = el('rd-input');
+      if (!inp) return;
+      const expected = this.current.value;
+      const typed = this.current.type === 'char' ? inp.value.trim() : normalize(inp.value);
+      const norm = this.current.type === 'char' ? expected : normalize(expected);
+      if (!App.isAcceptable(typed, norm)) return;
+      this.awaitingCorrection = false;
+      if (el('rd-submit-btn')) el('rd-submit-btn').textContent = 'Submit';
+      setTimeout(() => this.nextCard(), 600);
+      return;
+    }
+
     if (this.answered || !this.current) return;
     const inp = el('rd-input');
     if (!inp || !inp.value.trim()) return;
 
-    let isCorrect;
-    let expected;
-
+    let isCorrect, expected;
     if (this.current.type === 'char') {
       expected = this.current.value;
       isCorrect = App.isAcceptable(inp.value.trim(), expected);
     } else {
-      expected = this.current.value; // already filtered
+      expected = this.current.value;
       isCorrect = App.isAcceptable(normalize(inp.value), normalize(expected));
     }
 
     this.answered = true;
-    inp.disabled = true;
     inp.classList.add(isCorrect ? 'is-correct' : 'is-incorrect');
-
     const fb = el('rd-feedback');
-    if (fb) {
-      fb.className = `small mb-3 ${isCorrect ? 'text-success' : 'text-danger'}`;
-      fb.textContent = isCorrect ? '✓ Correct' : `✗ Incorrect — answer: "${expected}"`;
-    }
 
     if (isCorrect) {
+      inp.disabled = true;
+      this.awaitingCorrection = false;
+      if (fb) { fb.className = 'small mb-3 text-success'; fb.textContent = '✓ Correct'; }
       this.stats.correct++;
       if (el('rd-correct')) el('rd-correct').textContent = this.stats.correct;
       setTimeout(() => this.nextCard(), this.current.type === 'char' ? 900 : 1200);
     } else {
+      this.awaitingCorrection = true;
+      inp.value = '';
+      inp.className = 'form-control answer-input mb-4';
+      inp.disabled = false;
+      inp.focus();
+      if (fb) { fb.className = 'small mb-3 text-danger'; fb.textContent = `✗ Incorrect — type "${expected}" then press Next`; }
+      if (el('rd-submit-btn')) el('rd-submit-btn').textContent = 'Next';
       this.stats.incorrect++;
       if (el('rd-incorrect')) el('rd-incorrect').textContent = this.stats.incorrect;
     }
@@ -359,7 +380,7 @@ const Reading = {
 // ─── WRITING SCREEN ───────────────────────────────────────────────────────────
 const Writing = {
   mode: 'single',   // 'single' | 'phrase'
-  pool: [], current: null, answered: false, typed: '',
+  pool: [], current: null, answered: false, typed: '', awaitingCorrection: false,
   stats: { correct: 0, incorrect: 0, skipped: 0 },
 
   render() {
@@ -404,7 +425,7 @@ const Writing = {
                   Max Length ${infoIcon(CharSets.maxLengthInfo)}
                 </label>
                 <select id="wr-length" class="form-select form-select-sm" onchange="Writing.nextCard()">
-                  <option value="word">Single Word</option>
+                  <option value="word">Single Word / Proper Noun</option>
                   <option value="short">Short</option>
                   <option value="medium" selected>Medium</option>
                   <option value="long">Long</option>
@@ -445,7 +466,7 @@ const Writing = {
           ${renderKeyboard('wr', font, 'Writing.typeChar')}
 
           <div class="d-flex gap-2 mt-3">
-            <button class="btn btn-primary" onclick="Writing.submit()">Submit</button>
+            <button class="btn btn-primary" id="wr-submit-btn" onclick="Writing.submit()">Submit</button>
             <button class="btn btn-outline-secondary" onclick="Writing.skip()">Skip</button>
             <button class="btn btn-outline-info ms-auto" data-bs-toggle="modal"
               data-bs-target="#wr-help-modal">Reference</button>
@@ -458,7 +479,7 @@ const Writing = {
 
   init() {
     this.stats = { correct: 0, incorrect: 0, skipped: 0 };
-    this.typed = ''; this.answered = false;
+    this.typed = ''; this.answered = false; this.awaitingCorrection = false;
     this.buildPool();
     this.nextCard();
     initTooltips();
@@ -530,6 +551,7 @@ const Writing = {
     if (!this.pool.length) return;
 
     this.answered = false;
+    this.awaitingCorrection = false;
     this.typed = '';
     const card = el('wr-card');
 
@@ -545,11 +567,14 @@ const Writing = {
     } else {
       const item = randomFrom(this.pool);
       const raw = item.type === 'word' ? item.text.toLowerCase() : item.text;
-      // For writing: show Common text as-is; answer can use placeholder for missing chars
+      // Capitalize first letter for display (Common text — no font constraint)
+      const displayed = item.type === 'phrase'
+        ? raw.charAt(0).toUpperCase() + raw.slice(1)
+        : raw;
       this.current = { type: 'phrase', value: raw, item };
       const ch = el('wr-char');
       if (ch) {
-        ch.textContent = raw;
+        ch.textContent = displayed;
         ch.style.fontFamily = '';
         ch.className = 'display-common-phrase';
       }
@@ -557,13 +582,18 @@ const Writing = {
     }
 
     this.updateOutput();
+    if (el('wr-submit-btn')) el('wr-submit-btn').textContent = 'Submit';
     const fb = el('wr-feedback');
     if (fb) { fb.textContent = ''; fb.className = 'small mb-2'; }
   },
 
-  typeChar(ch) { if (!this.answered) { this.typed += ch; this.updateOutput(); } },
-  backspace()  { this.typed = this.typed.slice(0, -1); this.updateOutput(); },
-  clear()      { this.typed = ''; this.updateOutput(); },
+  typeChar(ch) {
+    if (this.answered && !this.awaitingCorrection) return;
+    this.typed += ch;
+    this.updateOutput();
+  },
+  backspace()  { if (!this.answered || this.awaitingCorrection) { this.typed = this.typed.slice(0, -1); this.updateOutput(); } },
+  clear()      { if (!this.answered || this.awaitingCorrection) { this.typed = ''; this.updateOutput(); } },
 
   updateOutput() {
     const t = el('wr-typed');
@@ -571,10 +601,22 @@ const Writing = {
   },
 
   submit() {
+    // Correction mode: verify typed answer matches, then advance — no credit, no extra stat
+    if (this.answered && this.awaitingCorrection) {
+      const expected = this.correctionExpected;
+      const isMatch = this.current.type === 'char'
+        ? App.isAcceptable(this.typed, expected)
+        : App.isAcceptable(normalize(this.typed), normalize(expected));
+      if (!isMatch) return;
+      this.awaitingCorrection = false;
+      if (el('wr-submit-btn')) el('wr-submit-btn').textContent = 'Submit';
+      setTimeout(() => this.nextCard(), 600);
+      return;
+    }
+
     if (this.answered || !this.current) return;
 
     let expected, isCorrect;
-
     if (this.current.type === 'char') {
       expected = this.current.value;
       isCorrect = App.isAcceptable(this.typed, expected);
@@ -587,20 +629,23 @@ const Writing = {
 
     this.answered = true;
     const fb = el('wr-feedback');
-    if (fb) {
-      fb.className = `small mb-2 ${isCorrect ? 'text-success' : 'text-danger'}`;
-      if (isCorrect) {
-        fb.textContent = '✓ Correct';
-      } else {
-        fb.innerHTML = `✗ Incorrect — answer: <span style="font-family:'${App.currentFont}',serif">${escapeHtml(expected)}</span>`;
-      }
-    }
 
     if (isCorrect) {
+      this.awaitingCorrection = false;
+      if (fb) { fb.className = 'small mb-2 text-success'; fb.textContent = '✓ Correct'; }
       this.stats.correct++;
       if (el('wr-correct')) el('wr-correct').textContent = this.stats.correct;
       setTimeout(() => this.nextCard(), this.current.type === 'char' ? 900 : 1200);
     } else {
+      this.awaitingCorrection = true;
+      this.correctionExpected = expected;
+      this.typed = '';
+      this.updateOutput();
+      if (fb) {
+        fb.className = 'small mb-2 text-danger';
+        fb.innerHTML = `✗ Incorrect — type the correct answer then press Next: <span style="font-family:'${App.currentFont}',serif">${escapeHtml(expected)}</span>`;
+      }
+      if (el('wr-submit-btn')) el('wr-submit-btn').textContent = 'Next';
       this.stats.incorrect++;
       if (el('wr-incorrect')) el('wr-incorrect').textContent = this.stats.incorrect;
     }

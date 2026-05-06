@@ -115,6 +115,11 @@ const CharSets = {
   punctuation: { 1:['.',','], 2:['!','?',"'"], 3:['-',':'], 4:[';','"'], 5:['(',')','+'] },
 
   keyboardRows: [
+    ['1','2','3','4','5','6','7','8','9','0'],
+    ['!','?','.',',','-',"'",':',';','(',')','+'],
+    ['Q','W','E','R','T','Y','U','I','O','P'],
+    ['A','S','D','F','G','H','J','K','L'],
+    ['Z','X','C','V','B','N','M'],
     ['q','w','e','r','t','y','u','i','o','p'],
     ['a','s','d','f','g','h','j','k','l'],
     ['z','x','c','v','b','n','m'],
@@ -153,6 +158,22 @@ function escapeHtml(s) {
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 function normalize(s) { return s.toLowerCase().replace(/\s+/g,' ').trim(); }
+
+// Capitalize the first character of a string for display.
+// If the uppercase version of that character is in the font, use it.
+// If not but the lowercase is in the font, keep lowercase.
+// If neither is in the font, drop the character entirely.
+function capitalizeForFont(text) {
+  if (!text) return text;
+  const first = text[0];
+  const upper = first.toUpperCase();
+  const rest = text.slice(1);
+  if (upper === first) return text; // already uppercase or non-alpha
+  if (App.fontHasChar(upper)) return upper + rest;
+  if (App.fontHasChar(first)) return text; // keep lowercase
+  // neither case in font — drop the character
+  return capitalizeForFont(rest);
+}
 
 function infoIcon(text) {
   // Bootstrap tooltips support HTML via data-bs-html="true"; use <br> for line breaks
