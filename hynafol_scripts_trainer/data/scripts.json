@@ -5,7 +5,7 @@
       "name": "Mage",
       "fontFile": "KARGI.OTF",
       "description": "The cuneiform script of mages",
-      "fontChars": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ12345"
+      "fontChars": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ12345",
       "symbolGroups": [
         [
           "a",
@@ -97,7 +97,7 @@
       "name": "Elvish",
       "fontFile": "OLDE ESPRUAR.OTF",
       "description": "The script of elves",
-      "fontChars": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.:;"
+      "fontChars": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.:;",
       "symbolGroups": [
         [
           "b",
@@ -210,7 +210,7 @@
       "name": "Fae",
       "fontFile": "RELLANIC-AGX7.TTF",
       "description": "The script of fae",
-      "fontChars": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789."
+      "fontChars": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.",
       "symbolGroups": [
         [
           "a",
@@ -324,7 +324,7 @@
       "name": "Dwarvish",
       "fontFile": "RUNE.TTF",
       "description": "The script of dwarves",
-      "fontChars": "abcdefghijklmnopqrstuvwxyzADEFIJKNOPSTUVY12345'"
+      "fontChars": "abcdefghijklmnopqrstuvwxyzADEFIJKNOPSTUVY12345'",
       "symbolGroups": [
         [
           "u",
@@ -342,7 +342,7 @@
       "name": "Sellar's Keep Cypher",
       "fontFile": "SKCYPHER-REGULAR.TTF",
       "description": "A cypher used by Sellar's Keep members",
-      "fontChars": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?'-:;"
+      "fontChars": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?'-:;",
       "symbolGroups": [
         [
           "a",
@@ -456,7 +456,7 @@
       "name": "Caernos Leaf",
       "fontFile": "TENDRILIS-V2.1-REGULAR.TTF",
       "description": "A cypher used by Caernos followers",
-      "fontChars": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?'-:;"
+      "fontChars": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?'-:;",
       "symbolGroups": [
         [
           "a",
