@@ -71,21 +71,36 @@ function statsRow(prefix) {
 function renderKeyboard(prefix, fontName, onClickFn) {
   const rows = CharSets.keyboardRows;
   return `<div class="virtual-keyboard mt-3">
-    ${rows.map(row => `
-      <div class="keyboard-row">
-        ${row.map(ch => {
-          const isSpace = ch === ' ';
-          const display = isSpace ? '␣' : ch;
-          const safeChar = ch === "'" ? "\\'" : ch;
-          const missing = !isSpace && !App.fontHasChar(ch);
-          return `<button class="key-btn${isSpace?' key-space':''}${missing?' key-missing':''}"
-            ${missing ? 'disabled title="Not in this script"' : ''}
-            onclick="${missing ? '' : `${onClickFn}('${safeChar}')`}">
-            <span style="font-family:'${fontName}',serif">${display}</span>
-            ${isSpace ? '<span class="key-label">space</span>' : ''}
-          </button>`;
-        }).join('')}
-      </div>`).join('')}
+    ${rows.map(row => {
+      const keys = row.map(ch => {
+        const isSpace = ch === ' ';
+
+        // Deduplicate: skip if this character is a non-canonical member of a symbol group
+        // (i.e. it maps to a different canonical — meaning another key already covers this glyph)
+        if (!isSpace && App.canonicalize(ch) !== ch) return '';
+
+        const missing = !isSpace && !App.fontHasChar(ch);
+
+        // Space key: show the font's space glyph if available, otherwise the ␣ placeholder
+        const spaceHasGlyph = isSpace && App.fontHasChar(' ');
+        const display = isSpace
+          ? (spaceHasGlyph ? ' ' : '␣')
+          : ch;
+        const displayStyle = isSpace && spaceHasGlyph
+          ? `font-family:'${fontName}',serif`
+          : isSpace ? '' : `font-family:'${fontName}',serif`;
+
+        const safeChar = ch === "'" ? "\\'" : ch;
+        return `<button class="key-btn${isSpace?' key-space':''}${missing?' key-missing':''}"
+          ${missing ? 'disabled title="Not in this script"' : ''}
+          onclick="${missing ? '' : `${onClickFn}('${safeChar}')`}">
+          <span style="${displayStyle}">${display}</span>
+          ${isSpace ? '<span class="key-label">space</span>' : ''}
+        </button>`;
+      }).join('');
+      // Skip rendering empty rows (e.g. if all keys were deduplicated)
+      return keys.trim() ? `<div class="keyboard-row">${keys}</div>` : '';
+    }).join('')}
   </div>`;
 }
 
