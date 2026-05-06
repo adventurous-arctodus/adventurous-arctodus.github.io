@@ -147,15 +147,43 @@ The wordlist is a JSON file with a single `words` array. Each entry is an object
 
 ### Difficulty level letter groups (for `level` field)
 
-| Level | Letters |
-|-------|---------|
-| 1 | E, T, A, O, I |
-| 2 | N, S, H, R, D |
-| 3 | L, C, U, M, W |
-| 4 | F, G, Y, P, B |
-| 5 | V, K, J, X, Q, Z |
+| Level | Letters added at this level | Full pool at this level |
+|-------|----------------------------|------------------------|
+| 1 | E, T, A, O, I | E T A O I |
+| 2 | N, S, H, R, D | + N S H R D |
+| 3 | L, C, U, M, W | + L C U M W |
+| 4 | F, G, Y, P, B | + F G Y P B |
+| 5 | V, K, J, X, Q, Z | All letters |
 
-Each level includes all previous levels in Single Character mode. If fewer than 3 level-tagged entries exist for the active difficulty, the app falls back to the full pool.
+**How to classify a word or phrase by level:**
+
+Tag an entry with the *highest* level needed to spell it. Go through each letter and find which level introduces it — the highest level among all letters in the entry is the `level` value.
+
+Examples:
+- `"eat"` — e(1), a(1), t(1) → all Level 1 → `"level": 1`
+- `"stone"` — s(2), t(1), o(1), n(2), e(1) → highest is Level 2 → `"level": 2`
+- `"cold"` — c(3), o(1), l(3), d(2) → highest is Level 3 → `"level": 3`
+- `"bring"` — b(4), r(2), i(1), n(2), g(4) → highest is Level 4 → `"level": 4`
+- `"vow"` — v(5), o(1), w(3) → highest is Level 5 → `"level": 5`
+- `"the risen tide"` — all letters appear in Levels 1–2 → `"level": 2`
+
+**Quick letter lookup:**
+
+| Letter | Level | | Letter | Level | | Letter | Level |
+|--------|-------|-|--------|-------|-|--------|-------|
+| E | 1 | | N | 2 | | L | 3 |
+| T | 1 | | S | 2 | | C | 3 |
+| A | 1 | | H | 2 | | U | 3 |
+| O | 1 | | R | 2 | | M | 3 |
+| I | 1 | | D | 2 | | W | 3 |
+| F | 4 | | V | 5 | | | |
+| G | 4 | | K | 5 | | | |
+| Y | 4 | | J | 5 | | | |
+| P | 4 | | X | 5 | | | |
+| B | 4 | | Q | 5 | | | |
+| | | | Z | 5 | | | |
+
+The `level` field is optional. If omitted, the entry is always eligible regardless of difficulty setting. If fewer than 3 level-tagged entries exist for the active difficulty, the app falls back to the full untagged pool automatically.
 
 ### Examples
 
