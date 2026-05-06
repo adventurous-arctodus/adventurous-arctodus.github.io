@@ -105,12 +105,12 @@ function renderKeyboard(prefix, fontName, onClickFn) {
 }
 
 function modeToggle(activeMode, screenObj, prefix) {
-  return `<div class="btn-group btn-group-sm mb-3" role="group">
+  return `<div class="d-flex gap-2 mb-3">
     <button type="button" id="${prefix}-mode-single"
-      class="btn ${activeMode==='single'?'btn-secondary':'btn-outline-secondary'}"
+      class="btn btn-sm ${activeMode==='single'?'btn-secondary':'btn-outline-secondary'}"
       onclick="${screenObj}.setMode('single')">Single Character</button>
     <button type="button" id="${prefix}-mode-phrase"
-      class="btn ${activeMode==='phrase'?'btn-secondary':'btn-outline-secondary'}"
+      class="btn btn-sm ${activeMode==='phrase'?'btn-secondary':'btn-outline-secondary'}"
       onclick="${screenObj}.setMode('phrase')">Words &amp; Phrases</button>
   </div>`;
 }
@@ -142,53 +142,47 @@ const Reading = {
 
           ${modeToggle(this.mode, 'Reading', 'rd')}
 
-          <!-- Single character options -->
-          <div id="rd-single-opts" class="${this.mode==='phrase'?'d-none':''}">
-            <div class="row g-3 mb-3 align-items-end">
-              <div class="col-auto">
-                <label class="form-label small">
-                  Difficulty ${infoIcon(CharSets.difficultyInfo)}
-                </label>
-                <div class="d-flex flex-wrap gap-1">${difficultyBtns('Reading')}</div>
-              </div>
-              <div class="col-auto">
-                <label class="form-label small">Include</label>
-                <div>${includeCheckboxes('rd', 'Reading')}</div>
-              </div>
+          <!-- Always-visible options -->
+          <div class="row g-3 mb-3 align-items-end">
+            <div class="col-auto">
+              <label class="form-label small">
+                Difficulty ${infoIcon(CharSets.difficultyInfo)}
+              </label>
+              <div class="d-flex flex-wrap gap-1">${difficultyBtns('Reading')}</div>
             </div>
-          </div>
 
-          <!-- Phrase options -->
-          <div id="rd-phrase-opts" class="${this.mode==='single'?'d-none':''}">
-            <div class="row g-3 mb-3 align-items-end">
-              <div class="col-auto">
-                <label class="form-label small">
-                  Difficulty ${infoIcon(CharSets.difficultyInfo)}
-                </label>
-                <div class="d-flex flex-wrap gap-1">${difficultyBtns('Reading')}</div>
-              </div>
-              <div class="col-auto">
-                <label class="form-label small">
-                  Max Length ${infoIcon(CharSets.maxLengthInfo)}
-                </label>
-                <select id="rd-length" class="form-select form-select-sm" onchange="Reading.buildPool(); Reading.nextCard();">
-                  <option value="word">Single Word / Proper Noun</option>
-                  <option value="short">Short</option>
-                  <option value="medium" selected>Medium</option>
-                  <option value="long">Long</option>
-                </select>
-              </div>
-              <div class="col-auto">
-                <label class="form-label small">
-                  Word Rarity ${infoIcon(CharSets.wordRarityInfo)}
-                </label>
-                <select id="rd-commonality" class="form-select form-select-sm" onchange="Reading.buildPool(); Reading.nextCard();">
-                  <option value="2">1–2 (most common)</option>
-                  <option value="4">1–4</option>
-                  <option value="6" selected>1–6</option>
-                  <option value="8">1–8</option>
-                  <option value="10">1–10 (all)</option>
-                </select>
+            <!-- Single character sub-options -->
+            <div id="rd-single-opts" class="col-auto${this.mode==='phrase'?' d-none':''}">
+              <label class="form-label small">Include</label>
+              <div>${includeCheckboxes('rd', 'Reading')}</div>
+            </div>
+
+            <!-- Phrase sub-options -->
+            <div id="rd-phrase-opts" class="${this.mode==='single'?'d-none':''}">
+              <div class="row g-3 align-items-end">
+                <div class="col-auto">
+                  <label class="form-label small">
+                    Max Length ${infoIcon(CharSets.maxLengthInfo)}
+                  </label>
+                  <select id="rd-length" class="form-select form-select-sm" onchange="Reading.buildPool(); Reading.nextCard();">
+                    <option value="word">Single Word / Proper Noun</option>
+                    <option value="short">Short</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="long">Long</option>
+                  </select>
+                </div>
+                <div class="col-auto">
+                  <label class="form-label small">
+                    Word Rarity ${infoIcon(CharSets.wordRarityInfo)}
+                  </label>
+                  <select id="rd-commonality" class="form-select form-select-sm" onchange="Reading.buildPool(); Reading.nextCard();">
+                    <option value="2">1–2 (most common)</option>
+                    <option value="4">1–4</option>
+                    <option value="6" selected>1–6</option>
+                    <option value="8">1–8</option>
+                    <option value="10">1–10 (all)</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
@@ -410,53 +404,47 @@ const Writing = {
 
           ${modeToggle(this.mode, 'Writing', 'wr')}
 
-          <!-- Single character options -->
-          <div id="wr-single-opts" class="${this.mode==='phrase'?'d-none':''}">
-            <div class="row g-3 mb-3 align-items-end">
-              <div class="col-auto">
-                <label class="form-label small">
-                  Difficulty ${infoIcon(CharSets.difficultyInfo)}
-                </label>
-                <div class="d-flex flex-wrap gap-1">${difficultyBtns('Writing')}</div>
-              </div>
-              <div class="col-auto">
-                <label class="form-label small">Include</label>
-                <div>${includeCheckboxes('wr', 'Writing')}</div>
-              </div>
+          <!-- Always-visible options -->
+          <div class="row g-3 mb-3 align-items-end">
+            <div class="col-auto">
+              <label class="form-label small">
+                Difficulty ${infoIcon(CharSets.difficultyInfo)}
+              </label>
+              <div class="d-flex flex-wrap gap-1">${difficultyBtns('Writing')}</div>
             </div>
-          </div>
 
-          <!-- Phrase options -->
-          <div id="wr-phrase-opts" class="${this.mode==='single'?'d-none':''}">
-            <div class="row g-3 mb-3 align-items-end">
-              <div class="col-auto">
-                <label class="form-label small">
-                  Difficulty ${infoIcon(CharSets.difficultyInfo)}
-                </label>
-                <div class="d-flex flex-wrap gap-1">${difficultyBtns('Writing')}</div>
-              </div>
-              <div class="col-auto">
-                <label class="form-label small">
-                  Max Length ${infoIcon(CharSets.maxLengthInfo)}
-                </label>
-                <select id="wr-length" class="form-select form-select-sm" onchange="Writing.buildPool(); Writing.nextCard();">
-                  <option value="word">Single Word / Proper Noun</option>
-                  <option value="short">Short</option>
-                  <option value="medium" selected>Medium</option>
-                  <option value="long">Long</option>
-                </select>
-              </div>
-              <div class="col-auto">
-                <label class="form-label small">
-                  Word Rarity ${infoIcon(CharSets.wordRarityInfo)}
-                </label>
-                <select id="wr-commonality" class="form-select form-select-sm" onchange="Writing.buildPool(); Writing.nextCard();">
-                  <option value="2">1–2 (most common)</option>
-                  <option value="4">1–4</option>
-                  <option value="6" selected>1–6</option>
-                  <option value="8">1–8</option>
-                  <option value="10">1–10 (all)</option>
-                </select>
+            <!-- Single character sub-options -->
+            <div id="wr-single-opts" class="col-auto${this.mode==='phrase'?' d-none':''}">
+              <label class="form-label small">Include</label>
+              <div>${includeCheckboxes('wr', 'Writing')}</div>
+            </div>
+
+            <!-- Phrase sub-options -->
+            <div id="wr-phrase-opts" class="${this.mode==='single'?'d-none':''}">
+              <div class="row g-3 align-items-end">
+                <div class="col-auto">
+                  <label class="form-label small">
+                    Max Length ${infoIcon(CharSets.maxLengthInfo)}
+                  </label>
+                  <select id="wr-length" class="form-select form-select-sm" onchange="Writing.buildPool(); Writing.nextCard();">
+                    <option value="word">Single Word / Proper Noun</option>
+                    <option value="short">Short</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="long">Long</option>
+                  </select>
+                </div>
+                <div class="col-auto">
+                  <label class="form-label small">
+                    Word Rarity ${infoIcon(CharSets.wordRarityInfo)}
+                  </label>
+                  <select id="wr-commonality" class="form-select form-select-sm" onchange="Writing.buildPool(); Writing.nextCard();">
+                    <option value="2">1–2 (most common)</option>
+                    <option value="4">1–4</option>
+                    <option value="6" selected>1–6</option>
+                    <option value="8">1–8</option>
+                    <option value="10">1–10 (all)</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
