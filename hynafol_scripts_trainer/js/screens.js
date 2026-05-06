@@ -233,10 +233,10 @@ const Reading = {
     if (this.mode === 'single') {
       const level = +(qs('[data-prefix="Reading"].active')?.dataset.level || 1);
       let pool = CharSets.getPool(level,
-        el('rd-inc-uppercase')?.checked ?? true,
-        el('rd-inc-lowercase')?.checked ?? true,
-        el('rd-inc-numbers')?.checked   ?? true,
-        el('rd-inc-punctuation')?.checked ?? true
+        el('rd-inc-uppercase')?.checked ?? false,
+        el('rd-inc-lowercase')?.checked ?? false,
+        el('rd-inc-numbers')?.checked   ?? false,
+        el('rd-inc-punctuation')?.checked ?? false
       );
       // Filter to only chars the font supports
       pool = pool.filter(ch => App.fontHasChar(ch));
@@ -291,7 +291,7 @@ const Reading = {
     }
 
     const inp = el('rd-input');
-    if (inp) { inp.value = ''; inp.className = 'form-control answer-input'; inp.disabled = false; inp.focus(); }
+    if (inp) { inp.value = ''; inp.className = 'form-control answer-input mb-4'; inp.disabled = false; inp.focus(); }
     const fb = el('rd-feedback');
     if (fb) { fb.textContent = ''; fb.className = 'small mb-3'; }
   },
@@ -473,10 +473,10 @@ const Writing = {
     if (this.mode === 'single') {
       const level = +(qs('[data-prefix="Writing"].active')?.dataset.level || 1);
       let pool = CharSets.getPool(level,
-        el('wr-inc-uppercase')?.checked ?? true,
-        el('wr-inc-lowercase')?.checked ?? true,
-        el('wr-inc-numbers')?.checked   ?? true,
-        el('wr-inc-punctuation')?.checked ?? true
+        el('wr-inc-uppercase')?.checked ?? false,
+        el('wr-inc-lowercase')?.checked ?? false,
+        el('wr-inc-numbers')?.checked   ?? false,
+        el('wr-inc-punctuation')?.checked ?? false
       );
       pool = pool.filter(ch => App.fontHasChar(ch));
       this.pool = pool.length ? pool : ['a'];
