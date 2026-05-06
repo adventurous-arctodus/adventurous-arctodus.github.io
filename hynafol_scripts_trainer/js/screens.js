@@ -41,7 +41,7 @@ function helpModal(prefix, fontName) {
   const nums   = '0123456789'.split('');
   const punct  = ['.',',','!','?',"'",'-',':',';','"','(',')','+','&'];
 
-  const body = section('Capitals', uppers)
+  const body = section('Uppercase', uppers)
     + section('Lowercase', lowers)
     + section('Numbers', nums)
     + section('Punctuation', punct);
@@ -192,8 +192,6 @@ const Reading = {
             <span id="rd-char" class="display-script"></span>
           </div>
 
-          <div id="rd-feedback" class="mb-3 small" style="min-height:1.4em;"></div>
-
           <input type="text" class="form-control answer-input mb-4" id="rd-input"
             placeholder="Type the Common equivalent"
             autocomplete="off" autocorrect="off" spellcheck="false"
@@ -320,8 +318,7 @@ const Reading = {
     const inp = el('rd-input');
     if (inp) { inp.value = ''; inp.className = 'form-control answer-input mb-4'; inp.disabled = false; inp.focus(); }
     if (el('rd-submit-btn')) el('rd-submit-btn').textContent = 'Submit';
-    const fb = el('rd-feedback');
-    if (fb) { fb.textContent = ''; fb.className = 'small mb-3'; }
+    scrollToTop();
   },
 
   onKeyDown(e) {
@@ -358,12 +355,11 @@ const Reading = {
 
     this.answered = true;
     inp.classList.add(isCorrect ? 'is-correct' : 'is-incorrect');
-    const fb = el('rd-feedback');
 
     if (isCorrect) {
       inp.disabled = true;
       this.awaitingCorrection = false;
-      if (fb) { fb.className = 'small mb-3 text-success'; fb.textContent = '✓ Correct'; }
+      showToast('✓ Correct', 'success');
       this.stats.correct++;
       if (el('rd-correct')) el('rd-correct').textContent = this.stats.correct;
       setTimeout(() => this.nextCard(), this.current.type === 'char' ? 900 : 1200);
@@ -373,7 +369,7 @@ const Reading = {
       inp.className = 'form-control answer-input mb-4';
       inp.disabled = false;
       inp.focus();
-      if (fb) { fb.className = 'small mb-3 text-danger'; fb.textContent = `✗ Incorrect — type "${expected}" then press Next`; }
+      showToast(`✗ Incorrect — type "${expected}" then press Next`, 'danger');
       if (el('rd-submit-btn')) el('rd-submit-btn').textContent = 'Next';
       this.stats.incorrect++;
       if (el('rd-incorrect')) el('rd-incorrect').textContent = this.stats.incorrect;
@@ -454,8 +450,6 @@ const Writing = {
           <div class="flashcard mb-3" id="wr-card">
             <span id="wr-char" class="display-common"></span>
           </div>
-
-          <div id="wr-feedback" class="mb-2 small" style="min-height:1.4em;"></div>
 
           <label class="form-label small">Your answer</label>
           <div class="writing-output mb-2" id="wr-output">
@@ -587,8 +581,7 @@ const Writing = {
 
     this.updateOutput();
     if (el('wr-submit-btn')) el('wr-submit-btn').textContent = 'Submit';
-    const fb = el('wr-feedback');
-    if (fb) { fb.textContent = ''; fb.className = 'small mb-2'; }
+    scrollToTop();
   },
 
   typeChar(ch) {
@@ -632,11 +625,10 @@ const Writing = {
     }
 
     this.answered = true;
-    const fb = el('wr-feedback');
 
     if (isCorrect) {
       this.awaitingCorrection = false;
-      if (fb) { fb.className = 'small mb-2 text-success'; fb.textContent = '✓ Correct'; }
+      showToast('✓ Correct', 'success');
       this.stats.correct++;
       if (el('wr-correct')) el('wr-correct').textContent = this.stats.correct;
       setTimeout(() => this.nextCard(), this.current.type === 'char' ? 900 : 1200);
@@ -645,10 +637,10 @@ const Writing = {
       this.correctionExpected = expected;
       this.typed = '';
       this.updateOutput();
-      if (fb) {
-        fb.className = 'small mb-2 text-danger';
-        fb.innerHTML = `✗ Incorrect — type the correct answer then press Next: <span style="font-family:'${App.currentFont}',serif">${escapeHtml(expected)}</span>`;
-      }
+      const msg = this.current.type === 'char'
+        ? `✗ Incorrect — type "${expected}" then press Next`
+        : `✗ Incorrect — type the correct answer then press Next`;
+      showToast(msg, 'danger');
       if (el('wr-submit-btn')) el('wr-submit-btn').textContent = 'Next';
       this.stats.incorrect++;
       if (el('wr-incorrect')) el('wr-incorrect').textContent = this.stats.incorrect;

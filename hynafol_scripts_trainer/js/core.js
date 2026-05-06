@@ -190,3 +190,20 @@ function infoIcon(text) {
     title="${html}">ℹ</span>`;
 }
 
+let _toastInstance = null;
+function showToast(message, type = 'success') {
+  const toastEl = el('hst-toast');
+  const body = el('hst-toast-body');
+  if (!toastEl || !body) return;
+  body.textContent = message;
+  toastEl.className = `toast align-items-center border-0 text-bg-${type === 'success' ? 'success' : type === 'danger' ? 'danger' : 'secondary'}`;
+  if (!_toastInstance) {
+    _toastInstance = new bootstrap.Toast(toastEl, { delay: 2000 });
+  }
+  _toastInstance.show();
+}
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
