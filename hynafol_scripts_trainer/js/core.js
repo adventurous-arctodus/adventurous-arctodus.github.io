@@ -146,7 +146,14 @@ const CharSets = {
 };
 
 // ─── UTILS ───────────────────────────────────────────────────────────────────
-function randomFrom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+function randomFrom(arr, lastValue) {
+  if (arr.length <= 1) return arr[0];
+  // Identify the last value by text content for objects, or direct equality for primitives
+  const lastKey = lastValue?.text ?? lastValue;
+  const candidates = arr.filter(item => (item?.text ?? item) !== lastKey);
+  const pool = candidates.length ? candidates : arr;
+  return pool[Math.floor(Math.random() * pool.length)];
+}
 function el(id) { return document.getElementById(id); }
 function qs(sel, ctx = document) { return ctx.querySelector(sel); }
 function qsa(sel, ctx = document) { return [...ctx.querySelectorAll(sel)]; }

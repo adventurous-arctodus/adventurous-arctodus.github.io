@@ -298,7 +298,7 @@ const Reading = {
     this.awaitingCorrection = false;
 
     if (this.mode === 'single') {
-      this.current = { type: 'char', value: randomFrom(this.pool) };
+      this.current = { type: 'char', value: randomFrom(this.pool, this.current?.value) };
       const ch = el('rd-char');
       if (ch) {
         ch.textContent = this.current.value;
@@ -307,7 +307,7 @@ const Reading = {
       }
       if (card) card.className = 'flashcard mb-3';
     } else {
-      const item = randomFrom(this.pool);
+      const item = randomFrom(this.pool, this.current?.item);
       // Words: lowercase. Phrases: capitalize first letter if font supports it.
       const raw = item.type === 'word' ? item.text.toLowerCase() : item.text;
       const { text: filtered } = App.filterText(raw);
@@ -571,7 +571,7 @@ const Writing = {
     const card = el('wr-card');
 
     if (this.mode === 'single') {
-      this.current = { type: 'char', value: randomFrom(this.pool) };
+      this.current = { type: 'char', value: randomFrom(this.pool, this.current?.value) };
       const ch = el('wr-char');
       if (ch) {
         ch.textContent = this.current.value;
@@ -580,7 +580,7 @@ const Writing = {
       }
       if (card) card.className = 'flashcard mb-3';
     } else {
-      const item = randomFrom(this.pool);
+      const item = randomFrom(this.pool, this.current?.item);
       const raw = item.type === 'word' ? item.text.toLowerCase() : item.text;
       // Capitalize first letter for display (Common text — no font constraint)
       const displayed = item.type === 'phrase'
