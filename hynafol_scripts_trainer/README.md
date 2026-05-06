@@ -1,47 +1,66 @@
 # Hynafol Scripts Trainer
 
-A web application for practicing 1:1 cipher scripts. Hosted freely on GitHub Pages.
+A web application for practicing 1:1 cipher scripts.
 
 ---
 
-## Setup
+## Setup: Managing Users
 
-### 1. Place files in a subfolder of your GitHub Pages repository
+Users are stored in `data/users.json`. Each user has a username, a hashed password, and an optional list of scripts they are allowed to access.
 
-```
-hynafol_scripts_trainer/
-├── index.html
-├── css/style.css
-├── js/
-│   ├── core.js
-│   ├── screens.js
-│   └── app.js
-├── data/
-│   ├── scripts.json
-│   └── wordlist.json
-└── fonts/
-    └── (your .ttf or .otf files)
+### Adding or editing a user
+
+Open `data/users.json` and add an entry to the `users` array:
+
+```json
+{
+  "username": "theirname",
+  "passwordHash": "HASH_HERE",
+  "allowedScripts": ["scriptid1", "scriptid2"]
+}
 ```
 
-Access at: `https://yourusername.github.io/hynafol_scripts_trainer/`
+Set `allowedScripts` to `null` (or omit it) to allow access to all scripts.
 
-### 2. Enable GitHub Pages
+### Generating a password hash
 
-Repository Settings → Pages → Deploy from branch → `main` / root.
+Passwords are stored as SHA-256 hashes — never in plain text. To generate a hash, open your browser's developer console (F12) and run:
 
----
-
-## Password
-
-The password is stored as a SHA-256 hash in `data/scripts.json`.
-
-**Generate a hash in your browser console:**
 ```javascript
 const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('yourpassword'));
-console.log([...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join(''));
+console.log([...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,'0')).join(''));
 ```
 
-The default password is **`admin`**.
+Copy the resulting string into the `passwordHash` field.
+
+The default password for all example users is **`admin`** — change this before sharing the site.
+
+### User fields
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `username` | Yes | Login username. Case-insensitive. |
+| `passwordHash` | Yes | SHA-256 hash of the password. |
+| `allowedScripts` | No | Array of script IDs the user can access. `null` or omitted = all scripts. |
+
+### Example
+
+```json
+{
+  "users": [
+    {
+      "username": "admin",
+      "passwordHash": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+      "allowedScripts": null
+    },
+    {
+      "username": "student",
+      "passwordHash": "HASH_OF_THEIR_PASSWORD",
+      "allowedScripts": ["tengwar"]
+    }
+  ]
+}
+```
 
 ---
 
@@ -250,7 +269,8 @@ hynafol_scripts_trainer/
 │   ├── screens.js         — Reading and Writing screen logic and rendering
 │   └── app.js             — Login, routing, nav, script selection
 ├── data/
-│   ├── scripts.json       — Script/font configuration and password hash
+│   ├── users.json         — User accounts, password hashes, script permissions
+│   ├── scripts.json       — Script/font configuration
 │   └── wordlist.json      — Words and phrases for practice
 └── fonts/
     └── (your .ttf / .otf cipher font files)

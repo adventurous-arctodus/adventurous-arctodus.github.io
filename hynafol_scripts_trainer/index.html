@@ -17,10 +17,14 @@
       <div class="card-body p-4">
         <h4 class="card-title mb-4">Hynafol Scripts Trainer</h4>
         <div class="mb-3">
+          <label for="login-user" class="form-label">Username</label>
+          <input type="text" class="form-control" id="login-user" autocomplete="username">
+        </div>
+        <div class="mb-3">
           <label for="login-pw" class="form-label">Password</label>
           <input type="password" class="form-control" id="login-pw" autocomplete="current-password">
         </div>
-        <div id="login-error" class="text-danger small mb-3 d-none" aria-live="polite">Incorrect password.</div>
+        <div id="login-error" class="text-danger small mb-3 d-none" aria-live="polite">Incorrect username or password.</div>
         <button class="btn btn-primary w-100" id="login-btn">Sign In</button>
       </div>
     </div>
@@ -42,8 +46,9 @@
 
       <div class="d-flex gap-1 flex-wrap ms-auto" id="main-nav" role="navigation" aria-label="Screens"></div>
 
-      <button class="btn btn-outline-secondary btn-sm"
+      <button class="btn btn-outline-secondary btn-sm ms-2"
         onclick="sessionStorage.clear();location.reload();">Log Out</button>
+      <span id="nav-username" class="small text-secondary ms-1"></span>
     </nav>
 
     <main class="container-lg py-4" id="screen-container">
