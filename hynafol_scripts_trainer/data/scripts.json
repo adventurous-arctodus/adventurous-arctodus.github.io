@@ -34,7 +34,7 @@
       "fontFile": "SKCYPHER-REGULAR.TTF",
       "description": "A cypher used by Sellar's Keep members",
       "public": false
-    }
+    },
     {
       "id": "caernos",
       "name": "Caernos Leaf",
