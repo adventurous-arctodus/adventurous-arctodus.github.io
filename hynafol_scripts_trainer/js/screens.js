@@ -130,7 +130,7 @@ const Reading = {
             <div class="row g-3 mb-3 align-items-end">
               <div class="col-auto">
                 <label class="form-label small">
-                  Difficulty ${infoIcon(CharSets.difficultyInfo.join('\n'))}
+                  Difficulty ${infoIcon(CharSets.difficultyInfo)}
                 </label>
                 <div class="d-flex flex-wrap gap-1">${difficultyBtns('Reading')}</div>
               </div>
@@ -146,7 +146,7 @@ const Reading = {
             <div class="row g-3 mb-3 align-items-end">
               <div class="col-auto">
                 <label class="form-label small">
-                  Difficulty ${infoIcon(CharSets.difficultyInfo.join('\n'))}
+                  Difficulty ${infoIcon(CharSets.difficultyInfo)}
                 </label>
                 <div class="d-flex flex-wrap gap-1">${difficultyBtns('Reading')}</div>
               </div>
@@ -163,7 +163,7 @@ const Reading = {
               </div>
               <div class="col-auto">
                 <label class="form-label small">
-                  Max Commonality ${infoIcon(CharSets.maxCommonalityInfo)}
+                  Word Rarity ${infoIcon(CharSets.wordRarityInfo)}
                 </label>
                 <select id="rd-commonality" class="form-select form-select-sm" onchange="Reading.nextCard()">
                   <option value="2">1–2 (most common)</option>
@@ -308,10 +308,10 @@ const Reading = {
 
     if (this.current.type === 'char') {
       expected = this.current.value;
-      isCorrect = inp.value.trim() === expected;
+      isCorrect = App.isAcceptable(inp.value.trim(), expected);
     } else {
       expected = this.current.value; // already filtered
-      isCorrect = normalize(inp.value) === normalize(expected);
+      isCorrect = App.isAcceptable(normalize(inp.value), normalize(expected));
     }
 
     this.answered = true;
@@ -364,7 +364,7 @@ const Writing = {
             <div class="row g-3 mb-3 align-items-end">
               <div class="col-auto">
                 <label class="form-label small">
-                  Difficulty ${infoIcon(CharSets.difficultyInfo.join('\n'))}
+                  Difficulty ${infoIcon(CharSets.difficultyInfo)}
                 </label>
                 <div class="d-flex flex-wrap gap-1">${difficultyBtns('Writing')}</div>
               </div>
@@ -380,7 +380,7 @@ const Writing = {
             <div class="row g-3 mb-3 align-items-end">
               <div class="col-auto">
                 <label class="form-label small">
-                  Difficulty ${infoIcon(CharSets.difficultyInfo.join('\n'))}
+                  Difficulty ${infoIcon(CharSets.difficultyInfo)}
                 </label>
                 <div class="d-flex flex-wrap gap-1">${difficultyBtns('Writing')}</div>
               </div>
@@ -397,7 +397,7 @@ const Writing = {
               </div>
               <div class="col-auto">
                 <label class="form-label small">
-                  Max Commonality ${infoIcon(CharSets.maxCommonalityInfo)}
+                  Word Rarity ${infoIcon(CharSets.wordRarityInfo)}
                 </label>
                 <select id="wr-commonality" class="form-select form-select-sm" onchange="Writing.nextCard()">
                   <option value="2">1–2 (most common)</option>
@@ -550,14 +550,12 @@ const Writing = {
 
     if (this.current.type === 'char') {
       expected = this.current.value;
-      isCorrect = this.typed === expected;
+      isCorrect = App.isAcceptable(this.typed, expected);
     } else {
-      // For phrases in writing mode: expected is the filtered version
-      // (chars not in font are skipped — user types what they can)
       const raw = this.current.value;
       const { text: filtered } = App.filterText(raw);
       expected = filtered;
-      isCorrect = normalize(this.typed) === normalize(expected);
+      isCorrect = App.isAcceptable(normalize(this.typed), normalize(expected));
     }
 
     this.answered = true;

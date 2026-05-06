@@ -67,6 +67,7 @@ async function selectScript(id) {
     App.currentScript = null;
     App.currentFont = null;
     App.currentFontChars = new Set();
+    App.currentSymbolMap = new Map();
     setFontStatus('');
     refreshCurrentScreen();
     return;
@@ -77,12 +78,11 @@ async function selectScript(id) {
   App.currentScript = script;
   setFontStatus('Loading…', 'text-secondary');
 
-  // Load the fontChars set from config
-  if (script.fontChars) {
-    App.currentFontChars = new Set([...script.fontChars]);
-  } else {
-    App.currentFontChars = new Set(); // empty = no restriction
-  }
+  // Load fontChars set
+  App.currentFontChars = script.fontChars ? new Set([...script.fontChars]) : new Set();
+
+  // Build symbol equivalence map
+  App.currentSymbolMap = App.buildSymbolMap(script);
 
   const fontName = await App.loadFont(script);
   App.currentFont = fontName;

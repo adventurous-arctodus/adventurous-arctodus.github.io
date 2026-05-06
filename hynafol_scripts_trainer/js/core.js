@@ -6,7 +6,8 @@ const App = {
   wordlist: [],
   currentScript: null,
   currentFont: null,
-  currentFontChars: new Set(),   // Set of characters supported by the current font
+  currentFontChars: new Set(),   // characters the font supports
+  currentSymbolMap: new Map(),   // char → canonical char (first in its group)
   currentScreen: 'reading',
   fontCache: {},
   configHash: '',
@@ -56,14 +57,44 @@ const App = {
     }
   },
 
+  // Build the symbol map from a script's symbolGroups config.
+  // Each character maps to its canonical form (first member of its group).
+  buildSymbolMap(script) {
+    const map = new Map();
+    if (!script?.symbolGroups) return map;
+    for (const group of script.symbolGroups) {
+      if (!group.length) continue;
+      const canonical = group[0];
+      for (const ch of group) {
+        map.set(ch, canonical);
+      }
+    }
+    return map;
+  },
+
   // Returns true if the current font supports this character
   fontHasChar(ch) {
-    if (!this.currentFontChars.size) return true; // no restriction configured
+    if (!this.currentFontChars.size) return true;
     return this.currentFontChars.has(ch);
   },
 
-  // Filter a string to only include characters supported by the current font.
-  // Returns the filtered string and a boolean indicating whether anything was removed.
+  // Reduce a character to its canonical form per the symbol map.
+  // If two characters share a glyph they resolve to the same canonical.
+  canonicalize(ch) {
+    return this.currentSymbolMap.get(ch) ?? ch;
+  },
+
+  // Check whether a typed answer is acceptable for an expected answer,
+  // accounting for shared symbols. Works character-by-character for single chars
+  // and word-by-word/char-by-char for phrases.
+  isAcceptable(typed, expected) {
+    if (typed === expected) return true;
+    // Canonicalize both sides and compare
+    const canon = s => [...s].map(c => this.canonicalize(c)).join('');
+    return canon(typed) === canon(expected);
+  },
+
+  // Filter a string to only characters supported by the font (spaces always kept).
   filterText(text) {
     if (!this.currentFontChars.size) return { text, filtered: false };
     let filtered = false;
@@ -78,7 +109,6 @@ const App = {
 
 // ─── CHARACTER SETS ──────────────────────────────────────────────────────────
 const CharSets = {
-  // Letters ordered by English frequency, split into 5 levels
   lowercase:   { 1:['e','t','a','o','i'], 2:['n','s','h','r','d'], 3:['l','c','u','m','w'], 4:['f','g','y','p','b'], 5:['v','k','j','x','q','z'] },
   uppercase:   { 1:['E','T','A','O','I'], 2:['N','S','H','R','D'], 3:['L','C','U','M','W'], 4:['F','G','Y','P','B'], 5:['V','K','J','X','Q','Z'] },
   numbers:     { 1:['1','2','3'], 2:['4','5','6'], 3:['7','8','9'], 4:['0'], 5:[] },
@@ -102,18 +132,12 @@ const CharSets = {
     return pool;
   },
 
-  // Descriptions for tooltips
-  difficultyInfo: [
-    'Level 1: Most common letters — E, T, A, O, I (and their uppercase equivalents)',
-    'Level 2: Adds N, S, H, R, D — covers ~75% of written English',
-    'Level 3: Adds L, C, U, M, W — covers ~90% of written English',
-    'Level 4: Adds F, G, Y, P, B — nearly the full alphabet',
-    'Level 5: All remaining letters (V, K, J, X, Q, Z), numbers, and punctuation'
-  ],
+  // Tooltip text — use &#10; for line breaks inside Bootstrap tooltip titles
+  difficultyInfo: 'Level 1: Most common letters — E, T, A, O, I&#10;Level 2: Adds N, S, H, R, D — ~75% of English&#10;Level 3: Adds L, C, U, M, W — ~90% of English&#10;Level 4: Adds F, G, Y, P, B — nearly full alphabet&#10;Level 5: Remaining letters (V, K, J, X, Q, Z), numbers, punctuation',
 
-  maxLengthInfo: 'Single word: one word only. Short: up to ~7 characters. Medium: phrases up to ~12 characters. Long: full sentences and longer phrases.',
+  maxLengthInfo: 'Single Word: one word only&#10;Short: up to ~7 characters&#10;Medium: phrases up to ~12 characters&#10;Long: full sentences and longer phrases',
 
-  maxCommonalityInfo: 'Controls how rare the words can be. 1–2 are core words (the, and, is…). Higher values unlock less common vocabulary, up to rare medieval terms at level 10.'
+  wordRarityInfo: '1–2: Core words (the, and, is…)&#10;3–4: Everyday words&#10;5–6: Common medieval vocabulary&#10;7–8: Specialised terms&#10;9–10: Rare or archaic words'
 };
 
 // ─── UTILS ───────────────────────────────────────────────────────────────────
@@ -131,7 +155,10 @@ function escapeHtml(s) {
 function normalize(s) { return s.toLowerCase().replace(/\s+/g,' ').trim(); }
 
 function infoIcon(text) {
+  // Bootstrap tooltips support HTML via data-bs-html="true"; use <br> for line breaks
+  const html = text.replace(/&#10;/g, '<br>');
   return `<span class="info-icon" tabindex="0"
-    data-bs-toggle="tooltip" data-bs-placement="top"
-    title="${escapeHtml(text)}">ℹ</span>`;
+    data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true"
+    title="${html}">ℹ</span>`;
 }
+
