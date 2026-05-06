@@ -11,6 +11,11 @@
       "allowedScripts": ["sellars_keep"]
     },
     {
+      "username": "Eris Stormbringer",
+      "passwordHash": "200b56a775e4344da42ef373b76614e820a327970cacb709f4015870de1c9d61",
+      "allowedScripts": ["elvish"]
+    },
+    {
       "username": "Tori Ashford",
       "passwordHash": "a67bccfce98a15c50a29b0554a09ede9ed45dfab254d46bbcd29a235455adf16",
       "allowedScripts": null
