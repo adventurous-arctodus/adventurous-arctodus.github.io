@@ -6,7 +6,8 @@ const App = {
   wordlist: [],
   currentScript: null,
   currentFont: null,
-  currentScreen: 'learn-reading',
+  currentFontChars: new Set(),   // Set of characters supported by the current font
+  currentScreen: 'reading',
   fontCache: {},
   configHash: '',
 
@@ -55,26 +56,29 @@ const App = {
     }
   },
 
-  charCache: {},
-  async hasGlyph(fontName, char) {
-    if (!fontName) return false;
-    const key = `${fontName}:${char}`;
-    if (this.charCache[key] !== undefined) return this.charCache[key];
-    const c = document.createElement('canvas');
-    c.width = 40; c.height = 40;
-    const ctx = c.getContext('2d');
-    ctx.font = `28px "${fontName}"`;
-    ctx.fillText(char, 5, 28);
-    const d = ctx.getImageData(0, 0, 40, 40).data;
-    let hasPixels = false;
-    for (let i = 3; i < d.length; i += 4) { if (d[i] > 10) { hasPixels = true; break; } }
-    this.charCache[key] = hasPixels;
-    return hasPixels;
+  // Returns true if the current font supports this character
+  fontHasChar(ch) {
+    if (!this.currentFontChars.size) return true; // no restriction configured
+    return this.currentFontChars.has(ch);
+  },
+
+  // Filter a string to only include characters supported by the current font.
+  // Returns the filtered string and a boolean indicating whether anything was removed.
+  filterText(text) {
+    if (!this.currentFontChars.size) return { text, filtered: false };
+    let filtered = false;
+    const out = [...text].map(ch => {
+      if (ch === ' ' || this.currentFontChars.has(ch)) return ch;
+      filtered = true;
+      return null;
+    }).filter(ch => ch !== null).join('');
+    return { text: out, filtered };
   }
 };
 
 // ─── CHARACTER SETS ──────────────────────────────────────────────────────────
 const CharSets = {
+  // Letters ordered by English frequency, split into 5 levels
   lowercase:   { 1:['e','t','a','o','i'], 2:['n','s','h','r','d'], 3:['l','c','u','m','w'], 4:['f','g','y','p','b'], 5:['v','k','j','x','q','z'] },
   uppercase:   { 1:['E','T','A','O','I'], 2:['N','S','H','R','D'], 3:['L','C','U','M','W'], 4:['F','G','Y','P','B'], 5:['V','K','J','X','Q','Z'] },
   numbers:     { 1:['1','2','3'], 2:['4','5','6'], 3:['7','8','9'], 4:['0'], 5:[] },
@@ -96,7 +100,20 @@ const CharSets = {
       if (punct) pool.push(...(this.punctuation[l] || []));
     }
     return pool;
-  }
+  },
+
+  // Descriptions for tooltips
+  difficultyInfo: [
+    'Level 1: Most common letters — E, T, A, O, I (and their uppercase equivalents)',
+    'Level 2: Adds N, S, H, R, D — covers ~75% of written English',
+    'Level 3: Adds L, C, U, M, W — covers ~90% of written English',
+    'Level 4: Adds F, G, Y, P, B — nearly the full alphabet',
+    'Level 5: All remaining letters (V, K, J, X, Q, Z), numbers, and punctuation'
+  ],
+
+  maxLengthInfo: 'Single word: one word only. Short: up to ~7 characters. Medium: phrases up to ~12 characters. Long: full sentences and longer phrases.',
+
+  maxCommonalityInfo: 'Controls how rare the words can be. 1–2 are core words (the, and, is…). Higher values unlock less common vocabulary, up to rare medieval terms at level 10.'
 };
 
 // ─── UTILS ───────────────────────────────────────────────────────────────────
@@ -112,3 +129,9 @@ function escapeHtml(s) {
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 function normalize(s) { return s.toLowerCase().replace(/\s+/g,' ').trim(); }
+
+function infoIcon(text) {
+  return `<span class="info-icon" tabindex="0"
+    data-bs-toggle="tooltip" data-bs-placement="top"
+    title="${escapeHtml(text)}">ℹ</span>`;
+}
