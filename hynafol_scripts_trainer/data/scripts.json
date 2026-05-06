@@ -1,0 +1,57 @@
+{
+  "_instructions": {
+    "fontChars": "A string listing every character the font file actually contains a glyph for. Characters not listed are excluded from all pools and keyboards.",
+    "symbolGroups": "An array of arrays. Each inner array lists characters that render identically in this font — i.e. they share the same symbol. Any answer within the same group is accepted as correct. Examples: ['a','A'] if the font uses one glyph for both cases; ['i','l','1'] if those three are indistinguishable."
+  },
+  "scripts": [
+    {
+      "id": "tengwar",
+      "name": "Tengwar",
+      "fontFile": "tengwar.ttf",
+      "fontChars": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?'-:;",
+      "symbolGroups": [
+        ["a", "A"],
+        ["b", "B"],
+        ["c", "C"],
+        ["d", "D"],
+        ["e", "E"],
+        ["f", "F"],
+        ["g", "G"],
+        ["h", "H"],
+        ["i", "I"],
+        ["j", "J"],
+        ["k", "K"],
+        ["l", "L"],
+        ["m", "M"],
+        ["n", "N"],
+        ["o", "O"],
+        ["p", "P"],
+        ["q", "Q"],
+        ["r", "R"],
+        ["s", "S"],
+        ["t", "T"],
+        ["u", "U"],
+        ["v", "V"],
+        ["w", "W"],
+        ["x", "X"],
+        ["y", "Y"],
+        ["z", "Z"]
+      ]
+    },
+    {
+      "id": "runes",
+      "name": "Elder Futhark Runes",
+      "fontFile": "runes.ttf",
+      "fontChars": "abcdefghijklmnopqrstuvwxyz0123456789",
+      "symbolGroups": []
+    },
+    {
+      "id": "secret",
+      "name": "Shadow Cipher",
+      "fontFile": "shadow.ttf",
+      "fontChars": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?'-",
+      "symbolGroups": []
+    }
+  ],
+  "passwordHash": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
+}
