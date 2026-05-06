@@ -1,0 +1,26 @@
+{
+  "scripts": [
+    {
+      "id": "tengwar",
+      "name": "Tengwar",
+      "fontFile": "tengwar.ttf",
+      "description": "The flowing script of the Elves",
+      "public": true
+    },
+    {
+      "id": "runes",
+      "name": "Elder Futhark Runes",
+      "fontFile": "runes.ttf",
+      "description": "Ancient runic alphabet",
+      "public": true
+    },
+    {
+      "id": "secret",
+      "name": "Shadow Cipher",
+      "fontFile": "shadow.ttf",
+      "description": "A private cipher script",
+      "public": false
+    }
+  ],
+  "passwordHash": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
+}
