@@ -1,0 +1,19 @@
+{
+  "_instructions": {
+    "username": "The login username. Case-insensitive on login.",
+    "passwordHash": "SHA-256 hash of the user's password. Generate with: const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('password')); console.log([...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join(''));  in browser console.",
+    "allowedScripts": "Array of script IDs this user can see and select. Must match the 'id' fields in scripts.json. Use null or omit to allow all scripts."
+  },
+  "users": [
+    {
+      "username": "Shadow",
+      "passwordHash": "e5c41a4732b02ffb62fad51d64be9b0e18fd940d4dae969171da8d70df42040d",
+      "allowedScripts": ["sellars_keep"]
+    },
+    {
+      "username": "Tori Ashford",
+      "passwordHash": "a67bccfce98a15c50a29b0554a09ede9ed45dfab254d46bbcd29a235455adf16",
+      "allowedScripts": ["mage", "elvish", "fae", "dwarvish", "sellars_keep", "caernos"]
+    }
+  ]
+}

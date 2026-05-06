@@ -4,202 +4,242 @@
     {
       "text": "the",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "of",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "and",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "a",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "to",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "in",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "is",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "it",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "you",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "that",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "he",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "was",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "for",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "on",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "are",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "with",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "as",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "I",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "his",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "they",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "be",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "at",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "one",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "have",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "this",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "from",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "or",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "had",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "by",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "not",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "but",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "what",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "all",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "were",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "we",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "when",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "your",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "can",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "said",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "there",
       "commonality": 1,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "tie",
@@ -260,182 +300,220 @@
     {
       "text": "use",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "an",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "each",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "which",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "she",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "do",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "how",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "their",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "if",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "will",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "up",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "other",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "about",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "out",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "many",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "then",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "level": 2,
+      "category": "level-word"
     },
     {
       "text": "so",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "some",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "her",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "level": 2,
+      "category": "level-word"
     },
     {
       "text": "would",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "make",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "like",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "him",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "into",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "time",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "has",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "look",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "two",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "more",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "no",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "way",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "could",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "people",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "my",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "than",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "first",
       "commonality": 2,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "hen",
@@ -515,6 +593,13 @@
       "category": "level-word"
     },
     {
+      "text": "snake",
+      "commonality": 3,
+      "type": "word",
+      "level": 5,
+      "category": "level-word"
+    },
+    {
       "text": "shone",
       "commonality": 3,
       "type": "word",
@@ -538,157 +623,189 @@
     {
       "text": "water",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "been",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "call",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "who",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "now",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "find",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "long",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "down",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "day",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "did",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "get",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "come",
-      "commonality": 3,
-      "type": "word"
+      "commonality": 2,
+      "type": "word",
+      "level": 3,
+      "category": "level-word"
     },
     {
       "text": "made",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "may",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "part",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "over",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "new",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "sound",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "take",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "only",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "little",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "work",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "know",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "place",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "year",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "live",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "me",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "back",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "give",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "most",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "very",
       "commonality": 3,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "clue",
@@ -777,137 +894,165 @@
     {
       "text": "after",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "thing",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "our",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "just",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "name",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "good",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "man",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "think",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "say",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "great",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "where",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "help",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "through",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "much",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "before",
-      "commonality": 4,
-      "type": "word"
+      "commonality": 3,
+      "type": "word",
+      "level": 4,
+      "category": "level-word"
     },
     {
       "text": "right",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "too",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "old",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "any",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "same",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "tell",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "boy",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "came",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "want",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "show",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "also",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "around",
       "commonality": 4,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "fog",
@@ -989,127 +1134,152 @@
     {
       "text": "never",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "start",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "earth",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "light",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "thought",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "head",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "under",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "story",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "saw",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "left",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "few",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "while",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "along",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "might",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "close",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "something",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "next",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "hard",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "open",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "begin",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "life",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "always",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "those",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "both",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "eye",
       "commonality": 5,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "vex",
@@ -1170,1490 +1340,1531 @@
     {
       "text": "paper",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "together",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "often",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "run",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "important",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "until",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "children",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "side",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "feet",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "land",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "enough",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "face",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "far",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "hand",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "high",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "keep",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "carry",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "cut",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "talk",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "soon",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "tree",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "sleep",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "village",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "market",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "bread",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "river",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "forest",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "night",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "moon",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "sun",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "star",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "king",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "lord",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "sword",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "horse",
-      "commonality": 7,
-      "type": "word"
+      "commonality": 5,
+      "type": "word",
+      "level": 2,
+      "category": "level-word"
     },
     {
       "text": "road",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "gate",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "hall",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "fire",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "tower",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "feast",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "quest",
-      "commonality": 7,
-      "type": "word"
+      "commonality": 5,
+      "type": "word",
+      "level": 5,
+      "category": "level-word"
     },
     {
       "text": "honor",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "knight",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "servant",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "merchant",
-      "commonality": 8,
-      "type": "word"
+      "commonality": 5,
+      "type": "word",
+      "level": 3,
+      "category": "level-word"
     },
     {
       "text": "herald",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "harbor",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "timber",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "blacksmith",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "cobbler",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "miller",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "thatch",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "furrow",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "loom",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "spindle",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "anvil",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "satchel",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "goblet",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "lantern",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "parchment",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "pilgrim",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "tournament",
       "commonality": 9,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "castellan",
       "commonality": 9,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "seneschal",
       "commonality": 9,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "esquire",
       "commonality": 9,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "palfrey",
       "commonality": 9,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "battlement",
       "commonality": 9,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "portcullis",
       "commonality": 9,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "trebuchet",
       "commonality": 9,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "pennant",
       "commonality": 9,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "joust",
       "commonality": 9,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "heraldry",
       "commonality": 9,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "liege",
       "commonality": 9,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "vassal",
       "commonality": 9,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "fealty",
       "commonality": 9,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "exchequer",
       "commonality": 10,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "quintain",
       "commonality": 10,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "pauldron",
       "commonality": 10,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "hauberk",
       "commonality": 10,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "gambeson",
       "commonality": 10,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "vambrace",
       "commonality": 10,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "caparison",
       "commonality": 10,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "astrolabe",
       "commonality": 10,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "The cat sat on the mat.",
       "commonality": 1,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "See the dog run.",
       "commonality": 1,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "The sun is up.",
       "commonality": 1,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "I can see the bird.",
       "commonality": 1,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "The boy ran to the gate.",
       "commonality": 1,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "She sat by the fire.",
       "commonality": 1,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "He had a big dog.",
       "commonality": 1,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "Come and see me.",
       "commonality": 1,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "The man is here.",
       "commonality": 1,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "The fire burns bright.",
       "commonality": 2,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "Ride to the hall.",
       "commonality": 2,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "The river runs fast.",
       "commonality": 2,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "Bring me the bread.",
       "commonality": 2,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "The moon is full tonight.",
       "commonality": 2,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "We must go before dark.",
       "commonality": 2,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "The gate is open.",
       "commonality": 2,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "He is a good knight.",
       "commonality": 2,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "She will come at dawn.",
       "commonality": 2,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "The road leads to the forest.",
       "commonality": 2,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "The lord called for a feast.",
       "commonality": 3,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "Bring the horse to the stable.",
       "commonality": 3,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "The tower stands tall on the hill.",
       "commonality": 3,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "Many years have passed since then.",
       "commonality": 3,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "She read the words on the stone.",
       "commonality": 3,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "The old man walked through the village.",
       "commonality": 3,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "Night fell over the land.",
       "commonality": 3,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "The sword lay upon the altar.",
       "commonality": 3,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "We carry water from the river each morning.",
       "commonality": 4,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "The miller ground the grain into flour.",
       "commonality": 4,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "Follow the path until you see the oak tree.",
       "commonality": 4,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "The blacksmith worked long into the night.",
       "commonality": 4,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "She kept the lantern burning by the window.",
       "commonality": 4,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "The herald rode fast to bring the news.",
       "commonality": 4,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "Do not forget to close the gate at dusk.",
       "commonality": 4,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "The merchant sold fine cloth at the market.",
       "commonality": 4,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "They gathered around the fire to hear the story.",
       "commonality": 5,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "The knight carried a pennant bearing his lord's colors.",
       "commonality": 5,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "She wove the finest linen in all the village.",
       "commonality": 5,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "The castle walls were thick and cold in winter.",
       "commonality": 5,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "He swore fealty before the assembled court.",
       "commonality": 5,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "The children ran barefoot through the summer fields.",
       "commonality": 5,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "A pilgrim came to our door seeking bread and shelter.",
       "commonality": 6,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "The tournament drew knights from many distant lands.",
       "commonality": 6,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "Three crows sat upon the battlement and watched the road.",
       "commonality": 6,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "At the feast, the lord raised his goblet and gave thanks.",
       "commonality": 6,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "The river had risen overnight and washed the lower fields.",
       "commonality": 7,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "She unrolled the parchment and read the words aloud to the council.",
       "commonality": 7,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "The old cobbler mended shoes by the light of a single candle.",
       "commonality": 7,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "Beyond the portcullis lay the great hall, empty and dark.",
       "commonality": 8,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "The seneschal kept careful record of all that entered the storeroom.",
       "commonality": 8,
-      "type": "phrase"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "When the trebuchet was wound and ready, the castellan gave the order.",
       "commonality": 9,
-      "type": "phrase"
-    },
-    {
-      "text": "eat",
-      "commonality": 2,
-      "type": "word",
-      "level": 1,
-      "category": "level1"
-    },
-    {
-      "text": "tea",
-      "commonality": 3,
-      "type": "word",
-      "level": 1,
-      "category": "level1"
-    },
-    {
-      "text": "toe",
-      "commonality": 4,
-      "type": "word",
-      "level": 1,
-      "category": "level1"
-    },
-    {
-      "text": "tie",
-      "commonality": 4,
-      "type": "word",
-      "level": 1,
-      "category": "level1"
-    },
-    {
-      "text": "ait",
-      "commonality": 8,
-      "type": "word",
-      "level": 1,
-      "category": "level1"
-    },
-    {
-      "text": "iota",
-      "commonality": 6,
-      "type": "word",
-      "level": 1,
-      "category": "level1"
+      "type": "phrase",
+      "category": null
     },
     {
       "text": "toea",
       "commonality": 9,
       "type": "word",
       "level": 1,
-      "category": "level1"
+      "category": "level-word"
     },
     {
-      "text": "eat it",
+      "text": "Eat it.",
       "commonality": 2,
       "type": "phrase",
       "level": 1,
-      "category": "level1"
+      "category": "level-word"
     },
     {
-      "text": "it is a tie",
+      "text": "It is a tie.",
+      "commonality": 2,
+      "type": "phrase",
+      "level": 2,
+      "category": "level-word"
+    },
+    {
+      "text": "I ate it.",
       "commonality": 2,
       "type": "phrase",
       "level": 1,
-      "category": "level1"
+      "category": "level-word"
     },
     {
-      "text": "i ate it",
+      "text": "To eat.",
       "commonality": 2,
       "type": "phrase",
       "level": 1,
-      "category": "level1"
-    },
-    {
-      "text": "to eat",
-      "commonality": 2,
-      "type": "phrase",
-      "level": 1,
-      "category": "level1"
+      "category": "level-word"
     },
     {
       "text": "ten",
       "commonality": 3,
       "type": "word",
       "level": 2,
-      "category": "level2"
-    },
-    {
-      "text": "hen",
-      "commonality": 4,
-      "type": "word",
-      "level": 2,
-      "category": "level2"
-    },
-    {
-      "text": "den",
-      "commonality": 5,
-      "type": "word",
-      "level": 2,
-      "category": "level2"
-    },
-    {
-      "text": "her",
-      "commonality": 2,
-      "type": "word",
-      "level": 2,
-      "category": "level2"
-    },
-    {
-      "text": "then",
-      "commonality": 2,
-      "type": "word",
-      "level": 2,
-      "category": "level2"
+      "category": "level-word"
     },
     {
       "text": "thin",
       "commonality": 4,
       "type": "word",
       "level": 2,
-      "category": "level2"
+      "category": "level-word"
     },
     {
       "text": "shine",
       "commonality": 4,
       "type": "word",
       "level": 2,
-      "category": "level2"
-    },
-    {
-      "text": "stone",
-      "commonality": 4,
-      "type": "word",
-      "level": 2,
-      "category": "level2"
-    },
-    {
-      "text": "horse",
-      "commonality": 5,
-      "type": "word",
-      "level": 2,
-      "category": "level2"
+      "category": "level-word"
     },
     {
       "text": "throne",
       "commonality": 5,
       "type": "word",
       "level": 2,
-      "category": "level2"
+      "category": "level-word"
     },
     {
-      "text": "the road is near",
+      "text": "The road is near.",
       "commonality": 3,
       "type": "phrase",
       "level": 2,
-      "category": "level2"
+      "category": "level-word"
     },
     {
-      "text": "she is not here",
+      "text": "She is not here.",
       "commonality": 2,
       "type": "phrase",
       "level": 2,
-      "category": "level2"
+      "category": "level-word"
     },
     {
-      "text": "in the dark of night",
+      "text": "In the dark of night.",
       "commonality": 3,
       "type": "phrase",
-      "level": 2,
-      "category": "level2"
+      "level": 5,
+      "category": "level-word"
     },
     {
-      "text": "the risen tide",
+      "text": "The risen tide.",
       "commonality": 4,
       "type": "phrase",
       "level": 2,
-      "category": "level2"
+      "category": "level-word"
     },
     {
-      "text": "send the horse",
+      "text": "Send the horse.",
       "commonality": 4,
       "type": "phrase",
       "level": 2,
-      "category": "level2"
-    },
-    {
-      "text": "come",
-      "commonality": 2,
-      "type": "word",
-      "level": 3,
-      "category": "level3"
+      "category": "level-word"
     },
     {
       "text": "cold",
       "commonality": 3,
       "type": "word",
       "level": 3,
-      "category": "level3"
+      "category": "level-word"
     },
     {
       "text": "cloud",
       "commonality": 4,
       "type": "word",
       "level": 3,
-      "category": "level3"
+      "category": "level-word"
     },
     {
       "text": "cloak",
       "commonality": 5,
       "type": "word",
-      "level": 3,
-      "category": "level3"
+      "level": 5,
+      "category": "level-word"
     },
     {
       "text": "cloth",
       "commonality": 4,
       "type": "word",
       "level": 3,
-      "category": "level3"
-    },
-    {
-      "text": "column",
-      "commonality": 5,
-      "type": "word",
-      "level": 3,
-      "category": "level3"
+      "category": "level-word"
     },
     {
       "text": "counsel",
       "commonality": 5,
       "type": "word",
       "level": 3,
-      "category": "level3"
-    },
-    {
-      "text": "merchant",
-      "commonality": 5,
-      "type": "word",
-      "level": 3,
-      "category": "level3"
+      "category": "level-word"
     },
     {
       "text": "chosen",
       "commonality": 4,
       "type": "word",
       "level": 3,
-      "category": "level3"
+      "category": "level-word"
     },
     {
       "text": "moonlit",
       "commonality": 6,
       "type": "word",
       "level": 3,
-      "category": "level3"
+      "category": "level-word"
     },
     {
-      "text": "the old mill on the hill",
+      "text": "The old mill on the hill.",
       "commonality": 4,
       "type": "phrase",
       "level": 3,
-      "category": "level3"
+      "category": "level-word"
     },
     {
-      "text": "come to the council at noon",
+      "text": "Come to the council at noon.",
       "commonality": 4,
       "type": "phrase",
       "level": 3,
-      "category": "level3"
+      "category": "level-word"
     },
     {
-      "text": "cold wind from the north",
+      "text": "Cold wind from the north.",
+      "commonality": 4,
+      "type": "phrase",
+      "level": 4,
+      "category": "level-word"
+    },
+    {
+      "text": "She wore a dark cloak.",
+      "commonality": 4,
+      "type": "phrase",
+      "level": 5,
+      "category": "level-word"
+    },
+    {
+      "text": "The cloth was worn and thin.",
       "commonality": 4,
       "type": "phrase",
       "level": 3,
-      "category": "level3"
-    },
-    {
-      "text": "she wore a dark cloak",
-      "commonality": 4,
-      "type": "phrase",
-      "level": 3,
-      "category": "level3"
-    },
-    {
-      "text": "the cloth was worn and thin",
-      "commonality": 4,
-      "type": "phrase",
-      "level": 3,
-      "category": "level3"
+      "category": "level-word"
     },
     {
       "text": "forge",
       "commonality": 6,
       "type": "word",
       "level": 4,
-      "category": "level4"
+      "category": "level-word"
     },
     {
       "text": "bring",
       "commonality": 3,
       "type": "word",
       "level": 4,
-      "category": "level4"
+      "category": "level-word"
     },
     {
       "text": "power",
       "commonality": 4,
       "type": "word",
       "level": 4,
-      "category": "level4"
+      "category": "level-word"
     },
     {
       "text": "beyond",
       "commonality": 4,
       "type": "word",
       "level": 4,
-      "category": "level4"
-    },
-    {
-      "text": "before",
-      "commonality": 3,
-      "type": "word",
-      "level": 4,
-      "category": "level4"
+      "category": "level-word"
     },
     {
       "text": "bright",
       "commonality": 4,
       "type": "word",
       "level": 4,
-      "category": "level4"
+      "category": "level-word"
     },
     {
       "text": "belong",
       "commonality": 4,
       "type": "word",
       "level": 4,
-      "category": "level4"
+      "category": "level-word"
     },
     {
       "text": "bridge",
       "commonality": 4,
       "type": "word",
       "level": 4,
-      "category": "level4"
+      "category": "level-word"
     },
     {
       "text": "pathway",
       "commonality": 5,
       "type": "word",
       "level": 4,
-      "category": "level4"
+      "category": "level-word"
     },
     {
       "text": "pilgrimage",
       "commonality": 6,
       "type": "word",
       "level": 4,
-      "category": "level4"
+      "category": "level-word"
     },
     {
-      "text": "beyond the bridge lay the open field",
+      "text": "Beyond the bridge lay the open field.",
       "commonality": 5,
       "type": "phrase",
       "level": 4,
-      "category": "level4"
+      "category": "level-word"
     },
     {
-      "text": "bring the flag before the king",
+      "text": "Bring the flag before the king.",
       "commonality": 4,
       "type": "phrase",
-      "level": 4,
-      "category": "level4"
+      "level": 5,
+      "category": "level-word"
     },
     {
-      "text": "the bright forge glowed in the fog",
+      "text": "The bright forge glowed in the fog.",
       "commonality": 5,
       "type": "phrase",
       "level": 4,
-      "category": "level4"
+      "category": "level-word"
     },
     {
-      "text": "fly the banner from the high post",
+      "text": "Fly the banner from the high post.",
       "commonality": 5,
       "type": "phrase",
       "level": 4,
-      "category": "level4"
+      "category": "level-word"
     },
     {
-      "text": "a grey wolf beyond the pines",
+      "text": "A grey wolf beyond the pines.",
       "commonality": 6,
       "type": "phrase",
       "level": 4,
-      "category": "level4"
+      "category": "level-word"
     },
     {
       "text": "axe",
       "commonality": 6,
       "type": "word",
       "level": 5,
-      "category": "level5"
-    },
-    {
-      "text": "vex",
-      "commonality": 7,
-      "type": "word",
-      "level": 5,
-      "category": "level5"
-    },
-    {
-      "text": "jinx",
-      "commonality": 7,
-      "type": "word",
-      "level": 5,
-      "category": "level5"
-    },
-    {
-      "text": "quest",
-      "commonality": 5,
-      "type": "word",
-      "level": 5,
-      "category": "level5"
+      "category": "level-word"
     },
     {
       "text": "quill",
       "commonality": 6,
       "type": "word",
       "level": 5,
-      "category": "level5"
+      "category": "level-word"
     },
     {
       "text": "vow",
       "commonality": 5,
       "type": "word",
       "level": 5,
-      "category": "level5"
+      "category": "level-word"
     },
     {
       "text": "valor",
       "commonality": 6,
       "type": "word",
       "level": 5,
-      "category": "level5"
+      "category": "level-word"
     },
     {
       "text": "knave",
       "commonality": 7,
       "type": "word",
       "level": 5,
-      "category": "level5"
+      "category": "level-word"
     },
     {
       "text": "flux",
       "commonality": 7,
       "type": "word",
       "level": 5,
-      "category": "level5"
+      "category": "level-word"
     },
     {
-      "text": "vex the knight with a quick jest",
+      "text": "Vex the knight with a quick jest.",
       "commonality": 7,
       "type": "phrase",
       "level": 5,
-      "category": "level5"
+      "category": "level-word"
     },
     {
-      "text": "the zealous monk kept a vow of quiet",
+      "text": "The zealous monk kept a vow of quiet.",
       "commonality": 7,
       "type": "phrase",
       "level": 5,
-      "category": "level5"
+      "category": "level-word"
     },
     {
-      "text": "he wrote with quill and black ink",
+      "text": "He wrote with quill and black ink.",
       "commonality": 6,
       "type": "phrase",
       "level": 5,
-      "category": "level5"
+      "category": "level-word"
     },
     {
-      "text": "a fox jumped over the vizier's box",
+      "text": "A fox jumped over the vizier's box.",
       "commonality": 7,
       "type": "phrase",
       "level": 5,
-      "category": "level5"
+      "category": "level-word"
     },
     {
       "text": "Nathair",
-      "commonality": 5,
+      "commonality": 2,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Shadows",
-      "commonality": 5,
+      "commonality": 3,
       "type": "word",
       "category": "lore"
     },
     {
-      "text": "shadow",
-      "commonality": 5,
+      "text": "Shadow",
+      "commonality": 3,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Undercity",
-      "commonality": 6,
+      "commonality": 3,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "MorLadrona",
-      "commonality": 7,
+      "commonality": 5,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Marchwardens",
-      "commonality": 8,
+      "commonality": 6,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Valravn",
-      "commonality": 8,
+      "commonality": 6,
       "type": "word",
       "category": "lore"
     },
     {
-      "text": "Faceless",
-      "commonality": 6,
+      "text": "The Faceless",
+      "commonality": 3,
+      "type": "word",
+      "category": "lore"
+    },
+    {
+      "text": "The Faceless One",
+      "commonality": 3,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Preceptor",
-      "commonality": 7,
+      "commonality": 4,
       "type": "word",
       "category": "lore"
     },
     {
-      "text": "Silencing",
-      "commonality": 7,
+      "text": "The Silencing",
+      "commonality": 4,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Masking",
-      "commonality": 6,
+      "commonality": 4,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Velt Ester",
-      "commonality": 5,
+      "commonality": 3,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Sotterranei",
-      "commonality": 7,
-      "type": "word",
-      "category": "lore"
-    },
-    {
-      "text": "Sotterraneo",
-      "commonality": 8,
-      "type": "word",
-      "category": "lore"
-    },
-    {
-      "text": "Velskiri",
-      "commonality": 8,
-      "type": "word",
-      "category": "lore"
-    },
-    {
-      "text": "Velskiro",
-      "commonality": 9,
-      "type": "word",
-      "category": "lore"
-    },
-    {
-      "text": "Maelthys",
-      "commonality": 8,
-      "type": "word",
-      "category": "lore"
-    },
-    {
-      "text": "Vaelith",
-      "commonality": 8,
-      "type": "word",
-      "category": "lore"
-    },
-    {
-      "text": "Helion",
-      "commonality": 7,
-      "type": "word",
-      "category": "lore"
-    },
-    {
-      "text": "Emissaries",
-      "commonality": 7,
-      "type": "word",
-      "category": "lore"
-    },
-    {
-      "text": "Ossuary",
-      "commonality": 8,
-      "type": "word",
-      "category": "lore"
-    },
-    {
-      "text": "vivianite",
-      "commonality": 9,
-      "type": "word",
-      "category": "lore"
-    },
-    {
-      "text": "Den",
       "commonality": 5,
       "type": "word",
       "category": "lore"
     },
     {
-      "text": "Vox Umberia",
-      "commonality": 9,
+      "text": "Velskiri",
+      "commonality": 6,
+      "type": "word",
+      "category": "lore"
+    },
+    {
+      "text": "Maelthys",
+      "commonality": 6,
+      "type": "word",
+      "category": "lore"
+    },
+    {
+      "text": "Vaelith",
+      "commonality": 6,
+      "type": "word",
+      "category": "lore"
+    },
+    {
+      "text": "Helion",
+      "commonality": 5,
+      "type": "word",
+      "category": "lore"
+    },
+    {
+      "text": "Emissaries",
+      "commonality": 5,
+      "type": "word",
+      "category": "lore"
+    },
+    {
+      "text": "Ossuary",
+      "commonality": 6,
+      "type": "word",
+      "category": "lore"
+    },
+    {
+      "text": "Vivianite",
+      "commonality": 8,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Nathairii",
-      "commonality": 8,
+      "commonality": 4,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Lleng Haul",
-      "commonality": 9,
+      "commonality": 8,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Tenebre",
-      "commonality": 8,
+      "commonality": 5,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Maschera",
-      "commonality": 8,
+      "commonality": 5,
       "type": "word",
       "category": "lore"
     },
     {
-      "text": "Mezzanotte",
-      "commonality": 9,
+      "text": "Mezzanotte Gardens",
+      "commonality": 7,
       "type": "word",
       "category": "lore"
     },
     {
-      "text": "Serenissima",
-      "commonality": 9,
+      "text": "Serenissima Vineyards",
+      "commonality": 7,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "mask",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "oath",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "blade",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "guild",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "contract",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "loyalty",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "silence",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "darkness",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "whisper",
       "commonality": 6,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "veil",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "serpent",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "cunning",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "exile",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "betrayal",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "initiate",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "relic",
       "commonality": 7,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "rite",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "anoint",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "covert",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "shroud",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "cipher",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
+    },
+    {
+      "text": "cypher",
+      "commonality": 8,
+      "type": "word",
+      "category": null
     },
     {
       "text": "undying",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "discretion",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "sanctuary",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "concealed",
       "commonality": 8,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "subterfuge",
       "commonality": 9,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "duplicity",
       "commonality": 9,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "clandestine",
       "commonality": 9,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "inviolable",
       "commonality": 10,
-      "type": "word"
+      "type": "word",
+      "category": null
     },
     {
       "text": "dissemble",
       "commonality": 10,
-      "type": "word"
+      "type": "word",
+      "category": null
+    },
+    {
+      "text": "Sellar's Keep",
+      "commonality": 1,
+      "type": "word",
+      "category": "lore"
+    },
+    {
+      "text": "The Keep",
+      "commonality": 2,
+      "type": "word",
+      "category": "lore"
+    },
+    {
+      "text": "Do not kill your fellow Shadows. We are a family and must protect one another.",
+      "commonality": 5,
+      "type": "phrase",
+      "category": "values"
     },
     {
       "text": "We do not raise a hand against our own.",
@@ -2674,13 +2885,7 @@
       "category": "values"
     },
     {
-      "text": "Taking without returning is not skill, it is theft.",
-      "commonality": 5,
-      "type": "phrase",
-      "category": "values"
-    },
-    {
-      "text": "We do not give up those we trust.",
+      "text": "We do not give up our fellow Shadows.",
       "commonality": 4,
       "type": "phrase",
       "category": "values"
@@ -2698,7 +2903,7 @@
       "category": "values"
     },
     {
-      "text": "Those who lead us must be kept safe above all else.",
+      "text": "Those who lead us must be kept safe.",
       "commonality": 5,
       "type": "phrase",
       "category": "values"
@@ -2734,7 +2939,7 @@
       "category": "values"
     },
     {
-      "text": "An order given in trust is an order followed without question.",
+      "text": "An order given by the Faceless is an order followed without question.",
       "commonality": 6,
       "type": "phrase",
       "category": "values"
@@ -2758,12 +2963,6 @@
       "category": "values"
     },
     {
-      "text": "The mask hides the face, not the heart.",
-      "commonality": 5,
-      "type": "phrase",
-      "category": "values"
-    },
-    {
       "text": "Know your brothers and sisters by their deeds.",
       "commonality": 5,
       "type": "phrase",
@@ -2771,12 +2970,6 @@
     },
     {
       "text": "Loyalty to your family keeps everyone safe.",
-      "commonality": 4,
-      "type": "phrase",
-      "category": "values"
-    },
-    {
-      "text": "The house comes before the self.",
       "commonality": 4,
       "type": "phrase",
       "category": "values"
@@ -2794,12 +2987,6 @@
       "category": "values"
     },
     {
-      "text": "A good Shadow listens before they act.",
-      "commonality": 5,
-      "type": "phrase",
-      "category": "values"
-    },
-    {
       "text": "A tool left to rust is no tool at all.",
       "commonality": 5,
       "type": "phrase",
@@ -2812,7 +2999,7 @@
       "category": "values"
     },
     {
-      "text": "Every skill earned is another lock opened.",
+      "text": "Every skill learned is another lock opened.",
       "commonality": 6,
       "type": "phrase",
       "category": "values"
@@ -2866,7 +3053,7 @@
       "category": "values"
     },
     {
-      "text": "The shadow is where the careful and the clever thrive.",
+      "text": "Darkness is where the careful and the clever thrive.",
       "commonality": 7,
       "type": "phrase",
       "category": "values"
@@ -2878,7 +3065,7 @@
       "category": "values"
     },
     {
-      "text": "A Shadow does not boast of what it has done. It returns, it reports, and it waits for the next task. Pride is kept inside, where it cannot be used against you.",
+      "text": "A Shadow does not boast of what they have done. They return, they report, and they wait for the next task. Pride is kept inside, where it cannot be used against them.",
       "commonality": 8,
       "type": "paragraph",
       "category": "values"
@@ -2903,133 +3090,133 @@
     },
     {
       "text": "King of Beggars",
-      "commonality": 6,
+      "commonality": 3,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "High Priestess",
-      "commonality": 6,
+      "commonality": 3,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Noctum Caligo",
-      "commonality": 8,
+      "commonality": 6,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Port Nathair",
-      "commonality": 6,
+      "commonality": 4,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Fortezza del Martello",
-      "commonality": 9,
+      "commonality": 7,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Mestiere",
-      "commonality": 8,
+      "commonality": 5,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Oscurita",
-      "commonality": 8,
+      "commonality": 5,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Cantieri Navali",
-      "commonality": 9,
+      "commonality": 7,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Shrine of the Traveler",
-      "commonality": 7,
+      "commonality": 5,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Black Flame",
-      "commonality": 8,
+      "commonality": 7,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Dark Tapestry",
-      "commonality": 7,
-      "type": "word",
-      "category": "lore"
-    },
-    {
-      "text": "Carnival of Dancing Shadows",
       "commonality": 6,
       "type": "word",
       "category": "lore"
     },
     {
+      "text": "Carnival of Dancing Shadows",
+      "commonality": 4,
+      "type": "word",
+      "category": "lore"
+    },
+    {
       "text": "Requiem for the Lost",
-      "commonality": 8,
+      "commonality": 7,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Discordance",
-      "commonality": 8,
+      "commonality": 6,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Veil of the Silent Hand",
-      "commonality": 9,
+      "commonality": 7,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Night of the Serpent's Shadow",
-      "commonality": 9,
-      "type": "word",
-      "category": "lore"
-    },
-    {
-      "text": "Kingdom of Tides",
-      "commonality": 7,
-      "type": "word",
-      "category": "lore"
-    },
-    {
-      "text": "Tir O Valyant",
       "commonality": 8,
       "type": "word",
       "category": "lore"
     },
     {
-      "text": "Center Sea",
+      "text": "Kingdom of Tides",
+      "commonality": 5,
+      "type": "word",
+      "category": "lore"
+    },
+    {
+      "text": "Tir O Valyant",
       "commonality": 7,
       "type": "word",
       "category": "lore"
     },
     {
+      "text": "Center Sea",
+      "commonality": 5,
+      "type": "word",
+      "category": "lore"
+    },
+    {
       "text": "Ashen Offering",
-      "commonality": 9,
+      "commonality": 7,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Unspoken Sign",
-      "commonality": 9,
+      "commonality": 7,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Vow of Devotion",
-      "commonality": 9,
+      "commonality": 7,
       "type": "word",
       "category": "lore"
     },
@@ -3124,13 +3311,7 @@
       "category": "values"
     },
     {
-      "text": "We do not tell on our friends.",
-      "commonality": 1,
-      "type": "phrase",
-      "category": "values"
-    },
-    {
-      "text": "Trust is hard to earn.",
+      "text": "Trust is hard to earn, and easily lost.",
       "commonality": 2,
       "type": "phrase",
       "category": "values"
@@ -3162,12 +3343,6 @@
     {
       "text": "Listen to those who lead you.",
       "commonality": 1,
-      "type": "phrase",
-      "category": "values"
-    },
-    {
-      "text": "Follow first, ask later.",
-      "commonality": 2,
       "type": "phrase",
       "category": "values"
     },
@@ -3214,12 +3389,6 @@
       "category": "values"
     },
     {
-      "text": "I am proud to call Nathair home.",
-      "commonality": 2,
-      "type": "phrase",
-      "category": "values"
-    },
-    {
       "text": "Learn something new each day.",
       "commonality": 1,
       "type": "phrase",
@@ -3238,7 +3407,7 @@
       "category": "values"
     },
     {
-      "text": "A good student becomes a good Shadow.",
+      "text": "A good student makes a good Shadow.",
       "commonality": 2,
       "type": "phrase",
       "category": "values"
@@ -3274,44 +3443,38 @@
       "category": "values"
     },
     {
-      "text": "We protect, not harm.",
+      "text": "We protect and do not harm our own.",
       "commonality": 1,
       "type": "phrase",
       "category": "values"
     },
     {
-      "text": "The Faceless",
-      "commonality": 5,
-      "type": "word",
-      "category": "lore"
-    },
-    {
       "text": "Faceless One",
-      "commonality": 5,
+      "commonality": 3,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "The Shrouded",
-      "commonality": 8,
+      "commonality": 6,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "The Shining",
-      "commonality": 8,
+      "commonality": 6,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Maelthys the Shrouded",
-      "commonality": 9,
+      "commonality": 7,
       "type": "word",
       "category": "lore"
     },
     {
       "text": "Vaelith the Shining",
-      "commonality": 9,
+      "commonality": 7,
       "type": "word",
       "category": "lore"
     },
@@ -3323,6 +3486,12 @@
     },
     {
       "text": "We are a family and must protect one another.",
+      "commonality": 3,
+      "type": "phrase",
+      "category": "tenets"
+    },
+    {
+      "text": "Do not maliciously steal from each other. Testing your skills is to be admired but always return the item.",
       "commonality": 3,
       "type": "phrase",
       "category": "tenets"
@@ -3340,6 +3509,12 @@
       "category": "tenets"
     },
     {
+      "text": "Protect the identities of your brothers and sisters, do not give up your fellow Shadows.",
+      "commonality": 3,
+      "type": "phrase",
+      "category": "tenets"
+    },
+    {
       "text": "Protect the identities of your brothers and sisters.",
       "commonality": 3,
       "type": "phrase",
@@ -3352,13 +3527,19 @@
       "category": "tenets"
     },
     {
+      "text": "Protect the King of Beggars. They lead us and are the right hand of the Faceless.",
+      "commonality": 3,
+      "type": "phrase",
+      "category": "tenets"
+    },
+    {
       "text": "Protect the King of Beggars.",
       "commonality": 3,
       "type": "phrase",
       "category": "tenets"
     },
     {
-      "text": "They lead us and are the right hand of the Faceless.",
+      "text": "The King of Beggars leads us and is the right hand of the Faceless.",
       "commonality": 4,
       "type": "phrase",
       "category": "tenets"
@@ -3370,14 +3551,26 @@
       "category": "tenets"
     },
     {
+      "text": "Defend the High Priestess of Velt Ester. They bring blessings and prosperity to our house and city.",
+      "commonality": 3,
+      "type": "phrase",
+      "category": "tenets"
+    },
+    {
       "text": "Defend the High Priestess of Velt Ester.",
       "commonality": 3,
       "type": "phrase",
       "category": "tenets"
     },
     {
-      "text": "They bring blessings and prosperity to our house and city.",
+      "text": "The High Priestess of Velt Ester brings blessings and prosperity to our house and city.",
       "commonality": 4,
+      "type": "phrase",
+      "category": "tenets"
+    },
+    {
+      "text": "The Faceless' word is law, we must obey without question. We kill and we die for them.",
+      "commonality": 3,
       "type": "phrase",
       "category": "tenets"
     },
@@ -3388,14 +3581,20 @@
       "category": "tenets"
     },
     {
-      "text": "We must obey without question.",
+      "text": "We must obey the Faceless without question.",
       "commonality": 3,
       "type": "phrase",
       "category": "tenets"
     },
     {
-      "text": "We kill and we die for them.",
+      "text": "We kill and we die for the Faceless.",
       "commonality": 4,
+      "type": "phrase",
+      "category": "tenets"
+    },
+    {
+      "text": "The punishment for betraying Sellar's Keep is severe and cannot be healed. Everything we do is to benefit the house.",
+      "commonality": 5,
       "type": "phrase",
       "category": "tenets"
     },
@@ -3410,6 +3609,419 @@
       "commonality": 3,
       "type": "phrase",
       "category": "tenets"
+    },
+    {
+      "text": "Chaos is a tool, not a goal.",
+      "commonality": 4,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "One pebble dropped in the right place starts an avalanche.",
+      "commonality": 6,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "Disorder in the right hands is a weapon.",
+      "commonality": 5,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "Every lock has a key.",
+      "commonality": 3,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "No rule is without a flaw.",
+      "commonality": 4,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "Every system can be broken with the right leverage.",
+      "commonality": 6,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "There is no wall that cannot be crossed.",
+      "commonality": 4,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "Find the weakness. Use it.",
+      "commonality": 3,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "The world is meant to change.",
+      "commonality": 3,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "Those who demand stillness fear what motion reveals.",
+      "commonality": 7,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "Rigid things break. Flexible things endure.",
+      "commonality": 5,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "Control belongs to those who understand the flow.",
+      "commonality": 6,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "We do not fear change. We shape it.",
+      "commonality": 4,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "A still blade grows dull.",
+      "commonality": 3,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "To stop growing is to start failing.",
+      "commonality": 4,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "Stagnation is not rest. It is rot.",
+      "commonality": 5,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "There is always more to learn.",
+      "commonality": 3,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "Hone yourself as you would hone a blade.",
+      "commonality": 5,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "The best tool is the one that never stops improving.",
+      "commonality": 6,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "Push further than you did yesterday.",
+      "commonality": 5,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "Nothing is given. Everything is earned.",
+      "commonality": 4,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "Blind trust is a gift to your enemies.",
+      "commonality": 5,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "Always know what is owed and to whom.",
+      "commonality": 5,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "Debts unspoken are the most dangerous kind.",
+      "commonality": 6,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "Every favor has a cost. Know it before you accept.",
+      "commonality": 6,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "Know when to move and when to wait.",
+      "commonality": 4,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "The right moment is not always the comfortable one.",
+      "commonality": 5,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "When the time comes, do not hesitate.",
+      "commonality": 5,
+      "type": "phrase",
+      "level": 3,
+      "category": "values"
+    },
+    {
+      "text": "Waiting is wisdom. Freezing is failure.",
+      "commonality": 5,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "Strike when the opening is there.",
+      "commonality": 4,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "Strengthen those beside you.",
+      "commonality": 4,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "We are only as strong as our most fragile link.",
+      "commonality": 6,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "A weakness ignored is a weakness chosen.",
+      "commonality": 5,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "Help your brothers and sisters grow.",
+      "commonality": 4,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "Failure is not the end. It is the lesson.",
+      "commonality": 5,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "Those who never fail have never tried.",
+      "commonality": 5,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "Learn from what went wrong and do not repeat it.",
+      "commonality": 5,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "We are not discarded for failing. We are honed by it.",
+      "commonality": 6,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "A stumble teaches more than a smooth road.",
+      "commonality": 5,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "Influence is more valuable than coin.",
+      "commonality": 6,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "The wealthiest person in the room is not always the richest.",
+      "commonality": 7,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "Gold buys a hand. Trust buys a life.",
+      "commonality": 5,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "Every action must serve a purpose.",
+      "commonality": 4,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "Do nothing without intent.",
+      "commonality": 4,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "Random action is wasted action.",
+      "commonality": 5,
+      "type": "phrase",
+      "level": 3,
+      "category": "values"
+    },
+    {
+      "text": "Move with purpose or do not move at all.",
+      "commonality": 4,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "There is no such thing as a meaningless choice.",
+      "commonality": 6,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "The dark watches over those who serve it.",
+      "commonality": 5,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "In the deepest shadow there is safety.",
+      "commonality": 4,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "Even in the brightest light there is always a shadow.",
+      "commonality": 6,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "Darkness is patient. It does not need to rush.",
+      "commonality": 5,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "Control your enemies when you can.",
+      "commonality": 4,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "If conflict cannot be avoided, end it swiftly.",
+      "commonality": 6,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "Never leave an enemy stronger than you found them.",
+      "commonality": 7,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "Adapt or be left behind.",
+      "commonality": 4,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "The world shifts. Shift with it.",
+      "commonality": 4,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "Change is not a threat. It is an opportunity.",
+      "commonality": 5,
+      "type": "phrase",
+      "level": 4,
+      "category": "values"
+    },
+    {
+      "text": "Those who cannot bend will break.",
+      "commonality": 4,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
+    },
+    {
+      "text": "New knowledge makes you harder to defeat.",
+      "commonality": 5,
+      "type": "phrase",
+      "level": 5,
+      "category": "values"
     }
   ]
 }
