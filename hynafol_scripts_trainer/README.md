@@ -1,161 +1,229 @@
-# Scripts — Cipher Practice Application
+# Hynafol Scripts Trainer
 
-A medieval-themed web application for practicing 1:1 cipher scripts. Hosted freely on GitHub Pages.
+A web application for practicing 1:1 cipher scripts. Hosted freely on GitHub Pages.
 
 ---
 
 ## Setup
 
-### 1. Fork / Clone this Repository
+### 1. Place files in a subfolder of your GitHub Pages repository
 
-```bash
-git clone https://github.com/yourusername/scripts
-cd scripts
 ```
+hynafol_scripts_trainer/
+├── index.html
+├── css/style.css
+├── js/
+│   ├── core.js
+│   ├── screens.js
+│   └── app.js
+├── data/
+│   ├── scripts.json
+│   └── wordlist.json
+└── fonts/
+    └── (your .ttf or .otf files)
+```
+
+Access at: `https://yourusername.github.io/hynafol_scripts_trainer/`
 
 ### 2. Enable GitHub Pages
 
-In your repository settings → Pages → Deploy from branch → `main` / root.
-
-Your app will be live at `https://yourusername.github.io/scripts/`
+Repository Settings → Pages → Deploy from branch → `main` / root.
 
 ---
 
-## Adding Your Cipher Fonts
+## Password
 
-Place `.ttf` or `.otf` font files in the `/fonts/` directory.
+The password is stored as a SHA-256 hash in `data/scripts.json`.
 
-Then register them in `data/scripts.json`:
+**Generate a hash in your browser console:**
+```javascript
+const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('yourpassword'));
+console.log([...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join(''));
+```
+
+The default password is **`admin`**.
+
+---
+
+## Configuring Scripts (`data/scripts.json`)
+
+Each entry in the `scripts` array represents one cipher font.
 
 ```json
 {
   "scripts": [
     {
       "id": "myscript",
-      "name": "My Cipher",
-      "fontFile": "mycipher.ttf",
-      "description": "A description of this script",
-      "public": false
+      "name": "Display Name",
+      "fontFile": "myfont.ttf",
+      "fontChars": "abcdefghijklmnopqrstuvwxyz",
+      "symbolGroups": [
+        ["a", "A"],
+        ["u", "v"]
+      ]
     }
   ],
-  "passwordHash": "YOUR_SHA256_HASH_HERE"
+  "passwordHash": "YOUR_SHA256_HASH"
 }
 ```
 
-**Important:** The cipher font must be a **1:1 cypher** — meaning each standard Latin character (a-z, A-Z, 0-9, punctuation) maps to a unique glyph in the same Unicode position. The font is loaded and each key on the virtual keyboard renders using the font, so the mapping is entirely font-driven.
+### Fields
 
----
+| Field | Required | Description |
+|-------|----------|-------------|
+| `id` | Yes | Unique identifier, no spaces |
+| `name` | Yes | Display name shown in the selector |
+| `fontFile` | Yes | Filename of the font, placed in `/fonts/` |
+| `fontChars` | Yes | A string listing every character the font has a glyph for. Characters not in this string are excluded from all pools and keyboards. |
+| `symbolGroups` | No | Array of arrays. Each inner array lists characters that render identically in this font — any answer within the same group is accepted as correct. |
 
-## Setting the Password
+### `fontChars` example
 
-The password is stored as a **SHA-256 hash** in `data/scripts.json`.
-
-To generate a hash for your password:
-
-**In your browser console:**
-```javascript
-const msg = 'yourpassword';
-const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
-console.log([...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join(''));
+Lowercase only:
+```json
+"fontChars": "abcdefghijklmnopqrstuvwxyz.,!?'-"
 ```
 
-**Or using Node.js:**
-```bash
-node -e "const crypto=require('crypto');console.log(crypto.createHash('sha256').update('yourpassword').digest('hex'))"
+Both cases plus numbers and punctuation:
+```json
+"fontChars": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?'-:;"
 ```
 
-The default password is **`admin`** (hash: `8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918`)
+### `symbolGroups` examples
+
+**Same glyph for upper and lowercase** (most common case):
+```json
+"symbolGroups": [
+  ["a","A"],["b","B"],["c","C"],["d","D"],["e","E"],["f","F"],["g","G"],
+  ["h","H"],["i","I"],["j","J"],["k","K"],["l","L"],["m","M"],["n","N"],
+  ["o","O"],["p","P"],["q","Q"],["r","R"],["s","S"],["t","T"],["u","U"],
+  ["v","V"],["w","W"],["x","X"],["y","Y"],["z","Z"]
+]
+```
+
+**Different letters sharing a glyph** (e.g. U and V use the same symbol):
+```json
+"symbolGroups": [
+  ["u", "v", "U", "V"],
+  ["i", "j", "I", "J"]
+]
+```
+
+Any answer within a group is accepted as correct for any other member. The answer advances without credit.
 
 ---
 
-## Public vs Private Scripts
+## Adding Words and Phrases (`data/wordlist.json`)
 
-- `"public": true` — visible to guests (no password)
-- `"public": false` — only visible after entering the password
+The wordlist is a JSON file with a single `words` array. Each entry is an object.
 
----
+### Fields
 
-## Adding Words & Phrases
+| Field | Required | Type | Description |
+|-------|----------|------|-------------|
+| `text` | Yes | string | The word or phrase. Single words should be lowercase unless a proper noun. Phrases use normal capitalisation. |
+| `commonality` | Yes | number 1–10 | How common or rare the entry is. 1 = most common, 10 = rarest. Controls the **Word Rarity** filter. |
+| `type` | Yes | string | `"word"`, `"phrase"`, or `"paragraph"`. Determines which Max Length settings include this entry. |
+| `level` | No | number 1–5 | Marks that this entry uses mostly letters from that difficulty level. When enough level-tagged entries exist, the app draws preferentially from them at that difficulty. |
+| `category` | No | string | Free-form tag for your own reference. Not used by the app. |
 
-Edit `data/wordlist.json`. Each entry:
+### Commonality scale
+
+| Value | Description | Examples |
+|-------|-------------|---------|
+| 1–2 | Core vocabulary | the, and, is, I, a, to |
+| 3–4 | Everyday words | water, come, good, year, part |
+| 5–6 | Common / general medieval | light, life, night, sword, horse |
+| 7–8 | Specialised or less common | herald, cobbler, spindle, lantern |
+| 9–10 | Rare or archaic | seneschal, trebuchet, gambeson, pauldron |
+
+### Type and Max Length mapping
+
+| `type` | Appears in Max Length settings |
+|--------|-------------------------------|
+| `"word"` | Single Word / Proper Noun, Short, Medium, Long |
+| `"phrase"` | Short (≤3 words), Medium (2–7 words), Long (8+ words) |
+| `"paragraph"` | Long only |
+
+### Difficulty level letter groups (for `level` field)
+
+| Level | Letters |
+|-------|---------|
+| 1 | E, T, A, O, I |
+| 2 | N, S, H, R, D |
+| 3 | L, C, U, M, W |
+| 4 | F, G, Y, P, B |
+| 5 | V, K, J, X, Q, Z |
+
+Each level includes all previous levels in Single Character mode. If fewer than 3 level-tagged entries exist for the active difficulty, the app falls back to the full pool.
+
+### Examples
 
 ```json
-{
-  "text": "the word or phrase",
-  "commonality": 3,
-  "type": "word"
-}
-```
-
-| Field | Values | Notes |
-|-------|--------|-------|
-| `text` | Any string | Single words or full phrases |
-| `commonality` | 1–10 | 1 = most common, 10 = rarest |
-| `type` | `"word"`, `"phrase"`, `"paragraph"` | Controls which length filters include it |
-
-**Commonality Guide:**
-- 1–2: Core vocabulary (the, and, I, is…)
-- 3–4: Everyday words
-- 5–6: Common medieval vocabulary
-- 7–8: Specialized terms (knight, trebuchet…)
-- 9–10: Rare or archaic words
-
-**Adding proper names or custom words:**
-```json
+{"text": "eat", "commonality": 2, "type": "word", "level": 1},
+{"text": "stone", "commonality": 4, "type": "word", "level": 2},
+{"text": "send the horse", "commonality": 4, "type": "phrase", "level": 2},
+{"text": "the", "commonality": 1, "type": "word"},
+{"text": "The gate is open.", "commonality": 2, "type": "phrase"},
+{"text": "The blacksmith worked long into the night.", "commonality": 4, "type": "phrase"},
 {"text": "Aldric", "commonality": 8, "type": "word", "category": "name"},
 {"text": "Caer Dwyrain", "commonality": 9, "type": "word", "category": "place"}
 ```
 
-The `category` field is optional and for your reference only.
+---
+
+## Screens
+
+### Reading
+Shows a character or phrase **in the Script font**. Type the **Common** (Latin) equivalent using your keyboard.
+
+- **Single Character mode**: one character at a time from the active difficulty pool, filtered by the Include checkboxes (Lowercase, Uppercase, Numbers, Punctuation).
+- **Words & Phrases mode**: full words or phrases from the wordlist, filtered by Difficulty, Max Length, and Word Rarity.
+- On an incorrect answer, the input unlocks — type the correct answer to advance. No credit is awarded.
+- Enter key submits. On incorrect, Enter again confirms the correction once typed correctly.
+
+### Writing
+Shows a character or phrase **in Common**. Type the Script equivalent using the virtual on-screen keyboard.
+
+- Same two modes as Reading.
+- The virtual keyboard shows numbers, uppercase, and lowercase rows. Keys not in the script's `fontChars` are greyed out and disabled.
+- On an incorrect answer, the keyboard stays active — clear and type the correct answer to advance. No credit is awarded.
+- The Reference button shows a full cypher chart split into Capitals, Lowercase, Numbers, and Punctuation sections.
 
 ---
 
-## Screen Guide
+## Difficulty Levels (Single Character mode)
 
-| Screen | What you do | Input method |
-|--------|-------------|--------------|
-| **Learn: Reading** | See a character in the Script → type its Latin equivalent | Physical keyboard |
-| **Learn: Writing** | See a Latin character → type its Script equivalent | Virtual on-screen keyboard |
-| **Train: Reading** | See a word/phrase in the Script → type in Latin | Physical keyboard |
-| **Train: Writing** | See a Latin word/phrase → type in Script | Virtual on-screen keyboard |
+| Level | Letters included |
+|-------|-----------------|
+| 1 | E T A O I (and uppercase if enabled) |
+| 2 | + N S H R D |
+| 3 | + L C U M W |
+| 4 | + F G Y P B |
+| 5 | + V K J X Q Z, numbers, punctuation |
 
-### Difficulty Levels (Learn screens)
-The 26 letters are divided by English letter frequency:
-- **Level 1**: e, t, a, o, i (most common)
-- **Level 2**: n, s, h, r, d
-- **Level 3**: l, c, u, m, w
-- **Level 4**: f, g, y, p, b
-- **Level 5**: v, k, j, x, q, z + numbers + punctuation
+---
 
-### Max Commonality (Train screens)
-Controls which words are included. "Very Common" shows only the most frequent words; "All Words" includes everything in your wordlist.
+## Word Rarity vs. Frequency
+
+Word Rarity is a **filter** — it controls the maximum rarity of words that can appear in the pool. Every word in the filtered pool has an equal chance of being selected. More common words do not appear more frequently than rare ones within the same pool.
 
 ---
 
 ## File Structure
 
 ```
-scripts/
-├── index.html           ← Main app
+hynafol_scripts_trainer/
+├── index.html
 ├── css/
-│   └── style.css        ← All styles
+│   └── style.css          — Bootstrap dark + custom overrides
 ├── js/
-│   ├── core.js          ← App state, font loading, CharSets
-│   ├── screens.js       ← All four practice screens
-│   └── app.js           ← Routing, login, nav
+│   ├── core.js            — App state, font loading, character sets, utilities
+│   ├── screens.js         — Reading and Writing screen logic and rendering
+│   └── app.js             — Login, routing, nav, script selection
 ├── data/
-│   ├── scripts.json     ← Script configuration & password hash
-│   └── wordlist.json    ← Words and phrases for practice
-├── fonts/               ← Place your .ttf or .otf files here
-│   └── (your fonts)
-└── README.md
+│   ├── scripts.json       — Script/font configuration and password hash
+│   └── wordlist.json      — Words and phrases for practice
+└── fonts/
+    └── (your .ttf / .otf cipher font files)
 ```
-
----
-
-## Notes
-
-- **No server required.** Everything runs in the browser. GitHub Pages serves static files perfectly.
-- **Session-based auth.** The password check is client-side (SHA-256). This is appropriate for keeping casual observers out of private scripts — it is not intended as high-security access control.
-- **Font glyphs.** If a character has no glyph in the font, the browser will render a fallback. In Train mode, missing glyphs are treated as "skip this character" — you don't need to type them.
-- **Adding more scripts.** Just add the font file and a new entry in `scripts.json`. No code changes needed.
