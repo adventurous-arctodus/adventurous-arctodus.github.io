@@ -1,10 +1,8 @@
 // ─── HYNAFOL SCRIPTS TRAINER — App Controller ────────────────────────────────
 
 const Screens = {
-  'learn-reading': LearnReading,
-  'learn-writing': LearnWriting,
-  'train-reading': TrainReading,
-  'train-writing': TrainWriting,
+  'reading': Reading,
+  'writing': Writing,
 };
 
 // ─── BOOT ─────────────────────────────────────────────────────────────────────
@@ -37,7 +35,7 @@ function showMainApp() {
   el('main-app').classList.remove('d-none');
   buildScriptSelector();
   buildNav();
-  navigateTo('learn-reading');
+  navigateTo('reading');
 }
 
 async function attemptLogin() {
@@ -49,8 +47,7 @@ async function attemptLogin() {
     sessionStorage.setItem('hst-auth', hash);
     showMainApp();
   } else {
-    const errEl = el('login-error');
-    if (errEl) errEl.classList.remove('d-none');
+    el('login-error')?.classList.remove('d-none');
     el('login-pw').value = '';
     el('login-pw').focus();
   }
@@ -69,22 +66,31 @@ async function selectScript(id) {
   if (!id) {
     App.currentScript = null;
     App.currentFont = null;
+    App.currentFontChars = new Set();
     setFontStatus('');
     refreshCurrentScreen();
     return;
   }
   const script = App.scripts.find(s => s.id === id);
   if (!script) return;
+
   App.currentScript = script;
-  setFontStatus('Loading…');
+  setFontStatus('Loading…', 'text-secondary');
+
+  // Load the fontChars set from config
+  if (script.fontChars) {
+    App.currentFontChars = new Set([...script.fontChars]);
+  } else {
+    App.currentFontChars = new Set(); // empty = no restriction
+  }
 
   const fontName = await App.loadFont(script);
   App.currentFont = fontName;
 
   if (fontName) {
-    setFontStatus(`✓ ${script.fontFile}`, 'text-success');
+    setFontStatus('Script Loaded', 'text-success');
   } else {
-    setFontStatus(`⚠ Could not load ${script.fontFile}`, 'text-warning');
+    setFontStatus('Font file not found', 'text-warning');
   }
 
   refreshCurrentScreen();
@@ -101,13 +107,10 @@ function setFontStatus(text, cls = 'text-secondary') {
 function buildNav() {
   const nav = el('main-nav');
   if (!nav) return;
-  const screens = [
-    { id: 'learn-reading', label: 'Learn: Reading' },
-    { id: 'learn-writing', label: 'Learn: Writing' },
-    { id: 'train-reading', label: 'Train: Reading' },
-    { id: 'train-writing', label: 'Train: Writing' },
-  ];
-  nav.innerHTML = screens.map(s =>
+  nav.innerHTML = [
+    { id: 'reading', label: 'Reading' },
+    { id: 'writing', label: 'Writing' },
+  ].map(s =>
     `<button id="nav-${s.id}" class="btn btn-sm btn-outline-secondary"
       onclick="navigateTo('${s.id}')">${s.label}</button>`
   ).join('');
@@ -122,7 +125,7 @@ function navigateTo(screenId) {
   if (!container) return;
 
   if (!App.currentScript) {
-    container.innerHTML = `<p class="text-secondary no-script">Select a script above to begin.</p>`;
+    container.innerHTML = `<p class="text-secondary">Select a script above to begin.</p>`;
     return;
   }
 
