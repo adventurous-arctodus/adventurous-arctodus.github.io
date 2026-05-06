@@ -104,11 +104,13 @@ function renderKeyboard(prefix, fontName, onClickFn) {
   </div>`;
 }
 
-function modeToggle(activeMode, screenObj) {
+function modeToggle(activeMode, screenObj, prefix) {
   return `<div class="btn-group btn-group-sm mb-3" role="group">
-    <button type="button" class="btn ${activeMode==='single'?'btn-secondary':'btn-outline-secondary'}"
+    <button type="button" id="${prefix}-mode-single"
+      class="btn ${activeMode==='single'?'btn-secondary':'btn-outline-secondary'}"
       onclick="${screenObj}.setMode('single')">Single Character</button>
-    <button type="button" class="btn ${activeMode==='phrase'?'btn-secondary':'btn-outline-secondary'}"
+    <button type="button" id="${prefix}-mode-phrase"
+      class="btn ${activeMode==='phrase'?'btn-secondary':'btn-outline-secondary'}"
       onclick="${screenObj}.setMode('phrase')">Words &amp; Phrases</button>
   </div>`;
 }
@@ -138,7 +140,7 @@ const Reading = {
         </div>
         <div class="card-body">
 
-          ${modeToggle(this.mode, 'Reading')}
+          ${modeToggle(this.mode, 'Reading', 'rd')}
 
           <!-- Single character options -->
           <div id="rd-single-opts" class="${this.mode==='phrase'?'d-none':''}">
@@ -169,7 +171,7 @@ const Reading = {
                 <label class="form-label small">
                   Max Length ${infoIcon(CharSets.maxLengthInfo)}
                 </label>
-                <select id="rd-length" class="form-select form-select-sm" onchange="Reading.nextCard()">
+                <select id="rd-length" class="form-select form-select-sm" onchange="Reading.buildPool(); Reading.nextCard();">
                   <option value="word">Single Word / Proper Noun</option>
                   <option value="short">Short</option>
                   <option value="medium" selected>Medium</option>
@@ -180,7 +182,7 @@ const Reading = {
                 <label class="form-label small">
                   Word Rarity ${infoIcon(CharSets.wordRarityInfo)}
                 </label>
-                <select id="rd-commonality" class="form-select form-select-sm" onchange="Reading.nextCard()">
+                <select id="rd-commonality" class="form-select form-select-sm" onchange="Reading.buildPool(); Reading.nextCard();">
                   <option value="2">1–2 (most common)</option>
                   <option value="4">1–4</option>
                   <option value="6" selected>1–6</option>
@@ -228,16 +230,14 @@ const Reading = {
     this.mode = mode;
     this.buildPool();
     this.nextCard();
-    // Toggle visibility
     const sOpts = el('rd-single-opts');
     const pOpts = el('rd-phrase-opts');
     if (sOpts) sOpts.classList.toggle('d-none', mode === 'phrase');
     if (pOpts) pOpts.classList.toggle('d-none', mode === 'single');
-    // Update toggle buttons
-    qsa('.btn-group .btn').forEach(b => {
-      if (b.textContent.trim() === 'Single Character') b.className = `btn btn-sm ${mode==='single'?'btn-secondary':'btn-outline-secondary'}`;
-      if (b.textContent.includes('Words')) b.className = `btn btn-sm ${mode==='phrase'?'btn-secondary':'btn-outline-secondary'}`;
-    });
+    const btnSingle = el('rd-mode-single');
+    const btnPhrase = el('rd-mode-phrase');
+    if (btnSingle) btnSingle.className = `btn btn-sm ${mode==='single'?'btn-secondary':'btn-outline-secondary'}`;
+    if (btnPhrase) btnPhrase.className = `btn btn-sm ${mode==='phrase'?'btn-secondary':'btn-outline-secondary'}`;
   },
 
   setDifficulty(level) {
@@ -291,7 +291,7 @@ const Reading = {
   },
 
   nextCard() {
-    if (!this.pool.length) this.buildPool();
+    this.buildPool();
     if (!this.pool.length) return;
 
     this.answered = false;
@@ -408,7 +408,7 @@ const Writing = {
         </div>
         <div class="card-body">
 
-          ${modeToggle(this.mode, 'Writing')}
+          ${modeToggle(this.mode, 'Writing', 'wr')}
 
           <!-- Single character options -->
           <div id="wr-single-opts" class="${this.mode==='phrase'?'d-none':''}">
@@ -439,7 +439,7 @@ const Writing = {
                 <label class="form-label small">
                   Max Length ${infoIcon(CharSets.maxLengthInfo)}
                 </label>
-                <select id="wr-length" class="form-select form-select-sm" onchange="Writing.nextCard()">
+                <select id="wr-length" class="form-select form-select-sm" onchange="Writing.buildPool(); Writing.nextCard();">
                   <option value="word">Single Word / Proper Noun</option>
                   <option value="short">Short</option>
                   <option value="medium" selected>Medium</option>
@@ -450,7 +450,7 @@ const Writing = {
                 <label class="form-label small">
                   Word Rarity ${infoIcon(CharSets.wordRarityInfo)}
                 </label>
-                <select id="wr-commonality" class="form-select form-select-sm" onchange="Writing.nextCard()">
+                <select id="wr-commonality" class="form-select form-select-sm" onchange="Writing.buildPool(); Writing.nextCard();">
                   <option value="2">1–2 (most common)</option>
                   <option value="4">1–4</option>
                   <option value="6" selected>1–6</option>
@@ -509,10 +509,10 @@ const Writing = {
     const pOpts = el('wr-phrase-opts');
     if (sOpts) sOpts.classList.toggle('d-none', mode === 'phrase');
     if (pOpts) pOpts.classList.toggle('d-none', mode === 'single');
-    qsa('.btn-group .btn').forEach(b => {
-      if (b.textContent.trim() === 'Single Character') b.className = `btn btn-sm ${mode==='single'?'btn-secondary':'btn-outline-secondary'}`;
-      if (b.textContent.includes('Words')) b.className = `btn btn-sm ${mode==='phrase'?'btn-secondary':'btn-outline-secondary'}`;
-    });
+    const btnSingle = el('wr-mode-single');
+    const btnPhrase = el('wr-mode-phrase');
+    if (btnSingle) btnSingle.className = `btn btn-sm ${mode==='single'?'btn-secondary':'btn-outline-secondary'}`;
+    if (btnPhrase) btnPhrase.className = `btn btn-sm ${mode==='phrase'?'btn-secondary':'btn-outline-secondary'}`;
   },
 
   setDifficulty(level) {
@@ -562,7 +562,7 @@ const Writing = {
   },
 
   nextCard() {
-    if (!this.pool.length) this.buildPool();
+    this.buildPool();
     if (!this.pool.length) return;
 
     this.answered = false;
