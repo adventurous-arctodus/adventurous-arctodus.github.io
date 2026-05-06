@@ -1,26 +1,52 @@
 /* ── Custom styles layered on Bootstrap dark ── */
 
-/* Flashcard display area */
+/* ── Flashcard ── */
 .flashcard {
   min-height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 5rem;
-  line-height: 1;
   background: var(--bs-body-bg);
   border: 1px solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
   padding: 1.5rem;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
-.flashcard-phrase {
-  font-size: 1.6rem;
+.flashcard-tall {
+  min-height: 140px;
+  align-items: flex-start;
+  padding: 1.25rem 1.5rem;
+}
+
+/* Script display (cypher font, large) */
+.display-script {
+  font-size: 8rem;
+  line-height: 1;
+}
+
+.display-script-phrase {
+  font-size: 2.6rem;
+  line-height: 1.5;
   text-align: center;
-  line-height: 1.6;
+  width: 100%;
 }
 
-/* Writing output display */
+/* Common display */
+.display-common {
+  font-size: 8rem;
+  line-height: 1;
+}
+
+.display-common-phrase {
+  font-size: 2.2rem;
+  line-height: 1.6;
+  text-align: center;
+  width: 100%;
+}
+
+/* ── Writing output area ── */
 .writing-output {
   min-height: 72px;
   font-size: 2.5rem;
@@ -33,7 +59,6 @@
   border-radius: var(--bs-border-radius);
 }
 
-/* Blinking cursor */
 .writing-cursor {
   display: inline-block;
   width: 2px;
@@ -45,7 +70,7 @@
 }
 @keyframes blink { 50% { opacity: 0; } }
 
-/* Virtual keyboard */
+/* ── Virtual keyboard ── */
 .virtual-keyboard {
   background: var(--bs-tertiary-bg);
   border: 1px solid var(--bs-border-color);
@@ -79,17 +104,10 @@
   position: relative;
 }
 
-.key-btn:hover {
-  background: var(--bs-secondary-bg);
-}
-
-.key-btn:active {
-  transform: translateY(1px);
-  border-bottom-width: 1px;
-}
-
-.key-btn.key-wide { min-width: 80px; }
+.key-btn:hover:not(:disabled) { background: var(--bs-secondary-bg); }
+.key-btn:active:not(:disabled) { transform: translateY(1px); border-bottom-width: 1px; }
 .key-btn.key-space { min-width: 160px; }
+.key-btn.key-missing { opacity: 0.2; cursor: not-allowed; }
 
 .key-label {
   font-size: 0.55rem;
@@ -99,7 +117,7 @@
   right: 4px;
 }
 
-/* Answer input correct/incorrect states */
+/* ── Answer input states ── */
 .answer-input.is-correct {
   border-color: var(--bs-success) !important;
   background-color: rgba(var(--bs-success-rgb), 0.1) !important;
@@ -109,25 +127,25 @@
   background-color: rgba(var(--bs-danger-rgb), 0.1) !important;
 }
 
-/* Difficulty buttons — use Bootstrap btn-group but override active */
+/* ── Difficulty active state ── */
 .diff-btn.active {
-  background-color: var(--bs-primary) !important;
-  border-color: var(--bs-primary) !important;
+  background-color: var(--bs-secondary) !important;
+  border-color: var(--bs-secondary) !important;
   color: #fff !important;
 }
 
-/* Nav screen buttons */
+/* ── Nav active ── */
 #main-nav .btn.active {
   background-color: var(--bs-primary);
   border-color: var(--bs-primary);
   color: #fff;
 }
 
-/* Help overlay cypher chart */
+/* ── Reference modal ── */
 .cypher-chart {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
-  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  gap: 0.4rem;
 }
 
 .cypher-cell {
@@ -142,15 +160,35 @@
   font-size: 2rem;
   display: block;
   line-height: 1.2;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.2rem;
 }
 
-.cypher-cell .latin-char {
+.cypher-cell .common-char {
   font-size: 0.7rem;
   color: var(--bs-secondary-color);
 }
 
-/* "No script selected" state */
-#screen-container > .no-script {
+/* ── Info icon ── */
+.info-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--bs-secondary-bg);
+  border: 1px solid var(--bs-border-color);
   color: var(--bs-secondary-color);
+  font-size: 0.65rem;
+  font-style: normal;
+  cursor: help;
+  vertical-align: middle;
+  margin-left: 3px;
+  line-height: 1;
+  user-select: none;
+}
+
+.info-icon:hover {
+  background: var(--bs-border-color);
+  color: var(--bs-body-color);
 }
