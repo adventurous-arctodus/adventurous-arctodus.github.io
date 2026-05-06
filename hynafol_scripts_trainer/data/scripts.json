@@ -1,24 +1,45 @@
 {
   "scripts": [
     {
-      "id": "tengwar",
-      "name": "Tengwar",
-      "fontFile": "tengwar.ttf",
-      "description": "The flowing script of the Elves",
+      "id": "mage",
+      "name": "Mage",
+      "fontFile": "KARGI.OTF",
+      "description": "The cuneiform script of mages",
+      "public": false
+    },
+    {
+      "id": "elvish",
+      "name": "Elvish",
+      "fontFile": "OLDE ESPRUAR.OTF",
+      "description": "The script of elves",
       "public": true
     },
     {
-      "id": "runes",
-      "name": "Elder Futhark Runes",
-      "fontFile": "runes.ttf",
-      "description": "Ancient runic alphabet",
+      "id": "fae",
+      "name": "Fae",
+      "fontFile": "RELLANIC-AGX7.TTF",
+      "description": "The script of fae",
       "public": true
     },
     {
-      "id": "secret",
-      "name": "Shadow Cipher",
-      "fontFile": "shadow.ttf",
-      "description": "A private cipher script",
+      "id": "rune",
+      "name": "Dwarvish",
+      "fontFile": "RUNE.TTF",
+      "description": "The script of dwarves",
+      "public": true
+    },
+    {
+      "id": "sellars_keep",
+      "name": "Sellar's Keep Cypher",
+      "fontFile": "SKCYPHER-REGULAR.TTF",
+      "description": "A cypher used by Sellar's Keep members",
+      "public": false
+    }
+    {
+      "id": "caernos",
+      "name": "Caernos Leaf",
+      "fontFile": "TENDRILIS-V2.1-REGULAR.TTF",
+      "description": "A cypher used by Caernos followers",
       "public": false
     }
   ],
