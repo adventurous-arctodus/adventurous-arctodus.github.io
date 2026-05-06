@@ -195,15 +195,17 @@ function infoIcon(text) {
 }
 
 let _toastInstance = null;
-function showToast(message, type = 'success') {
+function showToast(message, type = 'success', delay = 2000) {
   const toastEl = el('hst-toast');
   const body = el('hst-toast-body');
   if (!toastEl || !body) return;
   body.textContent = message;
-  toastEl.className = `toast align-items-center border-0 text-bg-${type === 'success' ? 'success' : type === 'danger' ? 'danger' : 'secondary'}`;
-  if (!_toastInstance) {
-    _toastInstance = new bootstrap.Toast(toastEl, { delay: 2000 });
-  }
+  const bgClass = type === 'success' ? 'text-bg-success'
+    : type === 'danger' ? 'text-bg-danger'
+    : 'text-bg-secondary';
+  toastEl.className = `toast align-items-center border-0 ${bgClass}`;
+  // Recreate instance with new delay each time
+  _toastInstance = new bootstrap.Toast(toastEl, { delay });
   _toastInstance.show();
 }
 

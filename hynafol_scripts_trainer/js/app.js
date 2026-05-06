@@ -73,9 +73,10 @@ function buildScriptSelector() {
 
   // Filter to scripts allowed for this user; null = all scripts
   const allowed = App.currentUser?.allowedScripts ?? null;
-  const visible = allowed
+  const visible = (allowed
     ? App.scripts.filter(s => allowed.includes(s.id))
-    : App.scripts;
+    : App.scripts
+  ).slice().sort((a, b) => a.name.localeCompare(b.name));
 
   sel.innerHTML = `<option value="">— Select —</option>` +
     visible.map(s => `<option value="${s.id}">${s.name}</option>`).join('');

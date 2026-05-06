@@ -2,9 +2,9 @@
 
 // ─── SHARED HELPERS ───────────────────────────────────────────────────────────
 
-function difficultyBtns(prefix) {
+function difficultyBtns(prefix, defaultLevel = 5) {
   return [1,2,3,4,5].map(i =>
-    `<button class="btn btn-sm btn-outline-secondary diff-btn ${i===1?'active':''}"
+    `<button class="btn btn-sm btn-outline-secondary diff-btn ${i===defaultLevel?'active':''}"
       data-level="${i}" data-prefix="${prefix}"
       onclick="${prefix}.setDifficulty(${i})">Level ${i}</button>`
   ).join('');
@@ -126,7 +126,7 @@ function initTooltips() {
 
 // ─── READING SCREEN ───────────────────────────────────────────────────────────
 const Reading = {
-  mode: 'single',   // 'single' | 'phrase'
+  mode: 'phrase',   // 'single' | 'phrase'
   pool: [], current: null, answered: false, awaitingCorrection: false,
   stats: { correct: 0, incorrect: 0, skipped: 0 },
 
@@ -178,9 +178,9 @@ const Reading = {
                   <select id="rd-commonality" class="form-select form-select-sm" onchange="Reading.buildPool(); Reading.nextCard();">
                     <option value="2">1–2 (most common)</option>
                     <option value="4">1–4</option>
-                    <option value="6" selected>1–6</option>
+                    <option value="6">1–6</option>
                     <option value="8">1–8</option>
-                    <option value="10">1–10 (all)</option>
+                    <option value="10" selected>1–10 (all)</option>
                   </select>
                 </div>
               </div>
@@ -192,10 +192,11 @@ const Reading = {
             <span id="rd-char" class="display-script"></span>
           </div>
 
-          <input type="text" class="form-control answer-input mb-4" id="rd-input"
+          <input type="text" class="form-control answer-input mb-1" id="rd-input"
             placeholder="Type the Common equivalent"
             autocomplete="off" autocorrect="off" spellcheck="false"
             onkeydown="Reading.onKeyDown(event)">
+          <div id="rd-inline-error" class="small text-danger mb-3" style="min-height:1.4em;"></div>
 
           <div class="d-flex gap-2">
             <button class="btn btn-primary" id="rd-submit-btn" onclick="Reading.submit()">Submit</button>
@@ -316,8 +317,10 @@ const Reading = {
     }
 
     const inp = el('rd-input');
-    if (inp) { inp.value = ''; inp.className = 'form-control answer-input mb-4'; inp.disabled = false; inp.focus(); }
+    if (inp) { inp.value = ''; inp.className = 'form-control answer-input mb-1'; inp.disabled = false; inp.focus(); }
     if (el('rd-submit-btn')) el('rd-submit-btn').textContent = 'Submit';
+    const errEl = el('rd-inline-error');
+    if (errEl) errEl.textContent = '';
     scrollToTop();
   },
 
@@ -325,17 +328,33 @@ const Reading = {
     if (e.key === 'Enter') this.submit();
   },
 
+  setInlineError(msg) {
+    const el_ = el('rd-inline-error');
+    if (el_) el_.textContent = msg;
+  },
+
   submit() {
-    // Correction mode: verify typed answer matches, then advance — no credit, no extra stat
+    // Correction mode — user must type the correct answer to advance
     if (this.answered && this.awaitingCorrection) {
       const inp = el('rd-input');
       if (!inp) return;
       const expected = this.current.value;
       const typed = this.current.type === 'char' ? inp.value.trim() : normalize(inp.value);
       const norm = this.current.type === 'char' ? expected : normalize(expected);
-      if (!App.isAcceptable(typed, norm)) return;
+      if (!App.isAcceptable(typed, norm)) {
+        // Wrong again — show error, scroll up, do NOT re-increment incorrect
+        inp.value = '';
+        inp.className = 'form-control answer-input mb-1 is-incorrect';
+        this.setInlineError(`✗ Incorrect — the answer is "${expected}"`);
+        scrollToTop();
+        inp.focus();
+        return;
+      }
+      // Typed correctly — advance without credit, show toast
       this.awaitingCorrection = false;
+      this.setInlineError('');
       if (el('rd-submit-btn')) el('rd-submit-btn').textContent = 'Submit';
+      showToast('✓ Moving on', 'secondary');
       setTimeout(() => this.nextCard(), 600);
       return;
     }
@@ -354,23 +373,27 @@ const Reading = {
     }
 
     this.answered = true;
-    inp.classList.add(isCorrect ? 'is-correct' : 'is-incorrect');
 
     if (isCorrect) {
       inp.disabled = true;
+      inp.className = 'form-control answer-input mb-1 is-correct';
       this.awaitingCorrection = false;
-      showToast('✓ Correct', 'success');
+      this.setInlineError('');
+      const delay = this.current.type === 'char' ? 900 : 1200;
+      showToast('✓ Correct', 'success', delay);
       this.stats.correct++;
       if (el('rd-correct')) el('rd-correct').textContent = this.stats.correct;
-      setTimeout(() => this.nextCard(), this.current.type === 'char' ? 900 : 1200);
+      setTimeout(() => this.nextCard(), delay);
     } else {
       this.awaitingCorrection = true;
       inp.value = '';
-      inp.className = 'form-control answer-input mb-4';
+      inp.className = 'form-control answer-input mb-1 is-incorrect';
       inp.disabled = false;
-      inp.focus();
-      showToast(`✗ Incorrect — type "${expected}" then press Next`, 'danger');
+      this.setInlineError(`✗ Incorrect — the answer is "${expected}"`);
+      showToast('✗ Incorrect', 'danger');
       if (el('rd-submit-btn')) el('rd-submit-btn').textContent = 'Next';
+      scrollToTop();
+      inp.focus();
       this.stats.incorrect++;
       if (el('rd-incorrect')) el('rd-incorrect').textContent = this.stats.incorrect;
     }
@@ -385,7 +408,7 @@ const Reading = {
 
 // ─── WRITING SCREEN ───────────────────────────────────────────────────────────
 const Writing = {
-  mode: 'single',   // 'single' | 'phrase'
+  mode: 'phrase',   // 'single' | 'phrase'
   pool: [], current: null, answered: false, typed: '', awaitingCorrection: false,
   stats: { correct: 0, incorrect: 0, skipped: 0 },
 
@@ -437,9 +460,9 @@ const Writing = {
                   <select id="wr-commonality" class="form-select form-select-sm" onchange="Writing.buildPool(); Writing.nextCard();">
                     <option value="2">1–2 (most common)</option>
                     <option value="4">1–4</option>
-                    <option value="6" selected>1–6</option>
+                    <option value="6">1–6</option>
                     <option value="8">1–8</option>
-                    <option value="10">1–10 (all)</option>
+                    <option value="10" selected>1–10 (all)</option>
                   </select>
                 </div>
               </div>
@@ -452,9 +475,10 @@ const Writing = {
           </div>
 
           <label class="form-label small">Your answer</label>
-          <div class="writing-output mb-2" id="wr-output">
+          <div class="writing-output mb-1" id="wr-output">
             <span id="wr-typed" style="font-family:'${font}',serif"></span><span class="writing-cursor"></span>
           </div>
+          <div id="wr-inline-error" class="small text-danger mb-2" style="min-height:1.4em;"></div>
 
           <div class="d-flex gap-2 mb-2">
             <button class="btn btn-sm btn-outline-secondary" onclick="Writing.backspace()">⌫ Backspace</button>
@@ -581,6 +605,8 @@ const Writing = {
 
     this.updateOutput();
     if (el('wr-submit-btn')) el('wr-submit-btn').textContent = 'Submit';
+    const errEl = el('wr-inline-error');
+    if (errEl) errEl.textContent = '';
     scrollToTop();
   },
 
@@ -597,16 +623,39 @@ const Writing = {
     if (t) { t.textContent = this.typed; applyFont(t, App.currentFont); }
   },
 
+  setInlineError(html) {
+    const el_ = el('wr-inline-error');
+    if (el_) el_.innerHTML = html;
+  },
+
+  buildErrorHtml(expected) {
+    const font = App.currentFont;
+    const scriptSpan = font
+      ? `<span style="font-family:'${font}',serif">${escapeHtml(expected)}</span>`
+      : escapeHtml(expected);
+    return `✗ Incorrect — the answer is: ${scriptSpan}`;
+  },
+
   submit() {
-    // Correction mode: verify typed answer matches, then advance — no credit, no extra stat
+    // Correction mode — must type correctly to advance, no credit, no extra stat
     if (this.answered && this.awaitingCorrection) {
       const expected = this.correctionExpected;
       const isMatch = this.current.type === 'char'
         ? App.isAcceptable(this.typed, expected)
         : App.isAcceptable(normalize(this.typed), normalize(expected));
-      if (!isMatch) return;
+      if (!isMatch) {
+        // Wrong again — clear, show error, scroll, do NOT re-increment
+        this.typed = '';
+        this.updateOutput();
+        this.setInlineError(this.buildErrorHtml(expected));
+        scrollToTop();
+        return;
+      }
+      // Typed correctly — advance without credit
       this.awaitingCorrection = false;
+      this.setInlineError('');
       if (el('wr-submit-btn')) el('wr-submit-btn').textContent = 'Submit';
+      showToast('✓ Moving on', 'secondary');
       setTimeout(() => this.nextCard(), 600);
       return;
     }
@@ -628,20 +677,21 @@ const Writing = {
 
     if (isCorrect) {
       this.awaitingCorrection = false;
-      showToast('✓ Correct', 'success');
+      this.setInlineError('');
+      const delay = this.current.type === 'char' ? 900 : 1200;
+      showToast('✓ Correct', 'success', delay);
       this.stats.correct++;
       if (el('wr-correct')) el('wr-correct').textContent = this.stats.correct;
-      setTimeout(() => this.nextCard(), this.current.type === 'char' ? 900 : 1200);
+      setTimeout(() => this.nextCard(), delay);
     } else {
       this.awaitingCorrection = true;
       this.correctionExpected = expected;
       this.typed = '';
       this.updateOutput();
-      const msg = this.current.type === 'char'
-        ? `✗ Incorrect — type "${expected}" then press Next`
-        : `✗ Incorrect — type the correct answer then press Next`;
-      showToast(msg, 'danger');
+      this.setInlineError(this.buildErrorHtml(expected));
+      showToast('✗ Incorrect', 'danger');
       if (el('wr-submit-btn')) el('wr-submit-btn').textContent = 'Next';
+      scrollToTop();
       this.stats.incorrect++;
       if (el('wr-incorrect')) el('wr-incorrect').textContent = this.stats.incorrect;
     }
