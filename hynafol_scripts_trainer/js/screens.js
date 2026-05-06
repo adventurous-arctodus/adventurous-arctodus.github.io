@@ -290,6 +290,7 @@ const Reading = {
 
     this.answered = false;
     this.awaitingCorrection = false;
+    const card = el('rd-card');
 
     if (this.mode === 'single') {
       this.current = { type: 'char', value: randomFrom(this.pool, this.current?.value) };
