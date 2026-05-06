@@ -5,42 +5,42 @@
       "name": "Mage",
       "fontFile": "KARGI.OTF",
       "description": "The cuneiform script of mages",
-      "public": false
+      "fontChars": "abcdefghijklmnopqrstuvwxyzGKQRTX12345"
     },
     {
       "id": "elvish",
       "name": "Elvish",
       "fontFile": "OLDE ESPRUAR.OTF",
       "description": "The script of elves",
-      "public": true
+      "fontChars": "abcdefghijklmnopqrstuvwxyzA0123456789.:;"
     },
     {
       "id": "fae",
       "name": "Fae",
       "fontFile": "RELLANIC-AGX7.TTF",
       "description": "The script of fae",
-      "public": true
+      "fontChars": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?'-:;"
     },
     {
       "id": "rune",
       "name": "Dwarvish",
       "fontFile": "RUNE.TTF",
       "description": "The script of dwarves",
-      "public": true
+      "fontChars": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?'-:;"
     },
     {
       "id": "sellars_keep",
       "name": "Sellar's Keep Cypher",
       "fontFile": "SKCYPHER-REGULAR.TTF",
       "description": "A cypher used by Sellar's Keep members",
-      "public": false
+      "fontChars": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?'-:;"
     },
     {
       "id": "caernos",
       "name": "Caernos Leaf",
       "fontFile": "TENDRILIS-V2.1-REGULAR.TTF",
       "description": "A cypher used by Caernos followers",
-      "public": false
+      "fontChars": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?'-:;"
     }
   ],
   "passwordHash": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
