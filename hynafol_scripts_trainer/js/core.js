@@ -3,11 +3,13 @@
 const App = {
   authenticated: false,
   scripts: [],
+  users: [],
   wordlist: [],
+  currentUser: null,
   currentScript: null,
   currentFont: null,
-  currentFontChars: new Set(),   // characters the font supports
-  currentSymbolMap: new Map(),   // char → canonical char (first in its group)
+  currentFontChars: new Set(),
+  currentSymbolMap: new Map(),
   currentScreen: 'reading',
   fontCache: {},
   configHash: '',
@@ -19,15 +21,17 @@ const App = {
 
   async loadConfig() {
     try {
-      const [sr, wr] = await Promise.all([
+      const [sr, wr, ur] = await Promise.all([
         fetch('data/scripts.json'),
-        fetch('data/wordlist.json')
+        fetch('data/wordlist.json'),
+        fetch('data/users.json')
       ]);
       const sd = await sr.json();
       const wd = await wr.json();
-      this.configHash = sd.passwordHash;
+      const ud = await ur.json();
       this.scripts = sd.scripts;
       this.wordlist = wd.words;
+      this.users = ud.users;
       return true;
     } catch (e) {
       console.error('Config load failed:', e);

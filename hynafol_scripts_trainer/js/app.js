@@ -10,40 +10,53 @@ async function boot() {
   const ok = await App.loadConfig();
   if (!ok) {
     document.body.innerHTML = `<div class="container py-5 text-center">
-      <p class="text-danger">Failed to load configuration. Ensure data/scripts.json and data/wordlist.json exist.</p>
+      <p class="text-danger">Failed to load configuration. Ensure data/scripts.json, data/wordlist.json, and data/users.json exist.</p>
     </div>`;
     return;
   }
-  const saved = sessionStorage.getItem('hst-auth');
-  if (saved === App.configHash) {
-    App.authenticated = true;
-    showMainApp();
-  } else {
-    showLogin();
+
+  // Restore session if previously logged in
+  const savedUser = sessionStorage.getItem('hst-user');
+  const savedHash = sessionStorage.getItem('hst-auth');
+  if (savedUser && savedHash) {
+    const user = App.users.find(u => u.username.toLowerCase() === savedUser.toLowerCase());
+    if (user && savedHash === user.passwordHash) {
+      App.currentUser = user;
+      showMainApp();
+      return;
+    }
   }
+  showLogin();
 }
 
 // ─── LOGIN ────────────────────────────────────────────────────────────────────
 function showLogin() {
   el('login-screen').classList.remove('d-none');
   el('main-app').classList.add('d-none');
-  setTimeout(() => el('login-pw')?.focus(), 100);
+  setTimeout(() => el('login-user')?.focus(), 100);
 }
 
 function showMainApp() {
   el('login-screen').classList.add('d-none');
   el('main-app').classList.remove('d-none');
+  const nav = el('nav-username');
+  if (nav) nav.textContent = App.currentUser?.username || '';
   buildScriptSelector();
   buildNav();
   navigateTo('reading');
 }
 
 async function attemptLogin() {
+  const username = (el('login-user')?.value || '').trim();
   const pw = el('login-pw')?.value || '';
-  if (!pw) return;
+  if (!username || !pw) return;
+
   const hash = await App.checkPassword(pw);
-  if (hash === App.configHash) {
-    App.authenticated = true;
+  const user = App.users.find(u => u.username.toLowerCase() === username.toLowerCase());
+
+  if (user && hash === user.passwordHash) {
+    App.currentUser = user;
+    sessionStorage.setItem('hst-user', user.username);
     sessionStorage.setItem('hst-auth', hash);
     showMainApp();
   } else {
@@ -57,8 +70,15 @@ async function attemptLogin() {
 function buildScriptSelector() {
   const sel = el('script-select');
   if (!sel) return;
+
+  // Filter to scripts allowed for this user; null = all scripts
+  const allowed = App.currentUser?.allowedScripts ?? null;
+  const visible = allowed
+    ? App.scripts.filter(s => allowed.includes(s.id))
+    : App.scripts;
+
   sel.innerHTML = `<option value="">— Select —</option>` +
-    App.scripts.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+    visible.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
   sel.onchange = () => selectScript(sel.value);
 }
 
@@ -78,21 +98,16 @@ async function selectScript(id) {
   App.currentScript = script;
   setFontStatus('Loading…', 'text-secondary');
 
-  // Load fontChars set
   App.currentFontChars = script.fontChars ? new Set([...script.fontChars]) : new Set();
-
-  // Build symbol equivalence map
   App.currentSymbolMap = App.buildSymbolMap(script);
 
   const fontName = await App.loadFont(script);
   App.currentFont = fontName;
 
-  if (fontName) {
-    setFontStatus('Script Loaded', 'text-success');
-  } else {
-    setFontStatus('Font file not found', 'text-warning');
-  }
-
+  setFontStatus(
+    fontName ? 'Script Loaded' : 'Font file not found',
+    fontName ? 'text-success' : 'text-warning'
+  );
   refreshCurrentScreen();
 }
 
@@ -143,5 +158,6 @@ function refreshCurrentScreen() {
 document.addEventListener('DOMContentLoaded', () => {
   boot();
   el('login-btn')?.addEventListener('click', attemptLogin);
+  el('login-user')?.addEventListener('keydown', e => { if (e.key === 'Enter') el('login-pw')?.focus(); });
   el('login-pw')?.addEventListener('keydown', e => { if (e.key === 'Enter') attemptLogin(); });
 });
