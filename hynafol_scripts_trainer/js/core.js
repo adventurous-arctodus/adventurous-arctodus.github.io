@@ -40,8 +40,11 @@ const App = {
   },
 
   getWords(maxCommonality = 10, types = ['word']) {
+    const showKeep = this.currentUser?.showKeepContent ?? true;
     return this.wordlist.filter(w =>
-      w.commonality <= maxCommonality && types.includes(w.type)
+      w.commonality <= maxCommonality &&
+      types.includes(w.type) &&
+      (showKeep || !w.keepContent)
     );
   },
 
