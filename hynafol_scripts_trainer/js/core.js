@@ -213,12 +213,14 @@ function showToast(message, type = 'success', delay = 2000) {
 }
 
 function scrollToCard(cardId) {
-  const card = el(cardId);
-  if (!card) return;
-  // Get position relative to the document, offset by navbar height + small gap
-  const navbar = document.querySelector('nav.navbar');
-  const navbarHeight = navbar ? navbar.getBoundingClientRect().height : 56;
-  const cardTop = card.getBoundingClientRect().top + window.scrollY - navbarHeight - 12;
-  window.scrollTo({ top: cardTop, behavior: 'smooth' });
+  // Defer until after the browser has finished laying out the updated DOM
+  requestAnimationFrame(() => {
+    const card = el(cardId);
+    if (!card) return;
+    const navbar = document.querySelector('nav.navbar');
+    const navbarHeight = navbar ? navbar.getBoundingClientRect().height : 56;
+    const cardTop = card.getBoundingClientRect().top + window.scrollY - navbarHeight;
+    window.scrollTo({ top: cardTop, behavior: 'smooth' });
+  });
 }
 
