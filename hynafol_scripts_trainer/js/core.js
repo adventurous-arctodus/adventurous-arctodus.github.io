@@ -212,7 +212,9 @@ function showToast(message, type = 'success', delay = 2000) {
   _toastInstance.show();
 }
 
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+function scrollToCard(cardId) {
+  const card = el(cardId);
+  if (!card) return;
+  card.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
