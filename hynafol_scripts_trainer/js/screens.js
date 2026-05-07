@@ -321,7 +321,7 @@ const Reading = {
     if (el('rd-submit-btn')) el('rd-submit-btn').textContent = 'Submit';
     const errEl = el('rd-inline-error');
     if (errEl) errEl.textContent = '';
-    scrollToTop();
+    scrollToCard('rd-card');
   },
 
   onKeyDown(e) {
@@ -346,7 +346,7 @@ const Reading = {
         inp.value = '';
         inp.className = 'form-control answer-input mb-1 is-incorrect';
         this.setInlineError(`✗ Incorrect — the answer is "${expected}"`);
-        scrollToTop();
+        scrollToCard('rd-card');
         inp.focus();
         return;
       }
@@ -392,7 +392,7 @@ const Reading = {
       this.setInlineError(`✗ Incorrect — the answer is "${expected}"`);
       showToast('✗ Incorrect', 'danger');
       if (el('rd-submit-btn')) el('rd-submit-btn').textContent = 'Next';
-      scrollToTop();
+      scrollToCard('rd-card');
       inp.focus();
       this.stats.incorrect++;
       if (el('rd-incorrect')) el('rd-incorrect').textContent = this.stats.incorrect;
@@ -606,8 +606,8 @@ const Writing = {
     this.updateOutput();
     if (el('wr-submit-btn')) el('wr-submit-btn').textContent = 'Submit';
     const errEl = el('wr-inline-error');
-    if (errEl) errEl.textContent = '';
-    scrollToTop();
+    if (errEl) errEl.innerHTML = '';
+    scrollToCard('wr-card');
   },
 
   typeChar(ch) {
@@ -648,7 +648,7 @@ const Writing = {
         this.typed = '';
         this.updateOutput();
         this.setInlineError(this.buildErrorHtml(expected));
-        scrollToTop();
+        scrollToCard('wr-card');
         return;
       }
       // Typed correctly — advance without credit
@@ -691,7 +691,7 @@ const Writing = {
       this.setInlineError(this.buildErrorHtml(expected));
       showToast('✗ Incorrect', 'danger');
       if (el('wr-submit-btn')) el('wr-submit-btn').textContent = 'Next';
-      scrollToTop();
+      scrollToCard('wr-card');
       this.stats.incorrect++;
       if (el('wr-incorrect')) el('wr-incorrect').textContent = this.stats.incorrect;
     }
