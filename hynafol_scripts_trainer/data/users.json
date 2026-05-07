@@ -20,7 +20,7 @@
     {
       "username": "Ophelia P",
       "passwordHash": "eb4f80cf0c8a3cbd693a674c82185415cfaf6c99ffb81f793c52b3e1a9b8a86b",
-      "allowedScripts": ["mage", "elvish", "fae", "dwarvish", "caernos"]
+      "allowedScripts": ["mage", "elvish", "fae", "dwarvish", "caernos"],
       "showKeepContent": false
     },
     {
@@ -32,7 +32,7 @@
     {
       "username": "New User",
       "passwordHash": "a67bccfce98a15c50a29b0554a09ede9ed45dfab254d46bbcd29a235455adf16",
-      "allowedScripts": ["mage", "elvish", "fae", "dwarvish", "sellars_keep", "caernos"]
+      "allowedScripts": ["mage", "elvish", "fae", "dwarvish", "sellars_keep", "caernos"],
       "showKeepContent": false
     }
   ]
