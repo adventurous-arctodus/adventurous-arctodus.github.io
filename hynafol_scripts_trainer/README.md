@@ -42,6 +42,7 @@ The default password for all example users is **`admin`** — change this before
 | `username` | Yes | Login username. Case-insensitive. |
 | `passwordHash` | Yes | SHA-256 hash of the password. |
 | `allowedScripts` | No | Array of script IDs the user can access. `null` or omitted = all scripts. |
+| `showKeepContent` | No | `true` to include words and phrases tagged as Sellar's Keep lore. `false` to exclude them. Defaults to `true` if omitted. |
 
 ### Example
 
@@ -51,12 +52,14 @@ The default password for all example users is **`admin`** — change this before
     {
       "username": "admin",
       "passwordHash": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
-      "allowedScripts": null
+      "allowedScripts": null,
+      "showKeepContent": true
     },
     {
       "username": "student",
       "passwordHash": "HASH_OF_THEIR_PASSWORD",
-      "allowedScripts": ["tengwar"]
+      "allowedScripts": ["tengwar"],
+      "showKeepContent": false
     }
   ]
 }
@@ -145,6 +148,7 @@ The wordlist is a JSON file with a single `words` array. Each entry is an object
 | `type` | Yes | string | `"word"`, `"phrase"`, or `"paragraph"`. Determines which Max Length settings include this entry. |
 | `level` | No | number 1–5 | Marks that this entry uses mostly letters from that difficulty level. When enough level-tagged entries exist, the app draws preferentially from them at that difficulty. |
 | `category` | No | string | Free-form tag for your own reference. Not used by the app. |
+| `keepContent` | No | boolean | `true` marks this entry as Sellar's Keep lore (proper nouns, tenets, values). Users with `showKeepContent: false` will never see these entries. |
 
 ### Commonality scale
 
@@ -256,22 +260,3 @@ Shows a character or phrase **in Common**. Type the Script equivalent using the 
 Word Rarity is a **filter** — it controls the maximum rarity of words that can appear in the pool. Every word in the filtered pool has an equal chance of being selected. More common words do not appear more frequently than rare ones within the same pool.
 
 ---
-
-## File Structure
-
-```
-hynafol_scripts_trainer/
-├── index.html
-├── css/
-│   └── style.css          — Bootstrap dark + custom overrides
-├── js/
-│   ├── core.js            — App state, font loading, character sets, utilities
-│   ├── screens.js         — Reading and Writing screen logic and rendering
-│   └── app.js             — Login, routing, nav, script selection
-├── data/
-│   ├── users.json         — User accounts, password hashes, script permissions
-│   ├── scripts.json       — Script/font configuration
-│   └── wordlist.json      — Words and phrases for practice
-└── fonts/
-    └── (your .ttf / .otf cipher font files)
-```
