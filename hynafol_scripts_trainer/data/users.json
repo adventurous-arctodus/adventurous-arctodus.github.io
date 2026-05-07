@@ -6,12 +6,6 @@
   },
   "users": [
     {
-      "username": "Shadow",
-      "passwordHash": "e5c41a4732b02ffb62fad51d64be9b0e18fd940d4dae969171da8d70df42040d",
-      "allowedScripts": ["sellars_keep"],
-      "showKeepContent": true
-    },
-    {
       "username": "Eris Stormbringer",
       "passwordHash": "200b56a775e4344da42ef373b76614e820a327970cacb709f4015870de1c9d61",
       "allowedScripts": ["elvish"],
