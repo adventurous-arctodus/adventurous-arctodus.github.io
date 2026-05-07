@@ -215,6 +215,10 @@ function showToast(message, type = 'success', delay = 2000) {
 function scrollToCard(cardId) {
   const card = el(cardId);
   if (!card) return;
-  card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Get position relative to the document, offset by navbar height + small gap
+  const navbar = document.querySelector('nav.navbar');
+  const navbarHeight = navbar ? navbar.getBoundingClientRect().height : 56;
+  const cardTop = card.getBoundingClientRect().top + window.scrollY - navbarHeight - 12;
+  window.scrollTo({ top: cardTop, behavior: 'smooth' });
 }
 
