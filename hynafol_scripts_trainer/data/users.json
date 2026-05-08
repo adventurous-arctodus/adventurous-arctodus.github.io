@@ -12,6 +12,12 @@
       "showKeepContent": false
     },
     {
+      "username": "Ophelia",
+      "passwordHash": "a2973214dd7410439b78d82a7084e8ae882272ea9ca64dcd29b1722cfa6932d6",
+      "allowedScripts": ["elvish", "fae", "dwarvish", "sellars_keep"],
+      "showKeepContent": true
+    },
+    {
       "username": "Ophelia P",
       "passwordHash": "eb4f80cf0c8a3cbd693a674c82185415cfaf6c99ffb81f793c52b3e1a9b8a86b",
       "allowedScripts": ["mage", "elvish", "fae", "dwarvish", "caernos"],
