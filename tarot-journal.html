@@ -14,19 +14,30 @@
 .stat-bar-wrap.clickable:hover .stat-bar-label{text-decoration:underline}
 .stat-bar-label{font-size:.85rem;min-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .stat-bar-label.fixed{min-width:36px;max-width:36px;text-align:right;padding-right:8px;flex-shrink:0}
+.stat-bar-label.fixed-face{min-width:56px;max-width:56px;text-align:left;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .stat-section-header{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--bs-secondary-color);margin:8px 0 4px}
 .phase-block{border-left:3px solid var(--bs-border-color);padding-left:10px;margin-bottom:12px}
 .phase-title{font-size:.88rem;font-weight:600;margin-bottom:4px}
 .drill-detail{padding:6px 0;border-top:1px solid var(--bs-border-color);margin-top:6px}
 .stat-bar-track{flex:1;height:8px;background:rgba(255,255,255,.12);border-radius:4px;overflow:hidden}
 .stat-bar-fill{height:100%;border-radius:4px;transition:width .4s ease}
-.stat-bar-count{font-size:.8rem;color:var(--bs-secondary-color);min-width:55px;text-align:right;white-space:nowrap}
+.stat-bar-count{font-size:.8rem;color:var(--bs-secondary-color);min-width:75px;text-align:right;white-space:nowrap}
 .reading-item{cursor:pointer;transition:background .1s}
 .reading-item:hover{background:var(--bs-tertiary-bg)!important}
 .moon-inline{padding:.35rem .5rem .35rem 2.5rem;background:var(--bs-tertiary-bg);border-left:3px solid var(--bs-border-color);margin-bottom:2px}
 .drill-box{background:var(--bs-tertiary-bg);border:1px solid var(--bs-border-color);border-radius:4px;padding:.6rem .85rem;margin-top:.4rem;font-size:.85rem}
 .missing-tag{display:inline-block;font-size:.78rem;padding:2px 8px;border-radius:20px;margin:2px;background:var(--bs-tertiary-bg);border:1px solid var(--bs-border-color);color:var(--bs-secondary-color)}
 .card-editor-item{border:1px solid var(--bs-border-color);border-radius:6px;padding:.75rem;margin-bottom:.6rem;background:var(--bs-tertiary-bg)}
+/* Deck editor page needs container padding like other pages */
+#page-deck-editor{padding:0}
+#deck-editor-body .dm-cards-wrap-inner{padding:0}
+/* Breakdown rows - clean and consistent */
+.breakdown-row{display:flex;justify-content:space-between;align-items:center;padding:3px 0;border-bottom:1px solid var(--bs-border-color);font-size:.82rem}
+.breakdown-row:last-child{border-bottom:none}
+.breakdown-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-right:.5rem;color:var(--bs-body-color)}
+.breakdown-counts{flex-shrink:0;color:var(--bs-secondary-color);font-size:.78rem}
+.breakdown-counts .u{color:#75b798}
+.breakdown-counts .r{color:#e6b800}
 /* Growl toast */
 #growl-container{position:fixed;bottom:1.25rem;left:50%;transform:translateX(-50%);z-index:9999;pointer-events:none;display:flex;flex-direction:column;align-items:center;gap:.4rem;width:90%;max-width:420px}
 .growl-toast{background:var(--bs-dark);border:1px solid var(--bs-border-color);border-radius:8px;padding:.6rem 1.1rem;font-size:.9rem;box-shadow:0 4px 16px rgba(0,0,0,.5);opacity:0;transition:opacity .25s;width:100%;text-align:center}
@@ -193,7 +204,10 @@
         <div class="col-sm-auto">
           <select class="form-select form-select-sm" id="s-deck" onchange="renderStats()"><option value="all">All Decks</option></select>
         </div>
-        <div class="col-auto ms-sm-2">
+      </div>
+      <div class="row g-2 align-items-center mt-1">
+        <div class="col-auto"><span class="text-muted small fw-semibold" style="visibility:hidden">Filter:</span></div>
+        <div class="col-auto">
           <div class="d-flex flex-wrap gap-3">
             <div class="form-check form-switch mb-0">
               <input class="form-check-input" type="checkbox" id="moon-toggle" onchange="toggleMoonView()"/>
@@ -218,9 +232,7 @@
   </div>
   <!-- Summary -->
   <div class="row g-3 mb-3" id="stat-summary"></div>
-  <!-- Moon view (top-level when on) -->
-  <div id="stat-moon-view" style="display:none" class="mb-3"></div>
-  <!-- Standard stat panels (hidden when moon on) -->
+  <!-- Stat panels -->
   <div id="stat-panels">
     <div class="row g-3 mb-3">
       <div class="col-md-6">
@@ -409,6 +421,7 @@
 
 <!-- DECK EDITOR PAGE (shown instead of config when editing) -->
 <div id="page-deck-editor" class="page">
+  <div class="container-xl py-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h4 class="mb-0"><i class="bi bi-layers me-2"></i><span id="deck-editor-title">Deck Editor</span></h4>
     <div class="d-flex gap-2">
@@ -417,6 +430,7 @@
     </div>
   </div>
   <div id="deck-editor-body"></div>
+  </div>
 </div>
 
 <!-- SPREAD EDITOR MODAL -->
@@ -970,68 +984,80 @@ function hexMuted(hex){
     return`rgb(${br},${bg2},${bb})`;
   }catch(e){return hex;}
 }
-function statBar(label,count,maxCount,color,clickFn,upCount,revCount,revBreakdown,showPct,fixedLabel){
-  const pct=maxCount>0?Math.round(count/maxCount*100):0;
-  const totalForPct=(upCount!=null&&revCount!=null)?upCount+revCount:count;
+function statBar(label,count,maxCount,color,clickFn,upCount,revCount,revBreakdown,showPct,fixedLabel,totalDraws){
+  // barPct: how filled the bar is (relative to max in section, top=100%)
+  const barPct=maxCount>0?Math.round(count/maxCount*100):0;
+  // ofTotal: percentage of all draws (for display)
+  const ofTotal=totalDraws>0?Math.round(count/totalDraws*100):0;
+  const totalForGrad=(upCount!=null&&revCount!=null)?upCount+revCount:count;
   const cl=clickFn?"stat-bar-wrap clickable":"stat-bar-wrap";
   const click=clickFn?`onclick="${clickFn}"`:"";
-  const labelClass=fixedLabel?"stat-bar-label fixed":"stat-bar-label";
+  const labelClass=fixedLabel===true?"stat-bar-label fixed":fixedLabel==="face"?"stat-bar-label fixed-face":"stat-bar-label";
   let fillHtml;
-  if(revBreakdown&&upCount!=null&&revCount!=null&&totalForPct>0){
-    const upPct=Math.round(upCount/totalForPct*100);
+  if(revBreakdown&&upCount!=null&&revCount!=null&&totalForGrad>0){
+    const upPct=Math.round(upCount/totalForGrad*100);
     const muted=hexMuted(color||"#6c757d");
-    fillHtml=`<div class="stat-bar-fill" style="width:${pct}%;background:linear-gradient(to right,${color||"#6c757d"} ${upPct}%,${muted} ${upPct}%)"></div>`;
+    fillHtml=`<div class="stat-bar-fill" style="width:${barPct}%;background:linear-gradient(to right,${color||"#6c757d"} ${upPct}%,${muted} ${upPct}%)"></div>`;
   } else {
-    fillHtml=`<div class="stat-bar-fill" style="width:${pct}%;background:${color||"#6c757d"}"></div>`;
+    fillHtml=`<div class="stat-bar-fill" style="width:${barPct}%;background:${color||"#6c757d"}"></div>`;
   }
-  const countDisplay=showPct?`${pct}%`:String(count);
+  const countDisplay=showPct?`${count} (${ofTotal}%)`:String(count);
   return `<div class="${cl}" ${click}>
     <div class="${labelClass}" title="${esc(label)}">${esc(label)}</div>
     <div class="stat-bar-track">${fillHtml}</div>
     <div class="stat-bar-count">${countDisplay}</div>
   </div>`;
 }
+function fmtCount(n,total,showPct){
+  if(!showPct)return String(n);
+  const pct=total>0?Math.round(n/total*100):0;
+  return`${n} (${pct}%)`;
+}
 function uprevBadges(u,rv,total,showPct){
-  const pctU=total?Math.round(u/total*100):0,pctR=total?Math.round(rv/total*100):0;
-  const uStr=showPct?`${pctU}%`:String(u);
-  const rStr=showPct?`${pctR}%`:String(rv);
-  return`<span class="badge text-bg-success me-1">↑ ${uStr}</span><span class="badge text-bg-warning">↓ ${rStr}</span>`;
+  return`<span class="u">↑ ${fmtCount(u,total,showPct)}</span> <span class="r">↓ ${fmtCount(rv,total,showPct)}</span>`;
 }
 function uprevDetail(u,rv,total,showPct){
-  return`<div class="small text-muted mt-1">${uprevBadges(u,rv,total,showPct)}</div>`;
+  return`<div class="breakdown-row"><span class="breakdown-name text-muted fst-italic small">Upright / Reversed</span><span class="breakdown-counts">${uprevBadges(u,rv,total,showPct)}</span></div>`;
 }
-function cardBreakdownRows(cardList,showPct){
-  return`<div class="mt-1">`+cardList.map(e=>{
+function cardBreakdownRows(cardList,totalDraws,showPct){
+  return cardList.map(e=>{
     const tot=(e.upCount??0)+(e.revCount??0);
-    const uStr=showPct&&tot?`${Math.round((e.upCount??0)/tot*100)}%`:String(e.upCount??0);
-    const rStr=showPct&&tot?`${Math.round((e.revCount??0)/tot*100)}%`:String(e.revCount??0);
-    const note=e.origNum&&parseInt(e.origNum)!==e.rn?` <span class="text-muted">(${e.origNum}→${e.rn})</span>`:"";
-    return`<div class="d-flex justify-content-between align-items-center py-1 border-bottom" style="font-size:.82rem">
-      <span class="text-truncate me-2">${esc(e.card)}${note}</span>
-      <span class="flex-shrink-0">
-        <span class="badge text-bg-success me-1" style="font-size:.65rem">↑ ${uStr}</span><span class="badge text-bg-warning" style="font-size:.65rem">↓ ${rStr}</span>
-      </span></div>`;
-  }).join("")+`</div>`;
+    const note=e.origNum&&parseInt(e.origNum)!==e.rn?` (${e.origNum}→${e.rn})`:"";
+    return`<div class="breakdown-row">
+      <span class="breakdown-name">${esc(e.card)}${note?`<span class="text-muted"> ${note}</span>`:""}</span>
+      <span class="breakdown-counts"><span class="u">↑ ${fmtCount(e.upCount??0,totalDraws,showPct)}</span> <span class="r">↓ ${fmtCount(e.revCount??0,totalDraws,showPct)}</span></span>
+    </div>`;
+  }).join("");
 }
 
-function buildStatPanels(draws,total,revBreakdown,cardBreakdown,showPct,suffix){
+function buildStatPanels(draws,totalDraws,revBreakdown,cardBreakdown,showPct,suffix,moonPhaseMap){
+  // draws: the slice to compute; totalDraws: grand total for %-of-all; moonPhaseMap: optional Map(phaseName->[draw])
   const sfx=suffix||"";
+  const T=totalDraws; // convenience
   function getsuit(d){return d.deck?.cards.find(c=>c.name===d.card)?.suit||"Unknown";}
 
-  // REVERSALS
+  // ── REVERSALS ──
   const u=draws.filter(d=>!d.reversed).length,rv=draws.filter(d=>d.reversed).length;
   const maxRev=Math.max(u,rv,1);
-  let revHtml=statBar("↑ Upright",u,maxRev,"#198754",`toggleDrill('rev-up${sfx}')`,null,null,false,showPct);
+  let revHtml=statBar("↑ Upright",u,maxRev,"#198754",`toggleDrill('rev-up${sfx}')`,null,null,false,showPct,false,T);
   revHtml+=`<div class="drill-box" id="rev-up${sfx}" style="display:none">`;
-  if(APP.uprightMeaning)revHtml+=`<div class="text-muted fst-italic mb-1 small">${esc(APP.uprightMeaning)}</div>`;
+  if(APP.uprightMeaning)revHtml+=`<div class="text-muted fst-italic small mb-1">${esc(APP.uprightMeaning)}</div>`;
+  if(moonPhaseMap){
+    MOON_PHASES.forEach(ph=>{const pd=moonPhaseMap.get(ph.name)||[];if(!pd.length)return;const pu=pd.filter(d=>!d.reversed).length;
+      revHtml+=`<div class="breakdown-row"><span class="breakdown-name">${ph.emoji} ${ph.name}</span><span class="breakdown-counts"><span class="u">↑ ${fmtCount(pu,T,showPct)}</span></span></div>`;});
+  }
   revHtml+=`</div>`;
-  revHtml+=statBar("↓ Reversed",rv,maxRev,"#e06030",`toggleDrill('rev-rev${sfx}')`,null,null,false,showPct);
+  revHtml+=statBar("↓ Reversed",rv,maxRev,"#e06030",`toggleDrill('rev-rev${sfx}')`,null,null,false,showPct,false,T);
   revHtml+=`<div class="drill-box" id="rev-rev${sfx}" style="display:none">`;
-  if(APP.reversedMeaning)revHtml+=`<div class="text-muted fst-italic mb-1 small">${esc(APP.reversedMeaning)}</div>`;
+  if(APP.reversedMeaning)revHtml+=`<div class="text-muted fst-italic small mb-1">${esc(APP.reversedMeaning)}</div>`;
+  if(moonPhaseMap){
+    MOON_PHASES.forEach(ph=>{const pd=moonPhaseMap.get(ph.name)||[];if(!pd.length)return;const pr=pd.filter(d=>d.reversed).length;
+      revHtml+=`<div class="breakdown-row"><span class="breakdown-name">${ph.emoji} ${ph.name}</span><span class="breakdown-counts"><span class="r">↓ ${fmtCount(pr,T,showPct)}</span></span></div>`;});
+  }
   revHtml+=`</div>`;
   revHtml+=`<div class="mt-2 small text-muted">${draws.length} cards · ${u} ↑ · ${rv} ↓${draws.length?` · ${Math.round(rv/draws.length*100)}% reversed`:""}</div>`;
 
-  // SUITS
+  // ── SUITS ──
   const suitMap=new Map();const suitUpMap=new Map();const suitRevMap=new Map();
   draws.forEach(d=>{const s=getsuit(d);suitMap.set(s,(suitMap.get(s)||0)+1);if(d.reversed)suitRevMap.set(s,(suitRevMap.get(s)||0)+1);else suitUpMap.set(s,(suitUpMap.get(s)||0)+1);});
   const suitArr=[...suitMap.entries()].sort((a,b)=>b[1]-a[1]);
@@ -1040,21 +1066,32 @@ function buildStatPanels(draws,total,revBreakdown,cardBreakdown,showPct,suffix){
     const sid=`suit-${s.replace(/\s/g,"_")}${sfx}`;
     const color=SUIT_COLORS[s]||"#6c757d";
     const su=suitUpMap.get(s)||0,sr=suitRevMap.get(s)||0;
-    let h=statBar(s,c,maxSuit,color,`toggleDrill('${sid}')`,su,sr,revBreakdown,showPct);
+    let h=statBar(s,c,maxSuit,color,`toggleDrill('${sid}')`,su,sr,revBreakdown,showPct,false,T);
     const suitEntry=APP.suits.find(e=>e.name===s);
     h+=`<div class="drill-box" id="${sid}" style="display:none">`;
-    if(suitEntry?.meaning)h+=`<div class="text-muted fst-italic mb-1 small">${esc(suitEntry.meaning)}</div>`;
+    if(suitEntry?.meaning)h+=`<div class="text-muted fst-italic small mb-2">${esc(suitEntry.meaning)}</div>`;
     h+=uprevDetail(su,sr,c,showPct);
-    if(cardBreakdown){
+    if(moonPhaseMap){
+      MOON_PHASES.forEach(ph=>{
+        const pd=(moonPhaseMap.get(ph.name)||[]).filter(d=>getsuit(d)===s);if(!pd.length)return;
+        const pu=pd.filter(d=>!d.reversed).length,pr=pd.filter(d=>d.reversed).length;
+        h+=`<div class="breakdown-row"><span class="breakdown-name">${ph.emoji} ${ph.name}</span><span class="breakdown-counts"><span class="u">↑ ${fmtCount(pu,T,showPct)}</span> <span class="r">↓ ${fmtCount(pr,T,showPct)}</span></span></div>`;
+        if(cardBreakdown){
+          const cm=new Map();pd.forEach(d=>{if(!cm.has(d.card))cm.set(d.card,{card:d.card,upCount:0,revCount:0});const e=cm.get(d.card);d.reversed?e.revCount++:e.upCount++;});
+          const ca=[...cm.values()].sort((a,b)=>(b.upCount+b.revCount)-(a.upCount+a.revCount));
+          ca.forEach(e=>{h+=`<div class="breakdown-row" style="padding-left:1.25rem"><span class="breakdown-name text-muted">${esc(e.card)}</span><span class="breakdown-counts"><span class="u">↑ ${fmtCount(e.upCount,T,showPct)}</span> <span class="r">↓ ${fmtCount(e.revCount,T,showPct)}</span></span></div>`;});
+        }
+      });
+    } else if(cardBreakdown){
       const sc=draws.filter(d=>getsuit(d)===s);
       const scm=new Map();sc.forEach(d=>{if(!scm.has(d.card))scm.set(d.card,{card:d.card,upCount:0,revCount:0});const e=scm.get(d.card);d.reversed?e.revCount++:e.upCount++;});
       const sca=[...scm.values()].sort((a,b)=>(b.upCount+b.revCount)-(a.upCount+a.revCount));
-      if(sca.length)h+=cardBreakdownRows(sca,showPct);
+      if(sca.length)h+=cardBreakdownRows(sca,T,showPct);
     }
     h+=`</div>`;return h;
   }).join("");
 
-  // NUMBERS & FACES
+  // ── NUMBERS & FACES ──
   const numMap=new Map();const numCardsMap=new Map();const numUpMap=new Map();const numRevMap=new Map();
   const faceMap=new Map();const faceCardsMap=new Map();const faceUpMap=new Map();const faceRevMap=new Map();
   draws.forEach(d=>{
@@ -1079,6 +1116,7 @@ function buildStatPanels(draws,total,revBreakdown,cardBreakdown,showPct,suffix){
   const numArr=[...numMap.entries()].sort((a,b)=>a[0]-b[0]);
   const faceOrder=["Page","Knight","Queen","King"];
   const faceArr=faceOrder.filter(f=>faceMap.has(f)).map(f=>[f,faceMap.get(f)]);
+  // Shared maxNum so Numbers and Face Cards bars start at same position
   const maxNum=Math.max(...[...numMap.values(),...faceMap.values()],1);
   let numHtml="";
   if(numArr.length){
@@ -1087,11 +1125,23 @@ function buildStatPanels(draws,total,revBreakdown,cardBreakdown,showPct,suffix){
       const nid=`num-${n}${sfx}`;
       const numEntry=APP.numerology.find(e=>e.num===n);
       const nu=numUpMap.get(n)||0,nr=numRevMap.get(n)||0;
-      let h=statBar(String(n),c,maxNum,"#6f42c1",`toggleDrill('${nid}')`,nu,nr,revBreakdown,showPct,true);
+      // fixedLabel=true: all use same 36px label width
+      let h=statBar(String(n),c,maxNum,"#6f42c1",`toggleDrill('${nid}')`,nu,nr,revBreakdown,showPct,true,T);
       h+=`<div class="drill-box" id="${nid}" style="display:none">`;
-      if(numEntry)h+=`<div class="fw-semibold small mb-1">${numEntry.name}${numEntry.meaning?` <span class="fw-normal text-muted fst-italic">— ${esc(numEntry.meaning)}</span>`:""}</div>`;
+      if(numEntry)h+=`<div class="breakdown-row"><span class="breakdown-name fw-semibold">${esc(numEntry.name)}</span><span class="breakdown-counts text-muted small fst-italic">${esc(numEntry.meaning||"")}</span></div>`;
       h+=uprevDetail(nu,nr,c,showPct);
-      if(cardBreakdown){const cl=(numCardsMap.get(n)||[]).sort((a,b)=>(b.upCount+b.revCount)-(a.upCount+a.revCount));if(cl.length)h+=cardBreakdownRows(cl,showPct);}
+      if(moonPhaseMap){
+        MOON_PHASES.forEach(ph=>{
+          const pd=(moonPhaseMap.get(ph.name)||[]).filter(d=>{const cd=d.deck?.cards.find(c=>c.name===d.card);if(!cd)return false;const fn=FACE_CARDS.find(f=>d.card.startsWith(f+" of")||d.card===f);if(fn)return false;const raw=parseInt(cd.number);if(isNaN(raw))return false;const rn=raw<=10?raw:reduceNum(raw);return rn===n;});
+          if(!pd.length)return;const pu=pd.filter(d=>!d.reversed).length,pr=pd.filter(d=>d.reversed).length;
+          h+=`<div class="breakdown-row"><span class="breakdown-name">${ph.emoji} ${ph.name}</span><span class="breakdown-counts"><span class="u">↑ ${fmtCount(pu,T,showPct)}</span> <span class="r">↓ ${fmtCount(pr,T,showPct)}</span></span></div>`;
+          if(cardBreakdown){const cm=new Map();pd.forEach(d=>{if(!cm.has(d.card))cm.set(d.card,{card:d.card,upCount:0,revCount:0});const e=cm.get(d.card);d.reversed?e.revCount++:e.upCount++;});
+            [...cm.values()].sort((a,b)=>(b.upCount+b.revCount)-(a.upCount+a.revCount)).forEach(e=>{h+=`<div class="breakdown-row" style="padding-left:1.25rem"><span class="breakdown-name text-muted">${esc(e.card)}</span><span class="breakdown-counts"><span class="u">↑ ${fmtCount(e.upCount,T,showPct)}</span> <span class="r">↓ ${fmtCount(e.revCount,T,showPct)}</span></span></div>`;});}
+        });
+      } else if(cardBreakdown){
+        const cl=(numCardsMap.get(n)||[]).sort((a,b)=>(b.upCount+b.revCount)-(a.upCount+a.revCount));
+        if(cl.length)h+=cardBreakdownRows(cl,T,showPct);
+      }
       h+=`</div>`;return h;
     }).join("");
   }
@@ -1101,16 +1151,28 @@ function buildStatPanels(draws,total,revBreakdown,cardBreakdown,showPct,suffix){
       const fid=`face-${f}${sfx}`;
       const faceEntry=APP.faceCards.find(e=>e.name===f);
       const fu=faceUpMap.get(f)||0,fr=faceRevMap.get(f)||0;
-      let h=statBar(f,c,maxNum,"#0dcaf0",`toggleDrill('${fid}')`,fu,fr,revBreakdown,showPct);
+      // fixedLabel='face': face card names use fixed 56px label to align bars with Numbers above
+      let h=statBar(f,c,maxNum,"#0dcaf0",`toggleDrill('${fid}')`,fu,fr,revBreakdown,showPct,"face",T);
       h+=`<div class="drill-box" id="${fid}" style="display:none">`;
-      if(faceEntry?.meaning)h+=`<div class="text-muted fst-italic mb-1 small">${esc(faceEntry.meaning)}</div>`;
+      if(faceEntry?.meaning)h+=`<div class="text-muted fst-italic small mb-1">${esc(faceEntry.meaning)}</div>`;
       h+=uprevDetail(fu,fr,c,showPct);
-      if(cardBreakdown){const cl=(faceCardsMap.get(f)||[]).sort((a,b)=>(b.upCount+b.revCount)-(a.upCount+a.revCount));if(cl.length)h+=cardBreakdownRows(cl,showPct);}
+      if(moonPhaseMap){
+        MOON_PHASES.forEach(ph=>{
+          const pd=(moonPhaseMap.get(ph.name)||[]).filter(d=>FACE_CARDS.find(fc=>d.card.startsWith(fc+" of")||d.card===fc)===f);
+          if(!pd.length)return;const pu=pd.filter(d=>!d.reversed).length,pr=pd.filter(d=>d.reversed).length;
+          h+=`<div class="breakdown-row"><span class="breakdown-name">${ph.emoji} ${ph.name}</span><span class="breakdown-counts"><span class="u">↑ ${fmtCount(pu,T,showPct)}</span> <span class="r">↓ ${fmtCount(pr,T,showPct)}</span></span></div>`;
+          if(cardBreakdown){const cm=new Map();pd.forEach(d=>{if(!cm.has(d.card))cm.set(d.card,{card:d.card,upCount:0,revCount:0});const e=cm.get(d.card);d.reversed?e.revCount++:e.upCount++;});
+            [...cm.values()].sort((a,b)=>(b.upCount+b.revCount)-(a.upCount+a.revCount)).forEach(e=>{h+=`<div class="breakdown-row" style="padding-left:1.25rem"><span class="breakdown-name text-muted">${esc(e.card)}</span><span class="breakdown-counts"><span class="u">↑ ${fmtCount(e.upCount,T,showPct)}</span> <span class="r">↓ ${fmtCount(e.revCount,T,showPct)}</span></span></div>`;});}
+        });
+      } else if(cardBreakdown){
+        const cl=(faceCardsMap.get(f)||[]).sort((a,b)=>(b.upCount+b.revCount)-(a.upCount+a.revCount));
+        if(cl.length)h+=cardBreakdownRows(cl,T,showPct);
+      }
       h+=`</div>`;return h;
     }).join("");
   }
 
-  // DRAWN CARDS
+  // ── DRAWN CARDS ──
   const cardMap=new Map();const cardUpMap=new Map();const cardRevMap=new Map();const cardSuitMap=new Map();
   draws.forEach(d=>{
     cardMap.set(d.card,(cardMap.get(d.card)||0)+1);
@@ -1126,14 +1188,21 @@ function buildStatPanels(draws,total,revBreakdown,cardBreakdown,showPct,suffix){
       const suit=cardSuitMap.get(card)||"Unknown";
       const color=SUIT_COLORS[suit]||"#6c757d";
       const cu=cardUpMap.get(card)||0,cr=cardRevMap.get(card)||0;
-      let h=statBar(card,cnt,maxCard,color,`toggleDrill('${cid}')`,cu,cr,revBreakdown,showPct);
+      let h=statBar(card,cnt,maxCard,color,`toggleDrill('${cid}')`,cu,cr,revBreakdown,showPct,false,T);
       h+=`<div class="drill-box" id="${cid}" style="display:none">`;
       h+=uprevDetail(cu,cr,cnt,showPct);
+      if(moonPhaseMap){
+        MOON_PHASES.forEach(ph=>{
+          const pd=(moonPhaseMap.get(ph.name)||[]).filter(d=>d.card===card);if(!pd.length)return;
+          const pu=pd.filter(d=>!d.reversed).length,pr=pd.filter(d=>d.reversed).length;
+          h+=`<div class="breakdown-row"><span class="breakdown-name">${ph.emoji} ${ph.name}</span><span class="breakdown-counts"><span class="u">↑ ${fmtCount(pu,T,showPct)}</span> <span class="r">↓ ${fmtCount(pr,T,showPct)}</span></span></div>`;
+        });
+      }
       APP.decks.filter(dk=>dk.cards.some(c=>c.name===card)).forEach(dk=>{
         const ci=dk.cards.find(c=>c.name===card);if(!ci)return;
-        if(ci.kwUp)h+=`<div class="mb-1 mt-1">${ci.kwUp.split(",").map(k=>`<span class="badge text-bg-success opacity-75 me-1">↑ ${esc(k.trim())}</span>`).join("")}</div>`;
-        if(ci.kwRev)h+=`<div class="mb-1">${ci.kwRev.split(",").map(k=>`<span class="badge text-bg-warning me-1">↓ ${esc(k.trim())}</span>`).join("")}</div>`;
-        if(ci.meaning)h+=`<div class="text-muted fst-italic small mb-1">${esc(ci.meaning)}</div>`;
+        if(ci.kwUp)h+=`<div class="breakdown-row"><span class="breakdown-name text-muted">↑ Keywords</span><span class="breakdown-counts" style="color:var(--bs-secondary-color)">${ci.kwUp.split(",").map(k=>esc(k.trim())).join(", ")}</span></div>`;
+        if(ci.kwRev)h+=`<div class="breakdown-row"><span class="breakdown-name text-muted">↓ Keywords</span><span class="breakdown-counts" style="color:var(--bs-secondary-color)">${ci.kwRev.split(",").map(k=>esc(k.trim())).join(", ")}</span></div>`;
+        if(ci.meaning)h+=`<div class="text-muted fst-italic small mt-1">${esc(ci.meaning)}</div>`;
       });
       h+=`</div>`;return h;
     }).join("");
@@ -1182,54 +1251,29 @@ function renderStats(){
       <div class="h3 mb-0" style="${topCard?`color:${topCardColor}`:""}">${topCard?topCard[1]:"—"}</div>
       <div class="small text-muted text-truncate">${topCard?`<span style="color:${topCardColor}">${esc(topCard[0])}</span>`:"Top Card"}</div></div></div></div>`;
 
+  document.getElementById("stat-panels").style.display="";
+
   if(!total){
     const noData=`<span class="text-muted small">No cards drawn.</span>`;
     ["stat-suits","stat-reversals","stat-numbers","stat-cards"].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=noData;});
     const sm=document.getElementById("stat-missing");if(sm)sm.innerHTML="";
     const mc=document.getElementById("missing-count");if(mc)mc.textContent="";
-    document.getElementById("stat-moon-view").style.display="none";
-    document.getElementById("stat-panels").style.display="";
     return;
   }
 
+  // Build moon phase map if needed
+  let moonPhaseMap=null;
   if(_moonOn){
-    document.getElementById("stat-panels").style.display="none";
-    document.getElementById("stat-moon-view").style.display="";
-    const phaseGroups=new Map();
-    MOON_PHASES.forEach(ph=>phaseGroups.set(ph.name,[]));
-    draws.forEach(d=>phaseGroups.get(getMoonPhase(d.date).name)?.push(d));
-    let moonHtml="";
-    MOON_PHASES.forEach(ph=>{
-      const phDraws=phaseGroups.get(ph.name)||[];
-      if(!phDraws.length)return;
-      const phU=phDraws.filter(d=>!d.reversed).length,phR=phDraws.filter(d=>d.reversed).length;
-      const panels=buildStatPanels(phDraws,total,revBreakdown,cardBreakdown,showPct,`_${ph.name.replace(/\s/g,"_")}`);
-      const pid=`phase-${ph.name.replace(/\s/g,"_")}`;
-      moonHtml+=`<div class="card mb-3">
-        <div class="card-header fw-semibold d-flex justify-content-between align-items-center" style="cursor:pointer" onclick="toggleDrill('${pid}')">
-          <span>${ph.emoji} ${ph.name} <span class="text-muted fw-normal small">(${phDraws.length} card${phDraws.length!==1?"s":""})</span></span>
-          <span>${uprevBadges(phU,phR,phDraws.length,showPct)}</span>
-        </div>
-        <div class="card-body" id="${pid}" style="display:none">
-          <div class="row g-3">
-            <div class="col-md-6"><div class="stat-section-header">Reversals</div>${panels.revHtml}</div>
-            <div class="col-md-6"><div class="stat-section-header">Suits</div>${panels.suitsHtml}</div>
-            <div class="col-md-6"><div class="stat-section-header">Numbers &amp; Faces</div>${panels.numHtml||'<span class="text-muted small">None.</span>'}</div>
-            <div class="col-md-6"><div class="stat-section-header">Drawn Cards</div>${panels.cardsHtml}</div>
-          </div>
-        </div>
-      </div>`;
-    });
-    document.getElementById("stat-moon-view").innerHTML=moonHtml||`<div class="text-muted small">No data.</div>`;
-  } else {
-    document.getElementById("stat-moon-view").style.display="none";
-    document.getElementById("stat-panels").style.display="";
-    const panels=buildStatPanels(draws,total,revBreakdown,cardBreakdown,showPct,"");
-    document.getElementById("stat-reversals").innerHTML=panels.revHtml;
-    document.getElementById("stat-suits").innerHTML=panels.suitsHtml;
-    document.getElementById("stat-numbers").innerHTML=panels.numHtml||`<span class="text-muted small">No numbered cards drawn.</span>`;
-    document.getElementById("stat-cards").innerHTML=panels.cardsHtml;
+    moonPhaseMap=new Map();
+    MOON_PHASES.forEach(ph=>moonPhaseMap.set(ph.name,[]));
+    draws.forEach(d=>moonPhaseMap.get(getMoonPhase(d.date).name)?.push(d));
   }
+
+  const panels=buildStatPanels(draws,total,revBreakdown,cardBreakdown,showPct,"",moonPhaseMap);
+  document.getElementById("stat-reversals").innerHTML=panels.revHtml;
+  document.getElementById("stat-suits").innerHTML=panels.suitsHtml;
+  document.getElementById("stat-numbers").innerHTML=panels.numHtml||`<span class="text-muted small">No numbered cards drawn.</span>`;
+  document.getElementById("stat-cards").innerHTML=panels.cardsHtml;
 
   // Missing
   const drawnSet=new Set(draws.map(d=>d.card));
@@ -1241,6 +1285,7 @@ function renderStats(){
   const ms=document.getElementById("stat-missing");
   if(ms)ms.innerHTML=uniq.length?uniq.map(c=>`<span class="missing-tag">${esc(c)}</span>`).join(""):`<span class="text-success"><i class="bi bi-check-circle me-1"></i>All cards have appeared!</span>`;
 }
+
 function toggleDrill(id){
   const el=document.getElementById(id);if(!el)return;
   el.style.display=el.style.display==="none"?"block":"none";
