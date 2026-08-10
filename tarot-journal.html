@@ -182,7 +182,15 @@
         <select class="form-select form-select-sm" id="s-deck" style="width:190px" onchange="renderStats()"><option value="all">All Decks</option></select>
         <div class="form-check form-switch ms-2 mb-0">
           <input class="form-check-input" type="checkbox" id="moon-toggle" onchange="toggleMoonView()"/>
-          <label class="form-check-label small" for="moon-toggle">🌙 Moon Phase Breakdown</label>
+          <label class="form-check-label small" for="moon-toggle">🌙 Moon</label>
+        </div>
+        <div class="form-check form-switch mb-0">
+          <input class="form-check-input" type="checkbox" id="rev-breakdown-toggle" checked onchange="renderStats()"/>
+          <label class="form-check-label small" for="rev-breakdown-toggle">↑↩ Reversal Color</label>
+        </div>
+        <div class="form-check form-switch mb-0">
+          <input class="form-check-input" type="checkbox" id="card-breakdown-toggle" onchange="renderStats()"/>
+          <label class="form-check-label small" for="card-breakdown-toggle">🃏 Card Breakdown</label>
         </div>
       </div>
     </div>
@@ -259,16 +267,34 @@
     </div>
   </div>
   <div id="cfg-decks" style="display:none">
-    <div class="text-end mb-2"><button class="btn btn-primary" onclick="openDeckEditor(null)"><i class="bi bi-plus me-1"></i>New Deck</button></div>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div class="d-flex gap-2">
+        <button class="btn btn-outline-secondary btn-sm" onclick="exportAllDecks()"><i class="bi bi-download me-1"></i>Export All</button>
+        <label class="btn btn-outline-secondary btn-sm" style="cursor:pointer"><i class="bi bi-upload me-1"></i>Import Deck<input type="file" accept=".json" style="display:none" onchange="importDeck(event)"/></label>
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="openDeckEditor(null)"><i class="bi bi-plus me-1"></i>New Deck</button>
+    </div>
     <div id="cfg-deck-list"></div>
   </div>
   <div id="cfg-spreads" style="display:none">
-    <div class="text-end mb-2"><button class="btn btn-primary" onclick="openSpreadEditor(null)"><i class="bi bi-plus me-1"></i>New Spread</button></div>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div class="d-flex gap-2">
+        <button class="btn btn-outline-secondary btn-sm" onclick="exportAllSpreads()"><i class="bi bi-download me-1"></i>Export All</button>
+        <label class="btn btn-outline-secondary btn-sm" style="cursor:pointer"><i class="bi bi-upload me-1"></i>Import Spread<input type="file" accept=".json" style="display:none" onchange="importSpread(event)"/></label>
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="openSpreadEditor(null)"><i class="bi bi-plus me-1"></i>New Spread</button>
+    </div>
     <div id="cfg-spread-list"></div>
   </div>
   <div id="cfg-readguide" style="display:none">
     <div class="card">
-      <div class="card-header fw-semibold">Reading Guide</div>
+      <div class="card-header fw-semibold d-flex justify-content-between align-items-center">
+        Reading Guide
+        <div class="d-flex gap-2">
+          <button class="btn btn-outline-secondary btn-sm" onclick="exportConfig()"><i class="bi bi-download me-1"></i>Export Config</button>
+          <label class="btn btn-outline-secondary btn-sm" style="cursor:pointer"><i class="bi bi-upload me-1"></i>Import Config<input type="file" accept=".json" style="display:none" onchange="importConfig(event)"/></label>
+        </div>
+      </div>
       <div class="card-body">
         <p class="text-muted small">Supports Markdown formatting. Displayed on the Reference screen.</p>
         <textarea class="form-control" id="cfg-rg-text" rows="14" placeholder="# My Reading Guide&#10;&#10;Enter your reading guide here with **bold**, *italic*, lists, etc."></textarea>
@@ -349,7 +375,8 @@
         <button class="btn btn-outline-danger btn-sm" id="modal-delete-btn" onclick="deleteCurrentReading()"><i class="bi bi-trash me-1"></i>Delete</button>
         <button class="btn btn-secondary btn-sm" id="modal-edit-btn" onclick="toggleReadingEdit()"><i class="bi bi-pencil me-1"></i>Edit</button>
         <button class="btn btn-primary btn-sm" id="modal-save-btn" style="display:none" onclick="saveReadingEdit()"><i class="bi bi-save me-1"></i>Save</button>
-        <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+        <button class="btn btn-secondary btn-sm" id="modal-cancel-close-btn" style="display:none" onclick="cancelReadingEdit()"><i class="bi bi-x me-1"></i>Cancel &amp; Close</button>
+        <button class="btn btn-primary btn-sm" id="modal-close-btn" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -588,7 +615,7 @@ function renderJournal(){
           ${r.querent?`<span class="badge bg-secondary">👤 ${esc(r.querent)}</span>`:""}
           ${deck?`<span class="badge text-bg-secondary">${esc(deck.name)}</span>`:""}
           ${r.spreadName?`<span class="badge bg-secondary">⊞ ${esc(r.spreadName)}</span>`:""}
-          ${cards.map(p=>`<span class="badge ${p.reversed?"text-bg-warning":"text-bg-success"}">${esc(p.card)}${p.reversed?" ↩":""}</span>`).join("")}
+          ${cards.map(p=>`<span class="badge ${p.reversed?"text-bg-warning":"text-bg-success"}">${esc(p.card)} ${p.reversed?"↩":"↑"}</span>`).join("")}
         </div>
       </div>
     </div>`;
@@ -615,8 +642,12 @@ function renderReadingModal(){
   const ds=new Date(r.date+"T12:00:00").toLocaleDateString("en-US",{weekday:"long",year:"numeric",month:"long",day:"numeric"});
   const editBtn=document.getElementById("modal-edit-btn");
   const saveBtn=document.getElementById("modal-save-btn");
-  editBtn.style.display="";saveBtn.style.display=_readingEditMode?"":"none";
-  editBtn.innerHTML=_readingEditMode?'<i class="bi bi-x me-1"></i>Cancel':'<i class="bi bi-pencil me-1"></i>Edit';
+  const closeBtn=document.getElementById("modal-close-btn");
+  const cancelCloseBtn=document.getElementById("modal-cancel-close-btn");
+  editBtn.style.display=_readingEditMode?"none":"";
+  saveBtn.style.display=_readingEditMode?"":"none";
+  closeBtn.style.display=_readingEditMode?"none":"";
+  cancelCloseBtn.style.display=_readingEditMode?"":"none";
 
   if(_readingEditMode){
     // Edit mode
@@ -697,8 +728,12 @@ function renderReadingModal(){
   }
 }
 function toggleReadingEdit(){
-  _readingEditMode=!_readingEditMode;
+  _readingEditMode=true;
   renderReadingModal();
+}
+function cancelReadingEdit(){
+  _readingEditMode=false;
+  readingModal.hide();
 }
 function saveReadingEdit(){
   const r=APP.readings.find(x=>x.id===_currentReadingId);if(!r)return;
@@ -879,13 +914,30 @@ function getFilteredReadings(){
     return true;
   });
 }
-function statBar(label,count,total,color,clickFn){
+function hexMuted(hex){
+  // darken/desaturate a hex color by ~50% opacity blend toward dark bg (#1a1a2e)
+  try{
+    const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+    const br=Math.round(r*.45+26*.55),bg=Math.round(g*.45+26*.55),bb=Math.round(b*.45+26*.55);
+    return`rgb(${br},${bg},${bb})`;
+  }catch(e){return hex;}
+}
+function statBar(label,count,total,color,clickFn,upCount,revCount,revBreakdown){
   const pct=total>0?Math.round(count/total*100):0;
   const cl=clickFn?"stat-bar-wrap clickable":"stat-bar-wrap";
   const click=clickFn?`onclick="${clickFn}"`:"";
+  let fillHtml;
+  if(revBreakdown&&upCount!=null&&revCount!=null&&count>0){
+    const upPct=Math.round(upCount/count*100);
+    const revPct2=100-upPct;
+    const muted=hexMuted(color||"#6c757d");
+    fillHtml=`<div class="stat-bar-fill" style="width:${pct}%;background:linear-gradient(to right,${color||"#6c757d"} ${upPct}%,${muted} ${upPct}%)"></div>`;
+  } else {
+    fillHtml=`<div class="stat-bar-fill" style="width:${pct}%;background:${color||"#6c757d"}"></div>`;
+  }
   return `<div class="${cl}" ${click}>
     <div class="stat-bar-label" title="${esc(label)}">${esc(label)}</div>
-    <div class="stat-bar-track"><div class="stat-bar-fill" style="width:${pct}%;background:${color||"#6c757d"}"></div></div>
+    <div class="stat-bar-track">${fillHtml}</div>
     <div class="stat-bar-count">${count} <span class="text-muted">(${pct}%)</span></div>
   </div>`;
 }
@@ -904,7 +956,14 @@ function moonBreakdown(key,dataByMoon,total){
 }
 function uprevDetail(uptCount,revCount,total){
   const u=uptCount,r=revCount,pctU=total?Math.round(u/total*100):0,pctR=total?Math.round(r/total*100):0;
-  return`<div class="small text-muted mt-1">↑ Upright: ${u} (${pctU}%) &nbsp;|&nbsp; ↩ Reversed: ${r} (${pctR}%)</div>`;
+  return`<div class="small text-muted mt-1"><span class="badge text-bg-success me-1">↑</span>${u} (${pctU}%) &nbsp;<span class="badge text-bg-warning me-1">↩</span>${r} (${pctR}%)</div>`;
+}
+function cardBreakdownRows(cardList){
+  return cardList.map(e=>`
+    <div class="d-flex justify-content-between border-bottom" style="font-size:.82rem;padding:2px 0">
+      <span>${esc(e.card)}${e.origNum&&parseInt(e.origNum)!==e.rn?` <span class="text-muted">(${e.origNum}→${e.rn})</span>`:""}</span>
+      <span><span class="badge text-bg-success me-1" style="font-size:.65rem">${e.upCount??0}<span class="ms-1">↑</span></span><span class="badge text-bg-warning" style="font-size:.65rem">${e.revCount??0}<span class="ms-1">↩</span></span></span>
+    </div>`).join("");
 }
 function renderStats(){
   const readings=getFilteredReadings();
@@ -916,17 +975,39 @@ function renderStats(){
   const total=draws.length;
   const uprightTotal=draws.filter(d=>!d.reversed).length;
   const reversedTotal=draws.filter(d=>d.reversed).length;
+  const revBreakdown=document.getElementById("rev-breakdown-toggle")?.checked!==false;
+  const cardBreakdown=document.getElementById("card-breakdown-toggle")?.checked===true;
 
-  // Summary — just readings and cards drawn
-  document.getElementById("stat-summary").innerHTML=
-    [["Readings",readings.length,"bi-book","primary"],["Cards Drawn",total,"bi-stack","success"]]
-    .map(([l,v,icon,color])=>`<div class="col-6 col-sm-3">
-      <div class="card text-center border-${color}">
-        <div class="card-body py-2">
-          <div class="h3 mb-0 text-${color}">${v}</div>
-          <div class="small text-muted"><i class="bi ${icon} me-1"></i>${l}</div>
-        </div>
-      </div></div>`).join("");
+  // ── SUITS for summary block ──
+  const _suitTmp=new Map();
+  draws.forEach(d=>{const s=d.deck?.cards.find(c=>c.name===d.card)?.suit||"Unknown";_suitTmp.set(s,(_suitTmp.get(s)||0)+1);});
+  const topSuit=total?[..._suitTmp.entries()].sort((a,b)=>b[1]-a[1])[0]:null;
+  // ── Most common card for summary ──
+  const _cardTmp=new Map();const _cardSuitTmp=new Map();
+  draws.forEach(d=>{_cardTmp.set(d.card,(_cardTmp.get(d.card)||0)+1);const s=d.deck?.cards.find(c=>c.name===d.card)?.suit||"Unknown";_cardSuitTmp.set(d.card,s);});
+  const topCard=total?[..._cardTmp.entries()].sort((a,b)=>b[1]-a[1])[0]:null;
+  const topCardSuit=topCard?_cardSuitTmp.get(topCard[0])||"Unknown":null;
+  const topCardColor=topCardSuit?SUIT_COLORS[topCardSuit]||"#6c757d":"#6c757d";
+  const topSuitColor=topSuit?SUIT_COLORS[topSuit[0]]||"#6c757d":"#6c757d";
+
+  // Summary row
+  let summaryHtml=`<div class="col-6 col-sm-3"><div class="card text-center"><div class="card-body py-2">
+    <div class="h3 mb-0">${readings.length}</div><div class="small text-muted"><i class="bi bi-book me-1"></i>Readings</div></div></div></div>
+  <div class="col-6 col-sm-3"><div class="card text-center"><div class="card-body py-2">
+    <div class="h3 mb-0">${total}</div><div class="small text-muted"><i class="bi bi-stack me-1"></i>Cards Drawn</div></div></div></div>`;
+  if(topSuit){
+    summaryHtml+=`<div class="col-6 col-sm-3"><div class="card text-center" style="border-color:${topSuitColor}">
+      <div class="card-body py-2">
+        <div class="h5 mb-0 text-truncate" style="color:${topSuitColor}">${esc(topSuit[0])}</div>
+        <div class="small text-muted">Top Suit <span class="text-secondary">(${topSuit[1]})</span></div>
+      </div></div></div>`;}
+  if(topCard){
+    summaryHtml+=`<div class="col-6 col-sm-3"><div class="card text-center" style="border-color:${topCardColor}">
+      <div class="card-body py-2">
+        <div class="h6 mb-0 text-truncate" style="color:${topCardColor}">${esc(topCard[0])}</div>
+        <div class="small text-muted">Top Card <span class="text-secondary">(${topCard[1]})</span></div>
+      </div></div></div>`;}
+  document.getElementById("stat-summary").innerHTML=summaryHtml;
 
   if(!total){
     ["stat-suits","stat-reversals","stat-numbers","stat-cards"].forEach(id=>
@@ -943,16 +1024,15 @@ function renderStats(){
     if(d.reversed)revMoonMap.set(mn,(revMoonMap.get(mn)||0)+1);
     else upMoonMap.set(mn,(upMoonMap.get(mn)||0)+1);
   });}
-  const upMeaning=APP.uprightMeaning;const revMeaning=APP.reversedMeaning;
   let revHtml=statBar("↑ Upright",uprightTotal,total,"#198754",`toggleDrill('rev-up')`);
   let upDrillContent=`<div class="drill-box" id="rev-up" style="display:none">`;
-  if(upMeaning)upDrillContent+=`<div class="text-muted fst-italic mb-1" style="font-size:.82rem">${esc(upMeaning)}</div>`;
+  if(APP.uprightMeaning)upDrillContent+=`<div class="text-muted fst-italic mb-1" style="font-size:.82rem">${esc(APP.uprightMeaning)}</div>`;
   if(_moonOn)upDrillContent+=moonBreakdown("up",upMoonMap,total);
   upDrillContent+="</div>";
   revHtml+=upDrillContent;
   revHtml+=statBar("↩ Reversed",reversedTotal,total,"#ffc107",`toggleDrill('rev-rev')`);
   let revDrillContent=`<div class="drill-box" id="rev-rev" style="display:none">`;
-  if(revMeaning)revDrillContent+=`<div class="text-muted fst-italic mb-1" style="font-size:.82rem">${esc(revMeaning)}</div>`;
+  if(APP.reversedMeaning)revDrillContent+=`<div class="text-muted fst-italic mb-1" style="font-size:.82rem">${esc(APP.reversedMeaning)}</div>`;
   if(_moonOn)revDrillContent+=moonBreakdown("rev",revMoonMap,total);
   revDrillContent+="</div>";
   revHtml+=revDrillContent;
@@ -967,27 +1047,32 @@ function renderStats(){
     suitMap.set(suit,(suitMap.get(suit)||0)+1);
     if(d.reversed)suitRevMap.set(suit,(suitRevMap.get(suit)||0)+1);
     else suitUpMap.set(suit,(suitUpMap.get(suit)||0)+1);
-    if(_moonOn){
-      if(!suitMoonMap.has(suit))suitMoonMap.set(suit,new Map());
-      const mn=drawMoon(d);suitMoonMap.get(suit).set(mn,(suitMoonMap.get(suit).get(mn)||0)+1);
-    }
+    if(_moonOn){if(!suitMoonMap.has(suit))suitMoonMap.set(suit,new Map());const mn=drawMoon(d);suitMoonMap.get(suit).set(mn,(suitMoonMap.get(suit).get(mn)||0)+1);}
   });
   const suitArr=[...suitMap.entries()].sort((a,b)=>b[1]-a[1]);
   document.getElementById("stat-suits").innerHTML=suitArr.map(([s,c])=>{
     const sid="suit-"+s.replace(/\s/g,"_");
     const color=SUIT_COLORS[s]||"#6c757d";
-    const bar=statBar(s,c,total,color,`toggleDrill('${sid}')`);
-    const suitEntry=APP.suits.find(e=>e.name===s);
     const u=suitUpMap.get(s)||0,rv=suitRevMap.get(s)||0;
+    const bar=statBar(s,c,total,color,`toggleDrill('${sid}')`,u,rv,revBreakdown);
+    const suitEntry=APP.suits.find(e=>e.name===s);
     let drill=`<div class="drill-box" id="${sid}" style="display:none">`;
     if(suitEntry?.meaning)drill+=`<div class="text-muted fst-italic mb-1" style="font-size:.82rem">${esc(suitEntry.meaning)}</div>`;
     drill+=uprevDetail(u,rv,c);
+    if(cardBreakdown){
+      const suitCards=draws.filter(d=>(d.deck?.cards.find(c=>c.name===d.card)?.suit||"Unknown")===s);
+      const scMap=new Map();
+      suitCards.forEach(d=>{if(!scMap.has(d.card))scMap.set(d.card,{card:d.card,count:0,upCount:0,revCount:0});const e=scMap.get(d.card);e.count++;d.reversed?e.revCount++:e.upCount++;});
+      const scArr=[...scMap.values()].sort((a,b)=>b.count-a.count);
+      if(scArr.length)drill+=`<div class="small fw-semibold text-secondary mb-1 mt-1">Cards:</div>${cardBreakdownRows(scArr)}`;
+    }
     if(_moonOn)drill+=moonBreakdown(s,suitMoonMap.get(s)||new Map(),total);
     drill+="</div>";
     return bar+drill;
   }).join("");
 
   // ── NUMBERS & FACES ──
+  // Numbers: keep 1–10 as-is, reduce anything >10 (that isn't a face card)
   const numMap=new Map();const numCardsMap=new Map();const numMoonMap=new Map();
   const numUpMap=new Map();const numRevMap=new Map();
   const faceMap=new Map();const faceMoonMap=new Map();
@@ -1002,59 +1087,58 @@ function renderStats(){
       else faceUpMap.set(faceName,(faceUpMap.get(faceName)||0)+1);
       if(!faceCardsMap.has(faceName))faceCardsMap.set(faceName,[]);
       const e=faceCardsMap.get(faceName).find(x=>x.card===d.card);
-      if(e)e.count++;else faceCardsMap.get(faceName).push({card:d.card,reversed:d.reversed,count:1,upCount:d.reversed?0:1,revCount:d.reversed?1:0});
+      if(e){e.count++;d.reversed?e.revCount++:e.upCount++;}
+      else faceCardsMap.get(faceName).push({card:d.card,count:1,upCount:d.reversed?0:1,revCount:d.reversed?1:0});
       if(_moonOn){if(!faceMoonMap.has(faceName))faceMoonMap.set(faceName,new Map());const mn=drawMoon(d);faceMoonMap.get(faceName).set(mn,(faceMoonMap.get(faceName).get(mn)||0)+1);}
     } else {
-      const rn=reduceNum(parseInt(card.number));if(rn===null)return;
+      const rawNum=parseInt(card.number);if(isNaN(rawNum))return;
+      // Keep 1–10 as-is; reduce >10
+      const rn=rawNum<=10?rawNum:reduceNum(rawNum);
+      if(rn===null)return;
       numMap.set(rn,(numMap.get(rn)||0)+1);
       if(d.reversed)numRevMap.set(rn,(numRevMap.get(rn)||0)+1);
       else numUpMap.set(rn,(numUpMap.get(rn)||0)+1);
       if(!numCardsMap.has(rn))numCardsMap.set(rn,[]);
       const entry=numCardsMap.get(rn).find(e=>e.card===d.card);
-      if(entry){entry.count++;if(d.reversed)entry.revCount++;else entry.upCount++;}
-      else numCardsMap.get(rn).push({card:d.card,count:1,origNum:card.number,upCount:d.reversed?0:1,revCount:d.reversed?1:0});
+      if(entry){entry.count++;d.reversed?entry.revCount++:entry.upCount++;}
+      else numCardsMap.get(rn).push({card:d.card,count:1,origNum:String(rawNum),rn,upCount:d.reversed?0:1,revCount:d.reversed?1:0});
       if(_moonOn){if(!numMoonMap.has(rn))numMoonMap.set(rn,new Map());const mn=drawMoon(d);numMoonMap.get(rn).set(mn,(numMoonMap.get(rn).get(mn)||0)+1);}
     }
   });
   const numArr=[...numMap.entries()].sort((a,b)=>a[0]-b[0]);
   const faceOrder=["Page","Knight","Queen","King"];
   const faceArr=faceOrder.filter(f=>faceMap.has(f)).map(f=>[f,faceMap.get(f)]);
-  let numHtml=numArr.map(([n,c])=>{
-    const nid="num-"+n;
-    const numEntry=APP.numerology.find(e=>e.num===n);
-    const label=`${n}${numEntry?" — "+numEntry.name:""}`;
-    const bar=statBar(label,c,total,"#6f42c1",`toggleDrill('${nid}')`);
-    const cardList=(numCardsMap.get(n)||[]).sort((a,b)=>b.count-a.count);
-    const u=numUpMap.get(n)||0,rv=numRevMap.get(n)||0;
-    let detail=`<div class="drill-box" id="${nid}" style="display:none">`;
-    if(numEntry?.meaning)detail+=`<div class="text-muted fst-italic mb-1" style="font-size:.82rem">${esc(numEntry.meaning)}</div>`;
-    detail+=uprevDetail(u,rv,c);
-    detail+=`<div class="small fw-semibold text-secondary mb-1 mt-1">Cards:</div>`;
-    detail+=cardList.map(e=>{
-      const os=parseInt(e.origNum)!==n?` <span class="text-muted">(${e.origNum}→${n})</span>`:"";
-      return`<div class="d-flex justify-content-between border-bottom" style="font-size:.82rem;padding:2px 0">
-        <span>${esc(e.card)}${os}</span>
-        <span><span class="badge text-bg-success me-1" style="font-size:.65rem">${e.upCount}↑</span><span class="badge text-bg-warning" style="font-size:.65rem">${e.revCount}↩</span></span></div>`;
+  let numHtml="";
+  if(numArr.length){
+    numHtml+=`<div class="small fw-semibold text-muted mb-2">Numbers</div>`;
+    numHtml+=numArr.map(([n,c])=>{
+      const nid="num-"+n;
+      const numEntry=APP.numerology.find(e=>e.num===n);
+      const label=`${n}${numEntry?" — "+numEntry.name:""}`;
+      const u=numUpMap.get(n)||0,rv=numRevMap.get(n)||0;
+      const bar=statBar(label,c,total,"#6f42c1",`toggleDrill('${nid}')`,u,rv,revBreakdown);
+      const cardList=(numCardsMap.get(n)||[]).sort((a,b)=>b.count-a.count);
+      let detail=`<div class="drill-box" id="${nid}" style="display:none">`;
+      if(numEntry?.meaning)detail+=`<div class="text-muted fst-italic mb-1" style="font-size:.82rem">${esc(numEntry.meaning)}</div>`;
+      detail+=uprevDetail(u,rv,c);
+      if(cardBreakdown){detail+=`<div class="small fw-semibold text-secondary mb-1 mt-1">Cards:</div>`;detail+=cardBreakdownRows(cardList);}
+      if(_moonOn)detail+=moonBreakdown(n,numMoonMap.get(n)||new Map(),total);
+      detail+="</div>";
+      return bar+detail;
     }).join("");
-    if(_moonOn)detail+=moonBreakdown(n,numMoonMap.get(n)||new Map(),total);
-    detail+="</div>";
-    return bar+detail;
-  }).join("");
+  }
   if(faceArr.length){
-    numHtml+=`<hr class="my-2"/><div class="small fw-semibold text-muted mb-1">Face Cards</div>`;
+    numHtml+=`<hr class="my-2"/><div class="small fw-semibold text-muted mb-2">Face Cards</div>`;
     numHtml+=faceArr.map(([f,c])=>{
       const fid="face-"+f;
       const faceEntry=APP.faceCards.find(e=>e.name===f);
-      const bar=statBar(f,c,total,"#e83e8c",`toggleDrill('${fid}')`);
       const u=faceUpMap.get(f)||0,rv=faceRevMap.get(f)||0;
+      const bar=statBar(f,c,total,"#0dcaf0",`toggleDrill('${fid}')`,u,rv,revBreakdown);
+      const cardList=(faceCardsMap.get(f)||[]).sort((a,b)=>b.count-a.count);
       let detail=`<div class="drill-box" id="${fid}" style="display:none">`;
       if(faceEntry?.meaning)detail+=`<div class="text-muted fst-italic mb-1" style="font-size:.82rem">${esc(faceEntry.meaning)}</div>`;
       detail+=uprevDetail(u,rv,c);
-      const cardList=(faceCardsMap.get(f)||[]).sort((a,b)=>b.count-a.count);
-      detail+=`<div class="small fw-semibold text-secondary mb-1 mt-1">Cards:</div>`;
-      detail+=cardList.map(e=>`<div class="d-flex justify-content-between border-bottom" style="font-size:.82rem;padding:2px 0">
-        <span>${esc(e.card)}</span>
-        <span><span class="badge text-bg-success me-1" style="font-size:.65rem">${e.upCount}↑</span><span class="badge text-bg-warning" style="font-size:.65rem">${e.revCount}↩</span></span></div>`).join("");
+      if(cardBreakdown){detail+=`<div class="small fw-semibold text-secondary mb-1 mt-1">Cards:</div>`;detail+=cardBreakdownRows(cardList);}
       if(_moonOn)detail+=moonBreakdown(f,faceMoonMap.get(f)||new Map(),total);
       detail+="</div>";
       return bar+detail;
@@ -1071,24 +1155,21 @@ function renderStats(){
     else cardUpMap.set(d.card,(cardUpMap.get(d.card)||0)+1);
     const suit=d.deck?.cards.find(c=>c.name===d.card)?.suit||"Unknown";
     cardSuitMap.set(d.card,suit);
-    if(_moonOn){
-      if(!cardMoonMap.has(d.card))cardMoonMap.set(d.card,new Map());
-      const mn=drawMoon(d);cardMoonMap.get(d.card).set(mn,(cardMoonMap.get(d.card).get(mn)||0)+1);
-    }
+    if(_moonOn){if(!cardMoonMap.has(d.card))cardMoonMap.set(d.card,new Map());const mn=drawMoon(d);cardMoonMap.get(d.card).set(mn,(cardMoonMap.get(d.card).get(mn)||0)+1);}
   });
   const cardArr=[...cardMap.entries()].sort((a,b)=>b[1]-a[1]);
   document.getElementById("stat-cards").innerHTML=cardArr.slice(0,25).map(([card,cnt])=>{
     const cid="card-"+card.replace(/[\s\/]/g,"_");
     const suit=cardSuitMap.get(card)||"Unknown";
     const color=SUIT_COLORS[suit]||"#6c757d";
-    const bar=statBar(card,cnt,total,color,`toggleDrill('${cid}')`);
     const u=cardUpMap.get(card)||0,rv=cardRevMap.get(card)||0;
+    const bar=statBar(card,cnt,total,color,`toggleDrill('${cid}')`,u,rv,revBreakdown);
     let detail=`<div class="drill-box" id="${cid}" style="display:none">`;
     detail+=uprevDetail(u,rv,cnt);
     APP.decks.filter(dk=>dk.cards.some(c=>c.name===card)).forEach(dk=>{
       const ci=dk.cards.find(c=>c.name===card);if(!ci)return;
-      if(ci.kwUp)detail+=`<div class="mb-1 mt-1"><span class="text-muted small">↑ </span>${ci.kwUp.split(",").map(k=>`<span class="badge text-bg-success opacity-75 me-1">${esc(k.trim())}</span>`).join("")}</div>`;
-      if(ci.kwRev)detail+=`<div class="mb-1"><span class="text-muted small">↩ </span>${ci.kwRev.split(",").map(k=>`<span class="badge text-bg-warning me-1">${esc(k.trim())}</span>`).join("")}</div>`;
+      if(ci.kwUp)detail+=`<div class="mb-1 mt-1"><span class="badge text-bg-success me-1">↑</span>${ci.kwUp.split(",").map(k=>`<span class="badge text-bg-success opacity-75 me-1">${esc(k.trim())}</span>`).join("")}</div>`;
+      if(ci.kwRev)detail+=`<div class="mb-1"><span class="badge text-bg-warning me-1">↩</span>${ci.kwRev.split(",").map(k=>`<span class="badge text-bg-warning me-1">${esc(k.trim())}</span>`).join("")}</div>`;
       if(ci.meaning)detail+=`<div class="text-muted fst-italic small mb-1">${esc(ci.meaning)}</div>`;
       if(ci.personalNotes)detail+=`<div class="small mb-1" style="white-space:pre-wrap">${esc(ci.personalNotes)}</div>`;
     });
@@ -1262,7 +1343,8 @@ function renderDecksConfig(){
           <div class="fw-semibold">${esc(d.name)}</div>
           <small class="text-muted">${esc(d.creator||"")} · ${esc(d.type)} · ${d.cards.length} cards</small>
         </div>
-        <div class="d-flex gap-2">
+        <div class="d-flex gap-2 flex-wrap justify-content-end">
+          <button class="btn btn-outline-secondary btn-sm" onclick="exportDeck('${d.id}')" title="Export this deck"><i class="bi bi-download"></i></button>
           <button class="btn btn-outline-secondary btn-sm" onclick="openDeckEditor('${d.id}')"><i class="bi bi-pencil"></i></button>
           <button class="btn btn-outline-danger btn-sm" onclick="deleteDeck('${d.id}')"><i class="bi bi-trash"></i></button>
         </div>
@@ -1466,7 +1548,8 @@ function renderSpreadsConfig(){
           <div class="fw-semibold">${esc(s.name)}</div>
           <small class="text-muted">${s.positions.length} position${s.positions.length!==1?"s":""}: ${s.positions.map(p=>p.name).join(", ")}</small>
         </div>
-        <div class="d-flex gap-2">
+        <div class="d-flex gap-2 flex-wrap justify-content-end">
+          <button class="btn btn-outline-secondary btn-sm" onclick="exportSpread('${s.id}')" title="Export this spread"><i class="bi bi-download"></i></button>
           <button class="btn btn-outline-secondary btn-sm" onclick="openSpreadEditor('${s.id}')"><i class="bi bi-pencil"></i></button>
           <button class="btn btn-outline-danger btn-sm" onclick="deleteSpread('${s.id}')"><i class="bi bi-trash"></i></button>
         </div>
@@ -1520,11 +1603,77 @@ function saveSpreadEditor(){
 // ══════════════════════════════════════════
 // IMPORT / EXPORT
 // ══════════════════════════════════════════
-function exportData(){
-  const blob=new Blob([JSON.stringify(APP,null,2)],{type:"application/json"});
+function dlJson(obj,filename){
+  const blob=new Blob([JSON.stringify(obj,null,2)],{type:"application/json"});
   const url=URL.createObjectURL(blob);
-  const a=document.createElement("a");a.href=url;
-  a.download=`tarot-journal-${todayStr()}.json`;a.click();URL.revokeObjectURL(url);
+  const a=document.createElement("a");a.href=url;a.download=filename;a.click();URL.revokeObjectURL(url);
+}
+function exportData(){dlJson(APP,`tarot-journal-${todayStr()}.json`);}
+function exportConfig(){
+  const cfg={readingGuide:APP.readingGuide,numerology:APP.numerology,faceCards:APP.faceCards,
+    uprightMeaning:APP.uprightMeaning,reversedMeaning:APP.reversedMeaning,
+    suits:APP.suits,querents:APP.querents,spreads:APP.spreads};
+  dlJson(cfg,`tarot-config-${todayStr()}.json`);
+}
+function importConfig(e){
+  const file=e.target.files[0];if(!file)return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    try{const d=JSON.parse(ev.target.result);
+      if(d.readingGuide!==undefined)APP.readingGuide=d.readingGuide;
+      if(d.numerology)APP.numerology=d.numerology;
+      if(d.faceCards)APP.faceCards=d.faceCards;
+      if(d.uprightMeaning!==undefined)APP.uprightMeaning=d.uprightMeaning;
+      if(d.reversedMeaning!==undefined)APP.reversedMeaning=d.reversedMeaning;
+      if(d.suits)APP.suits=d.suits;
+      if(d.querents)APP.querents=d.querents;
+      if(d.spreads)APP.spreads=d.spreads;
+      saveData();renderConfig();growl("Configuration imported.");}
+    catch{growl("Invalid config file.","danger");}
+  };r.readAsText(file);e.target.value="";
+}
+function exportAllDecks(){dlJson(APP.decks,`tarot-decks-${todayStr()}.json`);}
+function exportDeck(id){
+  const d=APP.decks.find(x=>x.id===id);if(!d)return;
+  dlJson(d,`tarot-deck-${d.name.replace(/\s+/g,"-").toLowerCase()}-${todayStr()}.json`);
+}
+function importDeck(e){
+  const file=e.target.files[0];if(!file)return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    try{const d=JSON.parse(ev.target.result);
+      if(Array.isArray(d)){
+        // imported all-decks array
+        d.forEach(deck=>{deck.id=deck.id||uid();if(APP.decks.find(x=>x.id===deck.id))deck.id=uid();APP.decks.push(deck);});
+        saveData();renderDecksConfig();growl(`${d.length} deck(s) imported.`);
+      } else {
+        d.id=d.id||uid();if(APP.decks.find(x=>x.id===d.id))d.id=uid();
+        if(!d.name)throw new Error("no name");
+        APP.decks.push(d);saveData();renderDecksConfig();growl(`Deck "${d.name}" imported.`);
+      }}
+    catch{growl("Invalid deck file.","danger");}
+  };r.readAsText(file);e.target.value="";
+}
+function exportAllSpreads(){dlJson(APP.spreads,`tarot-spreads-${todayStr()}.json`);}
+function exportSpread(id){
+  const s=APP.spreads.find(x=>x.id===id);if(!s)return;
+  dlJson(s,`tarot-spread-${s.name.replace(/\s+/g,"-").toLowerCase()}-${todayStr()}.json`);
+}
+function importSpread(e){
+  const file=e.target.files[0];if(!file)return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    try{const d=JSON.parse(ev.target.result);
+      if(Array.isArray(d)){
+        d.forEach(sp=>{sp.id=sp.id||uid();if(APP.spreads.find(x=>x.id===sp.id))sp.id=uid();APP.spreads.push(sp);});
+        saveData();renderSpreadsConfig();growl(`${d.length} spread(s) imported.`);
+      } else {
+        d.id=d.id||uid();if(APP.spreads.find(x=>x.id===d.id))d.id=uid();
+        if(!d.name)throw new Error("no name");
+        APP.spreads.push(d);saveData();renderSpreadsConfig();growl(`Spread "${d.name}" imported.`);
+      }}
+    catch{growl("Invalid spread file.","danger");}
+  };r.readAsText(file);e.target.value="";
 }
 function importData(e){
   const file=e.target.files[0];if(!file)return;
