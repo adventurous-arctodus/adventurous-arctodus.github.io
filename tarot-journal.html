@@ -91,8 +91,7 @@
 
 <!-- ═══ ENTRY ═══ -->
 <div id="page-entry" class="page">
-  <h4 class="mb-1"><i class="bi bi-pencil-square me-2"></i>New Reading</h4>
-  <p class="text-muted mb-3">Record a reading with care and intention</p>
+  <h4 class="mb-3"><i class="bi bi-pencil-square me-2"></i>New Reading</h4>
   <div class="card mb-3">
     <div class="card-header fw-semibold">Reading Details</div>
     <div class="card-body">
@@ -140,11 +139,11 @@
     <div class="card-header fw-semibold">Notes</div>
     <div class="card-body">
       <div class="mb-3">
-        <label class="form-label">Interpretation</label>
+        <label class="form-label">Interpretation <span class="text-muted small">(Markdown supported)</span></label>
         <textarea class="form-control form-control-sm" id="e-interp" rows="4" placeholder="Your reading of the cards in context…"></textarea>
       </div>
       <div>
-        <label class="form-label">Retrospective <span class="text-muted">(can be filled in later)</span></label>
+        <label class="form-label">Retrospective <span class="text-muted">(can be filled in later · Markdown supported)</span></label>
         <textarea class="form-control form-control-sm" id="e-retro" rows="2" placeholder="Looking back, what came to pass…"></textarea>
       </div>
     </div>
@@ -160,37 +159,51 @@
   <p class="text-muted mb-3">Patterns within the cards</p>
   <div class="card mb-3">
     <div class="card-body py-2">
-      <div class="d-flex flex-wrap gap-2 align-items-center mb-2">
-        <span class="text-muted small fw-semibold me-1">Date Range:</span>
-        <div class="btn-group btn-group-sm">
-          <button class="btn btn-outline-secondary" onclick="setStatFilter('week',this)">Last Week</button>
-          <button class="btn btn-outline-secondary" onclick="setStatFilter('month',this)">Last Month</button>
-          <button class="btn btn-outline-secondary" onclick="setStatFilter('year',this)">Last Year</button>
-          <button class="btn btn-outline-secondary active" onclick="setStatFilter('all',this)">All Time</button>
-          <button class="btn btn-outline-secondary" onclick="setStatFilter('custom',this)">Custom</button>
+      <div class="row g-2 align-items-center mb-2">
+        <div class="col-auto"><span class="text-muted small fw-semibold">Date:</span></div>
+        <div class="col-auto">
+          <div class="btn-group btn-group-sm">
+            <button class="btn btn-outline-secondary" onclick="setStatFilter('week',this)">Last Week</button>
+            <button class="btn btn-outline-secondary" onclick="setStatFilter('month',this)">Last Month</button>
+            <button class="btn btn-outline-secondary" onclick="setStatFilter('year',this)">Last Year</button>
+            <button class="btn btn-outline-secondary active" onclick="setStatFilter('all',this)">All Time</button>
+            <button class="btn btn-outline-secondary" onclick="setStatFilter('custom',this)">Custom</button>
+          </div>
         </div>
-        <div id="custom-date-range" class="d-none d-flex gap-2 align-items-center">
-          <input type="date" class="form-control form-control-sm" id="s-start" style="width:145px" onchange="renderStats()"/>
-          <span class="text-muted">to</span>
-          <input type="date" class="form-control form-control-sm" id="s-end" style="width:145px" onchange="renderStats()"/>
+        <div id="custom-date-range" class="col-auto d-none">
+          <div class="d-flex gap-2 align-items-center">
+            <input type="date" class="form-control form-control-sm" id="s-start" style="width:145px" onchange="renderStats()"/>
+            <span class="text-muted small">to</span>
+            <input type="date" class="form-control form-control-sm" id="s-end" style="width:145px" onchange="renderStats()"/>
+          </div>
         </div>
       </div>
-      <div class="d-flex flex-wrap gap-2 align-items-center filter-row">
-        <span class="text-muted small fw-semibold filter-label-row">Filter by:</span>
-        <select class="form-select form-select-sm" id="s-querent" style="width:160px" onchange="renderStats()"><option value="all">All Querents</option></select>
-        <select class="form-select form-select-sm" id="s-deck-type" style="width:170px" onchange="renderStats()"><option value="all">All Deck Types</option></select>
-        <select class="form-select form-select-sm" id="s-deck" style="width:190px" onchange="renderStats()"><option value="all">All Decks</option></select>
-        <div class="form-check form-switch ms-2 mb-0">
-          <input class="form-check-input" type="checkbox" id="moon-toggle" onchange="toggleMoonView()"/>
-          <label class="form-check-label small" for="moon-toggle">🌙 Moon</label>
+      <div class="row g-2 align-items-center">
+        <div class="col-auto"><span class="text-muted small fw-semibold">Filter:</span></div>
+        <div class="col-sm-auto">
+          <select class="form-select form-select-sm" id="s-querent" onchange="renderStats()"><option value="all">All Querents</option></select>
         </div>
-        <div class="form-check form-switch mb-0">
-          <input class="form-check-input" type="checkbox" id="rev-breakdown-toggle" checked onchange="renderStats()"/>
-          <label class="form-check-label small" for="rev-breakdown-toggle">↑↩ Reversal Color</label>
+        <div class="col-sm-auto">
+          <select class="form-select form-select-sm" id="s-deck-type" onchange="renderStats()"><option value="all">All Deck Types</option></select>
         </div>
-        <div class="form-check form-switch mb-0">
-          <input class="form-check-input" type="checkbox" id="card-breakdown-toggle" onchange="renderStats()"/>
-          <label class="form-check-label small" for="card-breakdown-toggle">🃏 Card Breakdown</label>
+        <div class="col-sm-auto">
+          <select class="form-select form-select-sm" id="s-deck" onchange="renderStats()"><option value="all">All Decks</option></select>
+        </div>
+        <div class="col-auto ms-sm-2">
+          <div class="d-flex flex-wrap gap-3">
+            <div class="form-check form-switch mb-0">
+              <input class="form-check-input" type="checkbox" id="moon-toggle" onchange="toggleMoonView()"/>
+              <label class="form-check-label small" for="moon-toggle">🌙 Moon</label>
+            </div>
+            <div class="form-check form-switch mb-0">
+              <input class="form-check-input" type="checkbox" id="rev-breakdown-toggle" checked onchange="renderStats()"/>
+              <label class="form-check-label small" for="rev-breakdown-toggle">↑↩ Reversal Color</label>
+            </div>
+            <div class="form-check form-switch mb-0">
+              <input class="form-check-input" type="checkbox" id="card-breakdown-toggle" checked onchange="renderStats()"/>
+              <label class="form-check-label small" for="card-breakdown-toggle">🃏 Card Breakdown</label>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -382,21 +395,16 @@
   </div>
 </div>
 
-<!-- DECK EDITOR MODAL -->
-<div class="modal fade" id="deckModal" tabindex="-1">
-  <div class="modal-dialog modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="deck-modal-title">Deck Editor</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body" id="deck-modal-body"></div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button class="btn btn-primary" onclick="saveDeckEditor()"><i class="bi bi-check me-1"></i>Save Deck</button>
-      </div>
+<!-- DECK EDITOR PAGE (shown instead of config when editing) -->
+<div id="page-deck-editor" class="page">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0"><i class="bi bi-layers me-2"></i><span id="deck-editor-title">Deck Editor</span></h4>
+    <div class="d-flex gap-2">
+      <button class="btn btn-secondary" onclick="closeDeckEditor()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveDeckEditor()"><i class="bi bi-check me-1"></i>Save Deck</button>
     </div>
   </div>
+  <div id="deck-editor-body"></div>
 </div>
 
 <!-- SPREAD EDITOR MODAL -->
@@ -527,6 +535,7 @@ if(!APP.decks||!APP.decks.length)APP.decks=DEFAULT_DATA.decks;
 if(!APP.spreads)APP.spreads=DEFAULT_DATA.spreads;
 if(!APP.readings)APP.readings=[];
 if(!APP.numerology)APP.numerology=DEFAULT_NUMEROLOGY;
+if(!APP.numerology.find(e=>e.num===0))APP.numerology.unshift({num:0,name:"The Void / Beginning",meaning:"Pure potential, the space before creation, spiritual journey begins."});
 if(!APP.faceCards)APP.faceCards=DEFAULT_FACE_CARDS;
 if(!APP.suits)APP.suits=DEFAULT_SUITS;
 if(APP.readingGuide===undefined)APP.readingGuide="";
@@ -571,7 +580,9 @@ function showPage(name){
   document.querySelectorAll(".navbar-nav .nav-link").forEach(l=>l.classList.remove("active"));
   const idx={journal:0,entry:1,stats:2,reference:3,config:4};
   const links=document.querySelectorAll(".navbar-nav .nav-link");
-  if(links[idx[name]])links[idx[name]].classList.add("active");
+  // deck-editor is part of config nav
+  const navIdx=name==="deck-editor"?4:idx[name];
+  if(links[navIdx])links[navIdx].classList.add("active");
   if(name==="journal")renderJournal();
   if(name==="entry")initEntry();
   if(name==="stats")initStats();
@@ -615,7 +626,7 @@ function renderJournal(){
           ${r.querent?`<span class="badge bg-secondary">👤 ${esc(r.querent)}</span>`:""}
           ${deck?`<span class="badge text-bg-secondary">${esc(deck.name)}</span>`:""}
           ${r.spreadName?`<span class="badge bg-secondary">⊞ ${esc(r.spreadName)}</span>`:""}
-          ${cards.map(p=>`<span class="badge ${p.reversed?"text-bg-warning":"text-bg-success"}">${esc(p.card)} ${p.reversed?"↩":"↑"}</span>`).join("")}
+          ${cards.map(p=>`<span class="badge ${p.reversed?"text-bg-warning":"text-bg-success"}">${p.reversed?"↓":"↑"} ${esc(p.card)}</span>`).join("")}
         </div>
       </div>
     </div>`;
@@ -708,7 +719,7 @@ function renderReadingModal(){
       <div class="card mb-2">
         <div class="card-body py-2 px-3">
           ${p.positionName?`<div class="small fw-semibold text-secondary mb-1">${esc(p.positionName)}${p.positionDesc?` <span class="fw-normal text-muted">— ${esc(p.positionDesc)}</span>`:""}</div>`:""}
-          <div>${esc(p.card)||'<span class="text-muted">No card</span>'} ${p.reversed?`<span class="badge text-bg-warning ms-1">↩ Reversed</span>`:`<span class="badge text-bg-success ms-1">↑ Upright</span>`}</div>
+          <div>${esc(p.card)||'<span class="text-muted">No card</span>'} ${p.reversed?`<span class="badge text-bg-warning ms-1">↓ Reversed</span>`:`<span class="badge text-bg-success ms-1">↑ Upright</span>`}</div>
         </div>
       </div>`).join("");
     document.getElementById("reading-modal-body").innerHTML=`
@@ -723,8 +734,8 @@ function renderReadingModal(){
         ${r.spreadName?`<span class="badge bg-secondary">⊞ ${esc(r.spreadName)}</span>`:""}
       </div>
       <hr/>${positions}
-      ${r.interpretation?`<h6 class="mt-3">Interpretation</h6><div class="small" style="white-space:pre-wrap">${esc(r.interpretation)}</div>`:""}
-      ${r.retrospective?`<hr/><h6>Retrospective</h6><div class="small" style="white-space:pre-wrap">${esc(r.retrospective)}</div>`:""}`;
+      ${r.interpretation?`<h6 class="mt-3">Interpretation</h6><div class="small md-rendered">${renderMarkdown(r.interpretation)}</div>`:""}
+      ${r.retrospective?`<hr/><h6>Retrospective</h6><div class="small md-rendered">${renderMarkdown(r.retrospective)}</div>`:""}`;
   }
 }
 function toggleReadingEdit(){
@@ -765,6 +776,7 @@ function deleteCurrentReading(){
 // ENTRY
 // ══════════════════════════════════════════
 let _entryPositions=[];
+let _lastSpreadId="";
 function initEntry(){
   document.getElementById("e-date").value=todayStr();updateMoonDisplay();
   document.getElementById("e-date").oninput=updateMoonDisplay;
@@ -772,7 +784,21 @@ function initEntry(){
   document.getElementById("e-question").value="";
   document.getElementById("e-interp").value="";
   document.getElementById("e-retro").value="";
-  _entryPositions=[{positionName:"",positionDesc:"",card:"",reversed:false}];
+  // Restore last spread selection
+  if(_lastSpreadId){
+    document.getElementById("e-spread").value=_lastSpreadId;
+    const sp=APP.spreads.find(s=>s.id===_lastSpreadId);
+    if(sp){
+      _entryPositions=sp.positions.map(p=>({positionName:p.name,positionDesc:p.description,card:"",reversed:false}));
+      document.getElementById("btn-add-pos").style.display="none";
+    } else {
+      _entryPositions=[{positionName:"",positionDesc:"",card:"",reversed:false}];
+      document.getElementById("btn-add-pos").style.display="";
+    }
+  } else {
+    _entryPositions=[{positionName:"",positionDesc:"",card:"",reversed:false}];
+    document.getElementById("btn-add-pos").style.display="";
+  }
   renderPositions();
 }
 function updateMoonDisplay(){
@@ -811,33 +837,42 @@ function renderPositions(){
   const deck=getDeck(deckId);
   const spreadId=document.getElementById("e-spread")?.value;
   const isFree=!spreadId;
-  document.getElementById("positions-container").innerHTML=_entryPositions.map((p,i)=>{
+  document.getElementById("positions-container").innerHTML=`
+    <div class="row g-2 mb-1 d-none d-sm-flex">
+      ${isFree?`<div class="col-sm-1"></div><div class="col-sm-3"><span class="form-label small text-muted mb-0">Position Name</span></div>`:`<div class="col-sm-4"></div>`}
+      <div class="col-sm-4"><span class="form-label small text-muted mb-0">Card</span></div>
+      <div class="col-sm-2"><span class="form-label small text-muted mb-0">Orientation</span></div>
+      ${isFree?`<div class="col-sm-auto"></div>`:""}
+    </div>`+
+  _entryPositions.map((p,i)=>{
     const opts=buildCardOptions(deck,p.card);
-    return `<div class="card mb-2 border">
-      <div class="card-body py-2 px-3">
-        <div class="row g-2 align-items-end">
-          ${isFree
-            ?`<div class="col-auto"><small class="fw-semibold text-secondary">${i+1}.</small></div>
-               <div class="col-sm-3"><label class="form-label small mb-1">Position Name</label>
-                 <input type="text" class="form-control form-control-sm" value="${esc(p.positionName)}" placeholder="Optional"
-                   oninput="_entryPositions[${i}].positionName=this.value"/></div>`
-            :`<div class="col-sm-auto"><small class="fw-semibold text-secondary">${i+1}. ${esc(p.positionName)}</small>
-               ${p.positionDesc?`<div class="text-muted" style="font-size:.75rem">${esc(p.positionDesc)}</div>`:""}</div>`}
-          <div class="col-sm-4"><label class="form-label small mb-1">Card</label>
-            ${deck?`<select class="form-select form-select-sm" onchange="_entryPositions[${i}].card=this.value">${opts}</select>`
-              :`<input type="text" class="form-control form-control-sm" value="${esc(p.card)}" placeholder="Card name"
-                  oninput="_entryPositions[${i}].card=this.value"/>`}
-          </div>
-          <div class="col-sm-2">
-            <div class="form-check mt-3">
-              <input class="form-check-input" type="checkbox" id="rev_${i}" ${p.reversed?"checked":""}
-                onchange="_entryPositions[${i}].reversed=this.checked">
-              <label class="form-check-label small" for="rev_${i}">Reversed</label>
-            </div>
-          </div>
-          ${isFree&&_entryPositions.length>1?`<div class="col-auto"><button class="btn btn-outline-danger btn-sm mt-3" onclick="removePos(${i})"><i class="bi bi-x"></i></button></div>`:""}
+    return `<div class="row g-2 mb-2 align-items-center">
+      ${isFree
+        ?`<div class="col-auto col-sm-1"><small class="fw-semibold text-secondary">${i+1}.</small></div>
+           <div class="col col-sm-3">
+             <input type="text" class="form-control form-control-sm" value="${esc(p.positionName)}" placeholder="Position name…"
+               oninput="_entryPositions[${i}].positionName=this.value"/>
+           </div>`
+        :`<div class="col-sm-4">
+            <small class="fw-semibold text-secondary">${i+1}. ${esc(p.positionName)}</small>
+            ${p.positionDesc?`<div class="text-muted" style="font-size:.75rem">${esc(p.positionDesc)}</div>`:""}
+          </div>`}
+      <div class="col col-sm-4">
+        ${deck
+          ?`<select class="form-select form-select-sm" onchange="_entryPositions[${i}].card=this.value">${opts}</select>`
+          :`<input type="text" class="form-control form-control-sm" value="${esc(p.card)}" placeholder="Card name"
+              oninput="_entryPositions[${i}].card=this.value"/>`}
+      </div>
+      <div class="col-auto col-sm-2">
+        <div class="form-check mb-0">
+          <input class="form-check-input" type="checkbox" id="rev_${i}" ${p.reversed?"checked":""}
+            onchange="_entryPositions[${i}].reversed=this.checked">
+          <label class="form-check-label small" for="rev_${i}">↓ Rev</label>
         </div>
       </div>
+      ${isFree&&_entryPositions.length>1
+        ?`<div class="col-auto"><button class="btn btn-outline-danger btn-sm" onclick="removePos(${i})"><i class="bi bi-trash"></i></button></div>`
+        :""}
     </div>`;
   }).join("");
 }
@@ -870,6 +905,7 @@ function saveReading(){
     retrospective:document.getElementById("e-retro").value,
     positions:[..._entryPositions]
   };
+  _lastSpreadId=document.getElementById("e-spread").value;
   APP.readings.push(r);saveData();
   showPage("journal");
   growl("Reading saved to your journal.","success");
@@ -892,7 +928,7 @@ function setStatFilter(f,btn){
   document.querySelectorAll("#page-stats .btn-group .btn").forEach(b=>b.classList.remove("active"));
   if(btn)btn.classList.add("active");
   const cdr=document.getElementById("custom-date-range");
-  cdr.classList.toggle("d-none",f!=="custom");cdr.classList.toggle("d-flex",f==="custom");
+  cdr.classList.toggle("d-none",f!=="custom");
   renderStats();
 }
 function toggleMoonView(){_moonOn=document.getElementById("moon-toggle").checked;renderStats();}
@@ -922,47 +958,56 @@ function hexMuted(hex){
     return`rgb(${br},${bg},${bb})`;
   }catch(e){return hex;}
 }
-function statBar(label,count,total,color,clickFn,upCount,revCount,revBreakdown){
-  const pct=total>0?Math.round(count/total*100):0;
+function statBar(label,count,maxCount,color,clickFn,upCount,revCount,revBreakdown){
+  // maxCount: the top item's count (makes top bar 100%, others scale relative)
+  const pct=maxCount>0?Math.round(count/maxCount*100):0;
   const cl=clickFn?"stat-bar-wrap clickable":"stat-bar-wrap";
   const click=clickFn?`onclick="${clickFn}"`:"";
   let fillHtml;
   if(revBreakdown&&upCount!=null&&revCount!=null&&count>0){
     const upPct=Math.round(upCount/count*100);
-    const revPct2=100-upPct;
     const muted=hexMuted(color||"#6c757d");
     fillHtml=`<div class="stat-bar-fill" style="width:${pct}%;background:linear-gradient(to right,${color||"#6c757d"} ${upPct}%,${muted} ${upPct}%)"></div>`;
   } else {
     fillHtml=`<div class="stat-bar-fill" style="width:${pct}%;background:${color||"#6c757d"}"></div>`;
   }
   return `<div class="${cl}" ${click}>
-    <div class="stat-bar-label" title="${esc(label)}">${esc(label)}</div>
+    <div class="stat-bar-label" title="${esc(label)}" style="min-width:140px">${esc(label)}</div>
     <div class="stat-bar-track">${fillHtml}</div>
-    <div class="stat-bar-count">${count} <span class="text-muted">(${pct}%)</span></div>
+    <div class="stat-bar-count">${count}</div>
   </div>`;
 }
-function moonBreakdown(key,dataByMoon,total){
-  const rows=MOON_PHASES.map(ph=>{
-    const cnt=dataByMoon.get(ph.name)||0;if(!cnt)return"";
-    const pct=total>0?Math.round(cnt/total*100):0;
-    return`<div class="stat-bar-wrap" style="margin-bottom:2px">
-      <div class="stat-bar-label text-muted" style="min-width:155px;font-size:.78rem">${ph.emoji} ${ph.name}</div>
-      <div class="stat-bar-track" style="height:5px"><div class="stat-bar-fill" style="width:${pct}%;background:#adb5bd"></div></div>
-      <div class="stat-bar-count">${cnt}</div>
-    </div>`;
-  }).join("");
-  if(!rows.trim())return"";
-  return`<div class="moon-inline mb-1">${rows}</div>`;
+function moonSection(drawsByPhase,total,revBreakdown,cardBreakdown){
+  // drawsByPhase: Map(phaseName -> [{card,reversed}])
+  let html="";
+  MOON_PHASES.forEach(ph=>{
+    const phDraws=drawsByPhase.get(ph.name)||[];
+    if(!phDraws.length)return;
+    const u=phDraws.filter(d=>!d.reversed).length;
+    const rv=phDraws.filter(d=>d.reversed).length;
+    html+=`<div class="mb-2">
+      <div class="fw-semibold small mb-1">${ph.emoji} ${ph.name} <span class="text-muted fw-normal">(${phDraws.length})</span></div>
+      <div class="ms-3">
+        ${uprevDetail(u,rv,phDraws.length)}`;
+    if(cardBreakdown){
+      const cm=new Map();
+      phDraws.forEach(d=>{if(!cm.has(d.card))cm.set(d.card,{card:d.card,count:0,upCount:0,revCount:0});const e=cm.get(d.card);e.count++;d.reversed?e.revCount++:e.upCount++;});
+      const ca=[...cm.values()].sort((a,b)=>b.count-a.count);
+      if(ca.length)html+=`<div class="mt-1">${cardBreakdownRows(ca)}</div>`;
+    }
+    html+=`</div></div>`;
+  });
+  return html?`<div class="mt-2 pt-2 border-top">${html}</div>`:"";
 }
 function uprevDetail(uptCount,revCount,total){
   const u=uptCount,r=revCount,pctU=total?Math.round(u/total*100):0,pctR=total?Math.round(r/total*100):0;
-  return`<div class="small text-muted mt-1"><span class="badge text-bg-success me-1">↑</span>${u} (${pctU}%) &nbsp;<span class="badge text-bg-warning me-1">↩</span>${r} (${pctR}%)</div>`;
+  return`<div class="small text-muted mt-1"><span class="badge text-bg-success me-1">↑</span>${u} (${pctU}%) &nbsp;<span class="badge text-bg-warning me-1">↓</span>${r} (${pctR}%)</div>`;
 }
 function cardBreakdownRows(cardList){
   return cardList.map(e=>`
     <div class="d-flex justify-content-between border-bottom" style="font-size:.82rem;padding:2px 0">
       <span>${esc(e.card)}${e.origNum&&parseInt(e.origNum)!==e.rn?` <span class="text-muted">(${e.origNum}→${e.rn})</span>`:""}</span>
-      <span><span class="badge text-bg-success me-1" style="font-size:.65rem">${e.upCount??0}<span class="ms-1">↑</span></span><span class="badge text-bg-warning" style="font-size:.65rem">${e.revCount??0}<span class="ms-1">↩</span></span></span>
+      <span><span class="badge text-bg-success me-1" style="font-size:.65rem">${e.upCount??0}<span class="ms-1">↑</span></span><span class="badge text-bg-warning" style="font-size:.65rem">${e.revCount??0}<span class="ms-1">↓</span></span></span>
     </div>`).join("");
 }
 function renderStats(){
@@ -976,13 +1021,18 @@ function renderStats(){
   const uprightTotal=draws.filter(d=>!d.reversed).length;
   const reversedTotal=draws.filter(d=>d.reversed).length;
   const revBreakdown=document.getElementById("rev-breakdown-toggle")?.checked!==false;
-  const cardBreakdown=document.getElementById("card-breakdown-toggle")?.checked===true;
+  const cardBreakdown=document.getElementById("card-breakdown-toggle")?.checked!==false;
 
-  // ── SUITS for summary block ──
+  function drawMoon(d){return getMoonPhase(d.date).name;}
+  function buildPhaseMap(subset){
+    const m=new Map();MOON_PHASES.forEach(ph=>m.set(ph.name,[]));
+    subset.forEach(d=>{m.get(drawMoon(d))?.push(d);});return m;
+  }
+
+  // ── SUITS for summary ──
   const _suitTmp=new Map();
   draws.forEach(d=>{const s=d.deck?.cards.find(c=>c.name===d.card)?.suit||"Unknown";_suitTmp.set(s,(_suitTmp.get(s)||0)+1);});
   const topSuit=total?[..._suitTmp.entries()].sort((a,b)=>b[1]-a[1])[0]:null;
-  // ── Most common card for summary ──
   const _cardTmp=new Map();const _cardSuitTmp=new Map();
   draws.forEach(d=>{_cardTmp.set(d.card,(_cardTmp.get(d.card)||0)+1);const s=d.deck?.cards.find(c=>c.name===d.card)?.suit||"Unknown";_cardSuitTmp.set(d.card,s);});
   const topCard=total?[..._cardTmp.entries()].sort((a,b)=>b[1]-a[1])[0]:null;
@@ -990,23 +1040,22 @@ function renderStats(){
   const topCardColor=topCardSuit?SUIT_COLORS[topCardSuit]||"#6c757d":"#6c757d";
   const topSuitColor=topSuit?SUIT_COLORS[topSuit[0]]||"#6c757d":"#6c757d";
 
-  // Summary row
-  let summaryHtml=`<div class="col-6 col-sm-3"><div class="card text-center"><div class="card-body py-2">
-    <div class="h3 mb-0">${readings.length}</div><div class="small text-muted"><i class="bi bi-book me-1"></i>Readings</div></div></div></div>
-  <div class="col-6 col-sm-3"><div class="card text-center"><div class="card-body py-2">
-    <div class="h3 mb-0">${total}</div><div class="small text-muted"><i class="bi bi-stack me-1"></i>Cards Drawn</div></div></div></div>`;
-  if(topSuit){
-    summaryHtml+=`<div class="col-6 col-sm-3"><div class="card text-center" style="border-color:${topSuitColor}">
-      <div class="card-body py-2">
-        <div class="h5 mb-0 text-truncate" style="color:${topSuitColor}">${esc(topSuit[0])}</div>
-        <div class="small text-muted">Top Suit <span class="text-secondary">(${topSuit[1]})</span></div>
-      </div></div></div>`;}
-  if(topCard){
-    summaryHtml+=`<div class="col-6 col-sm-3"><div class="card text-center" style="border-color:${topCardColor}">
-      <div class="card-body py-2">
-        <div class="h6 mb-0 text-truncate" style="color:${topCardColor}">${esc(topCard[0])}</div>
-        <div class="small text-muted">Top Card <span class="text-secondary">(${topCard[1]})</span></div>
-      </div></div></div>`;}
+  // Summary — all 4 blocks same size
+  let summaryHtml=`
+    <div class="col-6 col-sm-3"><div class="card text-center h-100"><div class="card-body py-2">
+      <div class="h3 mb-0">${readings.length}</div><div class="small text-muted"><i class="bi bi-book me-1"></i>Readings</div>
+    </div></div></div>
+    <div class="col-6 col-sm-3"><div class="card text-center h-100"><div class="card-body py-2">
+      <div class="h3 mb-0">${total}</div><div class="small text-muted"><i class="bi bi-stack me-1"></i>Cards Drawn</div>
+    </div></div></div>
+    <div class="col-6 col-sm-3"><div class="card text-center h-100" style="${topSuit?`border-color:${topSuitColor}`:""}"><div class="card-body py-2">
+      <div class="h3 mb-0" style="${topSuit?`color:${topSuitColor}`:""}">${topSuit?topSuit[1]:"—"}</div>
+      <div class="small text-muted">${topSuit?`<span style="color:${topSuitColor}">${esc(topSuit[0])}</span>`:"Top Suit"}</div>
+    </div></div></div>
+    <div class="col-6 col-sm-3"><div class="card text-center h-100" style="${topCard?`border-color:${topCardColor}`:""}"><div class="card-body py-2">
+      <div class="h3 mb-0" style="${topCard?`color:${topCardColor}`:""}">${topCard?topCard[1]:"—"}</div>
+      <div class="small text-muted text-truncate">${topCard?`<span style="color:${topCardColor}">${esc(topCard[0])}</span>`:"Top Card"}</div>
+    </div></div></div>`;
   document.getElementById("stat-summary").innerHTML=summaryHtml;
 
   if(!total){
@@ -1016,68 +1065,71 @@ function renderStats(){
     document.getElementById("missing-count").textContent="";return;
   }
 
-  function drawMoon(d){return getMoonPhase(d.date).name;}
-
   // ── REVERSALS ──
-  const revMoonMap=new Map();const upMoonMap=new Map();
-  if(_moonOn){draws.forEach(d=>{const mn=drawMoon(d);
-    if(d.reversed)revMoonMap.set(mn,(revMoonMap.get(mn)||0)+1);
-    else upMoonMap.set(mn,(upMoonMap.get(mn)||0)+1);
-  });}
-  let revHtml=statBar("↑ Upright",uprightTotal,total,"#198754",`toggleDrill('rev-up')`);
-  let upDrillContent=`<div class="drill-box" id="rev-up" style="display:none">`;
-  if(APP.uprightMeaning)upDrillContent+=`<div class="text-muted fst-italic mb-1" style="font-size:.82rem">${esc(APP.uprightMeaning)}</div>`;
-  if(_moonOn)upDrillContent+=moonBreakdown("up",upMoonMap,total);
-  upDrillContent+="</div>";
-  revHtml+=upDrillContent;
-  revHtml+=statBar("↩ Reversed",reversedTotal,total,"#ffc107",`toggleDrill('rev-rev')`);
-  let revDrillContent=`<div class="drill-box" id="rev-rev" style="display:none">`;
-  if(APP.reversedMeaning)revDrillContent+=`<div class="text-muted fst-italic mb-1" style="font-size:.82rem">${esc(APP.reversedMeaning)}</div>`;
-  if(_moonOn)revDrillContent+=moonBreakdown("rev",revMoonMap,total);
-  revDrillContent+="</div>";
-  revHtml+=revDrillContent;
+  const allPhaseMap=_moonOn?buildPhaseMap(draws):null;
+  const upPhaseMap=_moonOn?buildPhaseMap(draws.filter(d=>!d.reversed)):null;
+  const revPhaseMap=_moonOn?buildPhaseMap(draws.filter(d=>d.reversed)):null;
+
+  let revHtml=statBar("↑ Upright",uprightTotal,Math.max(uprightTotal,reversedTotal),"#198754",`toggleDrill('rev-up')`);
+  let upDrill=`<div class="drill-box" id="rev-up" style="display:none">`;
+  if(APP.uprightMeaning)upDrill+=`<div class="text-muted fst-italic mb-1" style="font-size:.82rem">${esc(APP.uprightMeaning)}</div>`;
+  if(_moonOn&&upPhaseMap)upDrill+=moonSection(upPhaseMap,total,false,cardBreakdown);
+  upDrill+="</div>";
+  revHtml+=upDrill;
+  revHtml+=statBar("↓ Reversed",reversedTotal,Math.max(uprightTotal,reversedTotal),"#ffc107",`toggleDrill('rev-rev')`);
+  let revDrill=`<div class="drill-box" id="rev-rev" style="display:none">`;
+  if(APP.reversedMeaning)revDrill+=`<div class="text-muted fst-italic mb-1" style="font-size:.82rem">${esc(APP.reversedMeaning)}</div>`;
+  if(_moonOn&&revPhaseMap)revDrill+=moonSection(revPhaseMap,total,false,cardBreakdown);
+  revDrill+="</div>";
+  revHtml+=revDrill;
   revHtml+=`<hr class="my-2"/><small class="text-muted">${uprightTotal} upright / ${reversedTotal} reversed${total?" — "+Math.round(reversedTotal/total*100)+"% reversal rate":""}</small>`;
   document.getElementById("stat-reversals").innerHTML=revHtml;
 
   // ── SUITS ──
-  const suitMap=new Map();const suitMoonMap=new Map();
-  const suitUpMap=new Map();const suitRevMap=new Map();
+  const suitMap=new Map();const suitUpMap=new Map();const suitRevMap=new Map();
+  const suitPhaseMap=new Map();// suit -> phase -> [draws]
   draws.forEach(d=>{
     const suit=d.deck?.cards.find(c=>c.name===d.card)?.suit||"Unknown";
     suitMap.set(suit,(suitMap.get(suit)||0)+1);
     if(d.reversed)suitRevMap.set(suit,(suitRevMap.get(suit)||0)+1);
     else suitUpMap.set(suit,(suitUpMap.get(suit)||0)+1);
-    if(_moonOn){if(!suitMoonMap.has(suit))suitMoonMap.set(suit,new Map());const mn=drawMoon(d);suitMoonMap.get(suit).set(mn,(suitMoonMap.get(suit).get(mn)||0)+1);}
+    if(_moonOn){
+      if(!suitPhaseMap.has(suit))suitPhaseMap.set(suit,new Map());
+      const ph=drawMoon(d);
+      if(!suitPhaseMap.get(suit).has(ph))suitPhaseMap.get(suit).set(ph,[]);
+      suitPhaseMap.get(suit).get(ph).push(d);
+    }
   });
   const suitArr=[...suitMap.entries()].sort((a,b)=>b[1]-a[1]);
+  const maxSuit=suitArr[0]?.[1]||1;
   document.getElementById("stat-suits").innerHTML=suitArr.map(([s,c])=>{
     const sid="suit-"+s.replace(/\s/g,"_");
     const color=SUIT_COLORS[s]||"#6c757d";
     const u=suitUpMap.get(s)||0,rv=suitRevMap.get(s)||0;
-    const bar=statBar(s,c,total,color,`toggleDrill('${sid}')`,u,rv,revBreakdown);
+    const bar=statBar(s,c,maxSuit,color,`toggleDrill('${sid}')`,u,rv,revBreakdown);
     const suitEntry=APP.suits.find(e=>e.name===s);
     let drill=`<div class="drill-box" id="${sid}" style="display:none">`;
     if(suitEntry?.meaning)drill+=`<div class="text-muted fst-italic mb-1" style="font-size:.82rem">${esc(suitEntry.meaning)}</div>`;
     drill+=uprevDetail(u,rv,c);
-    if(cardBreakdown){
+    if(cardBreakdown&&!_moonOn){
       const suitCards=draws.filter(d=>(d.deck?.cards.find(c=>c.name===d.card)?.suit||"Unknown")===s);
       const scMap=new Map();
       suitCards.forEach(d=>{if(!scMap.has(d.card))scMap.set(d.card,{card:d.card,count:0,upCount:0,revCount:0});const e=scMap.get(d.card);e.count++;d.reversed?e.revCount++:e.upCount++;});
       const scArr=[...scMap.values()].sort((a,b)=>b.count-a.count);
       if(scArr.length)drill+=`<div class="small fw-semibold text-secondary mb-1 mt-1">Cards:</div>${cardBreakdownRows(scArr)}`;
     }
-    if(_moonOn)drill+=moonBreakdown(s,suitMoonMap.get(s)||new Map(),total);
+    if(_moonOn)drill+=moonSection(suitPhaseMap.get(s)||new Map(),total,revBreakdown,cardBreakdown);
     drill+="</div>";
     return bar+drill;
   }).join("");
 
   // ── NUMBERS & FACES ──
-  // Numbers: keep 1–10 as-is, reduce anything >10 (that isn't a face card)
-  const numMap=new Map();const numCardsMap=new Map();const numMoonMap=new Map();
+  const numMap=new Map();const numCardsMap=new Map();
   const numUpMap=new Map();const numRevMap=new Map();
-  const faceMap=new Map();const faceMoonMap=new Map();
+  const numPhaseMap=new Map();
+  const faceMap=new Map();const faceCardsMap=new Map();
   const faceUpMap=new Map();const faceRevMap=new Map();
-  const faceCardsMap=new Map();
+  const facePhaseMap=new Map();
   draws.forEach(d=>{
     const card=d.deck?.cards.find(c=>c.name===d.card);if(!card)return;
     const faceName=FACE_CARDS.find(f=>d.card.startsWith(f+" of")||d.card===f);
@@ -1089,12 +1141,14 @@ function renderStats(){
       const e=faceCardsMap.get(faceName).find(x=>x.card===d.card);
       if(e){e.count++;d.reversed?e.revCount++:e.upCount++;}
       else faceCardsMap.get(faceName).push({card:d.card,count:1,upCount:d.reversed?0:1,revCount:d.reversed?1:0});
-      if(_moonOn){if(!faceMoonMap.has(faceName))faceMoonMap.set(faceName,new Map());const mn=drawMoon(d);faceMoonMap.get(faceName).set(mn,(faceMoonMap.get(faceName).get(mn)||0)+1);}
+      if(_moonOn){
+        if(!facePhaseMap.has(faceName))facePhaseMap.set(faceName,new Map());
+        const ph=drawMoon(d);if(!facePhaseMap.get(faceName).has(ph))facePhaseMap.get(faceName).set(ph,[]);
+        facePhaseMap.get(faceName).get(ph).push(d);
+      }
     } else {
       const rawNum=parseInt(card.number);if(isNaN(rawNum))return;
-      // Keep 1–10 as-is; reduce >10
-      const rn=rawNum<=10?rawNum:reduceNum(rawNum);
-      if(rn===null)return;
+      const rn=rawNum<=10?rawNum:reduceNum(rawNum);if(rn===null)return;
       numMap.set(rn,(numMap.get(rn)||0)+1);
       if(d.reversed)numRevMap.set(rn,(numRevMap.get(rn)||0)+1);
       else numUpMap.set(rn,(numUpMap.get(rn)||0)+1);
@@ -1102,12 +1156,17 @@ function renderStats(){
       const entry=numCardsMap.get(rn).find(e=>e.card===d.card);
       if(entry){entry.count++;d.reversed?entry.revCount++:entry.upCount++;}
       else numCardsMap.get(rn).push({card:d.card,count:1,origNum:String(rawNum),rn,upCount:d.reversed?0:1,revCount:d.reversed?1:0});
-      if(_moonOn){if(!numMoonMap.has(rn))numMoonMap.set(rn,new Map());const mn=drawMoon(d);numMoonMap.get(rn).set(mn,(numMoonMap.get(rn).get(mn)||0)+1);}
+      if(_moonOn){
+        if(!numPhaseMap.has(rn))numPhaseMap.set(rn,new Map());
+        const ph=drawMoon(d);if(!numPhaseMap.get(rn).has(ph))numPhaseMap.get(rn).set(ph,[]);
+        numPhaseMap.get(rn).get(ph).push(d);
+      }
     }
   });
   const numArr=[...numMap.entries()].sort((a,b)=>a[0]-b[0]);
   const faceOrder=["Page","Knight","Queen","King"];
   const faceArr=faceOrder.filter(f=>faceMap.has(f)).map(f=>[f,faceMap.get(f)]);
+  const maxNum=Math.max(...[...numMap.values(),...faceMap.values()],1);
   let numHtml="";
   if(numArr.length){
     numHtml+=`<div class="small fw-semibold text-muted mb-2">Numbers</div>`;
@@ -1116,13 +1175,13 @@ function renderStats(){
       const numEntry=APP.numerology.find(e=>e.num===n);
       const label=`${n}${numEntry?" — "+numEntry.name:""}`;
       const u=numUpMap.get(n)||0,rv=numRevMap.get(n)||0;
-      const bar=statBar(label,c,total,"#6f42c1",`toggleDrill('${nid}')`,u,rv,revBreakdown);
+      const bar=statBar(label,c,maxNum,"#6f42c1",`toggleDrill('${nid}')`,u,rv,revBreakdown);
       const cardList=(numCardsMap.get(n)||[]).sort((a,b)=>b.count-a.count);
       let detail=`<div class="drill-box" id="${nid}" style="display:none">`;
       if(numEntry?.meaning)detail+=`<div class="text-muted fst-italic mb-1" style="font-size:.82rem">${esc(numEntry.meaning)}</div>`;
       detail+=uprevDetail(u,rv,c);
-      if(cardBreakdown){detail+=`<div class="small fw-semibold text-secondary mb-1 mt-1">Cards:</div>`;detail+=cardBreakdownRows(cardList);}
-      if(_moonOn)detail+=moonBreakdown(n,numMoonMap.get(n)||new Map(),total);
+      if(cardBreakdown&&!_moonOn){detail+=`<div class="small fw-semibold text-secondary mb-1 mt-1">Cards:</div>`;detail+=cardBreakdownRows(cardList);}
+      if(_moonOn)detail+=moonSection(numPhaseMap.get(n)||new Map(),total,revBreakdown,cardBreakdown);
       detail+="</div>";
       return bar+detail;
     }).join("");
@@ -1133,13 +1192,13 @@ function renderStats(){
       const fid="face-"+f;
       const faceEntry=APP.faceCards.find(e=>e.name===f);
       const u=faceUpMap.get(f)||0,rv=faceRevMap.get(f)||0;
-      const bar=statBar(f,c,total,"#0dcaf0",`toggleDrill('${fid}')`,u,rv,revBreakdown);
+      const bar=statBar(f,c,maxNum,"#0dcaf0",`toggleDrill('${fid}')`,u,rv,revBreakdown);
       const cardList=(faceCardsMap.get(f)||[]).sort((a,b)=>b.count-a.count);
       let detail=`<div class="drill-box" id="${fid}" style="display:none">`;
       if(faceEntry?.meaning)detail+=`<div class="text-muted fst-italic mb-1" style="font-size:.82rem">${esc(faceEntry.meaning)}</div>`;
       detail+=uprevDetail(u,rv,c);
-      if(cardBreakdown){detail+=`<div class="small fw-semibold text-secondary mb-1 mt-1">Cards:</div>`;detail+=cardBreakdownRows(cardList);}
-      if(_moonOn)detail+=moonBreakdown(f,faceMoonMap.get(f)||new Map(),total);
+      if(cardBreakdown&&!_moonOn){detail+=`<div class="small fw-semibold text-secondary mb-1 mt-1">Cards:</div>`;detail+=cardBreakdownRows(cardList);}
+      if(_moonOn)detail+=moonSection(facePhaseMap.get(f)||new Map(),total,revBreakdown,cardBreakdown);
       detail+="</div>";
       return bar+detail;
     }).join("");
@@ -1147,33 +1206,38 @@ function renderStats(){
   document.getElementById("stat-numbers").innerHTML=numHtml||`<span class="text-muted small">No numbered cards drawn.</span>`;
 
   // ── DRAWN CARDS ──
-  const cardMap=new Map();const cardMoonMap=new Map();
-  const cardUpMap=new Map();const cardRevMap=new Map();const cardSuitMap=new Map();
+  const cardMap=new Map();const cardUpMap=new Map();const cardRevMap=new Map();const cardSuitMap=new Map();
+  const cardPhaseMap=new Map();
   draws.forEach(d=>{
     cardMap.set(d.card,(cardMap.get(d.card)||0)+1);
     if(d.reversed)cardRevMap.set(d.card,(cardRevMap.get(d.card)||0)+1);
     else cardUpMap.set(d.card,(cardUpMap.get(d.card)||0)+1);
     const suit=d.deck?.cards.find(c=>c.name===d.card)?.suit||"Unknown";
     cardSuitMap.set(d.card,suit);
-    if(_moonOn){if(!cardMoonMap.has(d.card))cardMoonMap.set(d.card,new Map());const mn=drawMoon(d);cardMoonMap.get(d.card).set(mn,(cardMoonMap.get(d.card).get(mn)||0)+1);}
+    if(_moonOn){
+      if(!cardPhaseMap.has(d.card))cardPhaseMap.set(d.card,new Map());
+      const ph=drawMoon(d);if(!cardPhaseMap.get(d.card).has(ph))cardPhaseMap.get(d.card).set(ph,[]);
+      cardPhaseMap.get(d.card).get(ph).push(d);
+    }
   });
   const cardArr=[...cardMap.entries()].sort((a,b)=>b[1]-a[1]);
+  const maxCard=cardArr[0]?.[1]||1;
   document.getElementById("stat-cards").innerHTML=cardArr.slice(0,25).map(([card,cnt])=>{
     const cid="card-"+card.replace(/[\s\/]/g,"_");
     const suit=cardSuitMap.get(card)||"Unknown";
     const color=SUIT_COLORS[suit]||"#6c757d";
     const u=cardUpMap.get(card)||0,rv=cardRevMap.get(card)||0;
-    const bar=statBar(card,cnt,total,color,`toggleDrill('${cid}')`,u,rv,revBreakdown);
+    const bar=statBar(card,cnt,maxCard,color,`toggleDrill('${cid}')`,u,rv,revBreakdown);
     let detail=`<div class="drill-box" id="${cid}" style="display:none">`;
     detail+=uprevDetail(u,rv,cnt);
     APP.decks.filter(dk=>dk.cards.some(c=>c.name===card)).forEach(dk=>{
       const ci=dk.cards.find(c=>c.name===card);if(!ci)return;
       if(ci.kwUp)detail+=`<div class="mb-1 mt-1"><span class="badge text-bg-success me-1">↑</span>${ci.kwUp.split(",").map(k=>`<span class="badge text-bg-success opacity-75 me-1">${esc(k.trim())}</span>`).join("")}</div>`;
-      if(ci.kwRev)detail+=`<div class="mb-1"><span class="badge text-bg-warning me-1">↩</span>${ci.kwRev.split(",").map(k=>`<span class="badge text-bg-warning me-1">${esc(k.trim())}</span>`).join("")}</div>`;
+      if(ci.kwRev)detail+=`<div class="mb-1"><span class="badge text-bg-warning me-1">↓</span>${ci.kwRev.split(",").map(k=>`<span class="badge text-bg-warning me-1">${esc(k.trim())}</span>`).join("")}</div>`;
       if(ci.meaning)detail+=`<div class="text-muted fst-italic small mb-1">${esc(ci.meaning)}</div>`;
       if(ci.personalNotes)detail+=`<div class="small mb-1" style="white-space:pre-wrap">${esc(ci.personalNotes)}</div>`;
     });
-    if(_moonOn)detail+=moonBreakdown(card,cardMoonMap.get(card)||new Map(),total);
+    if(_moonOn)detail+=moonSection(cardPhaseMap.get(card)||new Map(),total,revBreakdown,cardBreakdown);
     detail+="</div>";
     return bar+detail;
   }).join("")+(cardArr.length>25?`<div class="text-muted small mt-1">…and ${cardArr.length-25} more</div>`:"");
@@ -1226,7 +1290,7 @@ function renderReference(){
   // Upright & Reversed
   corrHtml+=`<div class="card mb-3"><div class="card-header fw-semibold">Upright &amp; Reversed</div><div class="card-body"><div class="row g-3">`;
   corrHtml+=`<div class="col-sm-6"><div class="fw-semibold text-success mb-1">↑ Upright</div><div class="text-muted small">${esc(APP.uprightMeaning)||'<em>Not configured.</em>'}</div></div>`;
-  corrHtml+=`<div class="col-sm-6"><div class="fw-semibold text-warning mb-1">↩ Reversed</div><div class="text-muted small">${esc(APP.reversedMeaning)||'<em>Not configured.</em>'}</div></div>`;
+  corrHtml+=`<div class="col-sm-6"><div class="fw-semibold text-warning mb-1">↓ Reversed</div><div class="text-muted small">${esc(APP.reversedMeaning)||'<em>Not configured.</em>'}</div></div>`;
   corrHtml+=`</div></div></div>`;
   // Suits
   corrHtml+=`<div class="card mb-3"><div class="card-header fw-semibold">Suits</div><div class="card-body"><div class="row g-2">`;
@@ -1356,18 +1420,23 @@ function deleteDeck(id){
   APP.decks=APP.decks.filter(d=>d.id!==id);saveData();renderDecksConfig();
 }
 let _editingDeckId=null;
-const deckModal=new bootstrap.Modal(document.getElementById("deckModal"));
 function openDeckEditor(id){
   _editingDeckId=id;
   const deck=id?APP.decks.find(d=>d.id===id):null;
-  document.getElementById("deck-modal-title").textContent=deck?"Edit Deck":"New Deck";
+  document.getElementById("deck-editor-title").textContent=deck?`Edit: ${deck.name}`:"New Deck";
   window._dmCards=deck?JSON.parse(JSON.stringify(deck.cards)):[];
-  renderDeckModalBody(deck);deckModal.show();
+  renderDeckEditorBody(deck);
+  showPage("deck-editor");
 }
-function renderDeckModalBody(deck){
+function closeDeckEditor(){
+  showPage("config");
+  // re-show decks tab
+  setCfgTab("decks",document.querySelector("#cfg-tabs .nav-link:nth-child(2)"));
+}
+function renderDeckEditorBody(deck){
   const type=deck?.type||"Rider-Waite";
   const isEditable=(type==="Oracle"||type==="Lenormand");
-  document.getElementById("deck-modal-body").innerHTML=`
+  document.getElementById("deck-editor-body").innerHTML=`
     <ul class="nav nav-tabs mb-3" id="dm-tabs">
       <li class="nav-item"><button class="nav-link active" onclick="dmSetTab('info',this)"><i class="bi bi-info-circle me-1"></i>Deck Info</button></li>
       <li class="nav-item"><button class="nav-link" onclick="dmSetTab('cards',this)"><i class="bi bi-layers me-1"></i>Cards <span class="badge text-bg-secondary ms-1">${window._dmCards.length}</span></button></li>
@@ -1392,9 +1461,11 @@ function renderDeckModalBody(deck){
         <span class="text-muted small" id="dm-cards-hint">${isEditable?"Add and configure each card in your deck.":"Edit titles, meanings, keywords, and notes for each card."}</span>
         <button class="btn btn-outline-primary btn-sm" id="dm-add-card-btn" onclick="dmAddCard()" style="${isEditable?"":"display:none"}"><i class="bi bi-plus me-1"></i>Add Card</button>
       </div>
-      <div style="max-height:60vh;overflow-y:auto;padding-right:4px" id="dm-cards-wrap">${renderDmCards(type)}</div>
+      <div id="dm-cards-wrap">${renderDmCards(type)}</div>
     </div>`;
 }
+// alias for compatibility
+function renderDeckModalBody(deck){renderDeckEditorBody(deck);}
 function dmSetTab(t,btn){
   ["info","cards"].forEach(k=>document.getElementById("dm-tab-"+k).style.display=k===t?"block":"none");
   document.querySelectorAll("#dm-tabs .nav-link").forEach(b=>b.classList.remove("active"));
@@ -1481,8 +1552,8 @@ function renderDmCards(type){
       <!-- Row 5: Description -->
       <div class="mb-2">
         <label class="form-label small mb-1">Description</label>
-        <input type="text" class="form-control form-control-sm" value="${esc(c.description||c.bookDesc||"")}" placeholder="Extended description or book text…"
-          oninput="window._dmCards[${i}].description=this.value"/>
+        <textarea class="form-control form-control-sm" rows="3" placeholder="Extended description or book text…"
+          oninput="window._dmCards[${i}].description=this.value">${esc(c.description||c.bookDesc||"")}</textarea>
       </div>
       <!-- Row 6: Symbols -->
       <div class="mb-2">
@@ -1495,8 +1566,8 @@ function renderDmCards(type){
         <textarea class="form-control form-control-sm" rows="2" placeholder="Your personal associations, memories, insights about this card…"
           oninput="window._dmCards[${i}].personalNotes=this.value">${esc(c.personalNotes||"")}</textarea>
       </div>
-      <!-- Mobile: remove button at bottom for editable decks -->
       ${isEditable?`<div class="d-sm-none mt-2"><button class="btn btn-outline-danger btn-sm w-100" onclick="dmRemoveCard(${i})"><i class="bi bi-trash me-1"></i>Remove Card</button></div>`:""}
+      <!-- Desktop remove button already in row 1 for editable decks -->
     </div>`).join("");
 }
 function dmRefreshCardTab(){
@@ -1536,7 +1607,9 @@ function saveDeckEditor(){
     type:document.getElementById("dm-type").value,cards:window._dmCards||[]};
   if(_editingDeckId)APP.decks=APP.decks.map(d=>d.id===_editingDeckId?deck:d);
   else APP.decks.push(deck);
-  saveData();deckModal.hide();renderDecksConfig();
+  saveData();
+  growl(`Deck "${name}" saved.`);
+  closeDeckEditor();
 }
 
 // SPREADS CONFIG
