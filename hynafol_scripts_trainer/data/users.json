@@ -12,12 +12,6 @@
       "showKeepContent": false
     },
     {
-      "username": "Ophelia",
-      "passwordHash": "a2973214dd7410439b78d82a7084e8ae882272ea9ca64dcd29b1722cfa6932d6",
-      "allowedScripts": ["elvish", "fae", "dwarvish", "sellars_keep"],
-      "showKeepContent": true
-    },
-    {
       "username": "Ophelia P",
       "passwordHash": "eb4f80cf0c8a3cbd693a674c82185415cfaf6c99ffb81f793c52b3e1a9b8a86b",
       "allowedScripts": ["mage", "elvish", "fae", "dwarvish", "caernos"],
@@ -26,8 +20,8 @@
     {
       "username": "Tori Ashford",
       "passwordHash": "a67bccfce98a15c50a29b0554a09ede9ed45dfab254d46bbcd29a235455adf16",
-      "allowedScripts": null,
-      "showKeepContent": true
+      "allowedScripts": ["mage", "elvish", "fae", "dwarvish", "caernos"],
+      "showKeepContent": false
     },
     {
       "username": "New User",
